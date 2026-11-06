@@ -1,0 +1,14 @@
+# Render blueprint for the voice-prediction demo service.
+# Free tier: sleeps after ~15 min idle -> reload before recording your demo.
+services:
+  - type: web
+    name: voice-prediction
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/demo_server.py
+    healthCheckPath: /health
+    envVars:
+      - key: GNANI_API_KEY
+        sync: false   # set in Render dashboard
+      - key: GNANI_BASE_URL
+        value: https://api.gnani.ai

@@ -1,0 +1,9 @@
+# PenguinLaw
+data/audio/
+data/transcripts/
+models/*.onnx
+*.wav
+*.mp3
+.env
+__pycache__/
+*.pyc

@@ -1,0 +1,6 @@
+audio_path,label,notes
+data/audio/clip_001.wav,bullish,"clear upbeat tone, growth guidance"
+data/audio/clip_002.wav,bearish,"cautious outlook, risk-off"
+data/audio/clip_003.wav,neutral,"factual, no strong emotion"
+data/audio/clip_004.wav,hesitant,"pauses, unsure answers"
+data/audio/clip_005.wav,confident,"firm, steady pace"
