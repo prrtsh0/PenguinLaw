@@ -2,378 +2,777 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PenguinLaw — Tone Console</title>
-<link rel="stylesheet" href="/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PenguinLaw</title>
+<style>
+:root{
+  color-scheme: light;
+  --bg:#eef1f6;
+  --panel:#ffffff;
+  --ink:#14213d;
+  --muted:#5b6780;
+  --faint:#8893a8;
+  --line:#d9deea;
+  --accent:#2f5bea;
+  --accent-soft:#e8edff;
+  --warn-bg:#fff5db;
+  --warn-line:#ecc766;
+  --bullish:#1f9d6b;
+  --bearish:#d6453d;
+  --hesitant:#e0a100;
+  --confident:#2f5bea;
+  --neutral:#a9b2c3;
+  --radius:6px;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:15px;
+  line-height:1.45;
+  font-variant-numeric:tabular-nums;
+}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Header */
+.topbar{
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:20px;
+  padding:0 20px;min-height:56px;
+}
+.brand{display:flex;align-items:baseline;gap:10px;flex:0 0 auto}
+.brand .name{font-weight:700;font-size:17px;letter-spacing:-.01em}
+.brand .sub{color:var(--muted);font-size:13px}
+.tabs{display:flex;gap:4px;overflow-x:auto;margin-left:auto;padding:8px 0}
+.tab{
+  background:transparent;border:1px solid transparent;border-radius:var(--radius);
+  padding:6px 12px;cursor:pointer;text-align:left;white-space:nowrap;
+}
+.tab .t1{display:block;font-weight:600;font-size:14px}
+.tab .t2{display:block;color:var(--muted);font-size:12px}
+.tab:hover{background:var(--bg)}
+.tab[aria-selected="true"]{background:var(--accent-soft);border-color:#c5d1fb}
+.tab[aria-selected="true"] .t1{color:var(--accent)}
+
+/* Layout */
+.wrap{
+  max-width:1320px;margin:0 auto;padding:16px;
+  display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start;
+}
+.main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.card-pad{padding:16px 18px}
+.card h2{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
+
+/* Steps */
+.steps{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.step{display:flex;align-items:center;gap:7px}
+.step .mark{
+  width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);
+  display:inline-flex;align-items:center;justify-content:center;font-size:10px;line-height:1;color:#fff;
+}
+.step.done{color:var(--ink)}
+.step.done .mark{background:var(--bullish);border-color:var(--bullish)}
+.step.running .mark{border-color:var(--accent);border-top-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.step.running .mark{animation:none}}
+
+/* Banner */
+.banner{
+  background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:var(--radius);
+  padding:12px 16px;font-size:14px;display:none;
+}
+.banner strong{font-weight:600}
+
+/* Player */
+.player-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.play{
+  width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;
+}
+.play:hover{background:#22345f}
+.play svg{width:18px;height:18px;fill:currentColor}
+.ptitle{font-weight:600;font-size:16px}
+.ptopic{color:var(--muted);font-size:13px}
+.ptime{margin-left:auto;font-size:14px;color:var(--muted)}
+.audio-note{color:var(--bearish);font-size:13px;margin:-8px 0 12px;display:none}
+
+/* Timeline */
+.rail{position:relative;height:22px;margin-bottom:4px;display:none}
+.rail .line{position:absolute;top:10px;height:2px;background:var(--ink);opacity:.35}
+.rail .dot{
+  position:absolute;top:5px;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:var(--panel);border:2px solid var(--ink);
+}
+.rail .dot.setter{background:var(--ink)}
+.rail .lbl{position:absolute;top:-4px;transform:translateX(-50%);font-size:11px;color:var(--ink);font-weight:600;white-space:nowrap}
+.track{position:relative;height:56px;background:#f4f6fb;border-radius:4px}
+.seg{
+  position:absolute;top:0;bottom:0;border:0;padding:0;cursor:pointer;
+  min-width:3px;border-right:1px solid var(--panel);
+}
+.seg:first-child{border-radius:4px 0 0 4px}
+.seg[data-tone="bullish"]{background:var(--bullish)}
+.seg[data-tone="bearish"]{background:var(--bearish)}
+.seg[data-tone="hesitant"]{background:var(--hesitant)}
+.seg[data-tone="confident"]{background:var(--confident)}
+.seg[data-tone="neutral"]{background:var(--neutral)}
+.seg.fb{
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.65) 0 4px,rgba(255,255,255,0) 4px 8px);
+}
+.seg.setter{opacity:1 !important}
+.seg.setter::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:4px;background:var(--ink);border-radius:2px}
+.seg.sel{box-shadow:inset 0 0 0 3px rgba(20,33,61,.9)}
+.playhead{
+  position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink);
+  pointer-events:none;left:0;z-index:2;
+}
+.playhead::before{content:"";position:absolute;top:0;left:-4px;width:10px;height:6px;background:var(--ink);border-radius:2px 2px 0 0}
+.ticks{position:relative;height:22px;margin-top:10px;font-size:12px;color:var(--faint)}
+.ticks span{position:absolute;top:0;transform:translateX(-50%)}
+.ticks span.first{transform:none}
+.ticks span.last{transform:translateX(-100%)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:12px;color:var(--muted)}
+.legend .it{display:flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.sw[data-tone="bullish"]{background:var(--bullish)}
+.sw[data-tone="bearish"]{background:var(--bearish)}
+.sw[data-tone="hesitant"]{background:var(--hesitant)}
+.sw[data-tone="confident"]{background:var(--confident)}
+.sw[data-tone="neutral"]{background:var(--neutral)}
+.sw.hatch{background:var(--neutral) repeating-linear-gradient(135deg,rgba(255,255,255,.7) 0 2px,rgba(255,255,255,0) 2px 4px)}
+.hint{color:var(--faint);font-size:12px;margin-top:6px}
+
+/* Verdict */
+.verdict-title{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
+.verdict-body{color:var(--muted);margin:0;max-width:70ch}
+.verdict .err{color:var(--bearish)}
+
+/* Detail */
+.detail-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:10px}
+.detail-head .dt{font-weight:600}
+.tone{display:inline-flex;align-items:center;gap:6px;font-size:14px;text-transform:capitalize}
+.src{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 7px}
+.src.fb{color:#8a6100;border-color:var(--warn-line);background:var(--warn-bg)}
+.detail-text{margin:0 0 12px;font-size:16px;max-width:70ch}
+.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 24px;margin-bottom:12px}
+.meter .ml{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
+.bar{height:6px;background:#e7ebf3;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.reason{font-size:13px;color:var(--muted);margin:0 0 10px}
+.pros{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}
+.pros b{color:var(--ink);font-weight:600}
+
+/* Voice signal */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 24px}
+.stat .sv{font-size:22px;font-weight:600;letter-spacing:-.01em}
+.stat .sl{font-size:12px;color:var(--muted)}
+.voice-note{font-size:12px;color:var(--faint);margin:10px 0 0}
+
+/* Transcript */
+.side{position:sticky;top:16px;height:calc(100vh - 32px);display:flex;flex-direction:column;overflow:hidden}
+.side-head{padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+.side-head h2{margin:0;font-size:15px;color:var(--ink)}
+.side-head p{margin:2px 0 0;font-size:12px;color:var(--faint)}
+.tr-list{position:relative;overflow-y:auto;flex:1;padding:6px 8px 12px}
+.line{
+  display:grid;grid-template-columns:44px 1fr;gap:10px;width:100%;text-align:left;
+  background:transparent;border:0;border-radius:4px;padding:8px 10px;cursor:pointer;
+  border-left:3px solid transparent;
+}
+.line:hover{background:var(--bg)}
+.line .ts{font-size:12px;color:var(--faint);padding-top:2px}
+.line .tx{font-size:15px}
+.line[data-tone="bullish"]{border-left-color:var(--bullish)}
+.line[data-tone="bearish"]{border-left-color:var(--bearish)}
+.line[data-tone="hesitant"]{border-left-color:var(--hesitant)}
+.line[data-tone="confident"]{border-left-color:var(--confident)}
+.line[data-tone="neutral"]{border-left-color:var(--neutral)}
+.line.sel{background:var(--accent-soft)}
+.tr-plain{padding:10px 12px;font-size:15px}
+
+/* Footer */
+.foot{max-width:1320px;margin:0 auto;padding:4px 16px 28px;font-size:13px;color:var(--muted)}
+.foot p{margin:0 0 6px}
+.foot a{color:var(--accent)}
+.foot details{margin-top:8px}
+.foot summary{cursor:pointer;color:var(--muted)}
+.log{margin:8px 0 0;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);font-size:12px;max-height:160px;overflow:auto}
+.log div{display:flex;gap:10px}
+.log .t{color:var(--faint)}
+.log .err{color:var(--bearish)}
+
+/* Responsive */
+@media (max-width:980px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;height:420px}
+  .topbar{flex-wrap:wrap;gap:4px 12px;padding-top:8px}
+  .tabs{margin-left:0;width:100%}
+}
+@media (max-width:520px){
+  .card-pad{padding:14px}
+  .ptime{width:100%;margin-left:58px;margin-top:-10px}
+  .player-head{flex-wrap:wrap}
+}
+</style>
 </head>
 <body>
 
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="brand">
-      <span class="name">PenguinLaw</span>
-      <span class="slug">/ tone console</span>
-    </div>
-    <div class="mode">
-      <button class="active" type="button">Timeline</button>
-      <button type="button">Listen</button>
-    </div>
-    <div class="spacer"></div>
-    <div class="status"><span class="dot"></span>System Ready</div>
-    <nav class="links">
-      <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://docs.gnani.ai/" target="_blank" rel="noopener">Docs</a>
-    </nav>
-  </header>
-
-  <!-- 3-panel layout -->
-  <div class="layout">
-
-    <!-- Left: source + workflow steps -->
-    <aside class="col">
-      <div class="col-pad">
-        <div class="section-label">Source</div>
-        <div class="clip-list">
-          <button class="clip-btn" data-clip="clip1">
-            <span class="cid">01</span><span class="cname">Clip 1 · margin / day-trading</span>
-          </button>
-          <button class="clip-btn" data-clip="clip2">
-            <span class="cid">02</span><span class="cname">Clip 2 · Fed / leverage risk</span>
-          </button>
-          <button class="clip-btn" data-clip="clip3">
-            <span class="cid">03</span><span class="cname">Clip 3 · Gen Z / retail psychology</span>
-          </button>
-        </div>
-
-        <div class="section-label" style="margin-top:18px">Workflow Steps</div>
-        <div class="steps">
-          <div class="step" id="step-1">
-            <div class="row"><span class="num">01</span><span class="name">Transcribe</span>
-              <span class="state">prisma</span></div>
-            <p>Gnani Prisma speech-to-text.</p>
-          </div>
-          <div class="step" id="step-2">
-            <div class="row"><span class="num">02</span><span class="name">Measure Tone</span>
-              <span class="state">segments</span></div>
-            <p>Sentiment + confidence per segment.</p>
-          </div>
-          <div class="step" id="step-3">
-            <div class="row"><span class="num">03</span><span class="name">Find Setter</span>
-              <span class="state">heuristic</span></div>
-            <p>Flags the decisive mood shift.</p>
-          </div>
-          <div class="step" id="step-4">
-            <div class="row"><span class="num">04</span><span class="name">Report</span>
-              <span class="state">summary</span></div>
-            <p>Verdict + confidence.</p>
-          </div>
-        </div>
-
-        <div id="state" class="state"></div>
-      </div>
-    </aside>
-
-    <!-- Center: player + timeline + verdict -->
-    <main class="col">
-      <div class="col-pad">
-        <div class="player" id="playerZone">
-          <div class="empty">Select a clip to load its audio and analysis.</div>
-        </div>
-
-        <div class="viz">
-          <div class="viz-head">Tone Timeline</div>
-          <div class="viz-body">
-            <div id="timelineZone">
-              <div class="empty">No clip selected.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="verdict" id="verdictZone" style="display:none">
-          <div class="vlabel">Tone-setter</div>
-          <div id="verdict"></div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Right: log + segments + transcript -->
-    <aside class="col">
-      <div class="col-pad">
-        <div class="section-label">Event Log</div>
-        <div class="log" id="log">
-          <div class="line"><span class="t">--:--</span><span>console ready</span></div>
-        </div>
-
-        <div class="section-label" style="margin-top:14px">Per-segment Mood</div>
-        <div class="log" id="moodList" style="flex:0 0 auto; max-height:180px">
-          <div class="empty">Select a clip.</div>
-        </div>
-
-        <div class="section-label" style="margin-top:14px">Transcript</div>
-        <div class="transcript" id="transcript">Select a clip to load its transcript.</div>
-      </div>
-    </aside>
-
+<header class="topbar">
+  <div class="brand">
+    <span class="name" id="appName">PenguinLaw</span>
+    <span class="sub">Voice mood console</span>
   </div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Clips"></div>
+</header>
 
-  <footer class="footer">
-    Results from a real pipeline run on this clip. Tone is a signal, not a prediction.<br>
-    Repo: <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">github.com/prrtsh0/PenguinLaw</a> · Gnani AI Internship Challenge
-  </footer>
+<div class="wrap">
+  <main class="main">
+
+    <div class="card card-pad">
+      <div class="steps" id="steps" aria-label="Pipeline status"></div>
+    </div>
+
+    <div class="banner" id="banner" role="status"></div>
+
+    <section class="card card-pad" aria-label="Player and timeline">
+      <div class="player-head">
+        <button class="play" id="playBtn" type="button" aria-label="Play"></button>
+        <div>
+          <div class="ptitle" id="ptitle">Loading</div>
+          <div class="ptopic" id="ptopic"></div>
+        </div>
+        <div class="ptime" id="ptime">0:00 / 0:00</div>
+      </div>
+      <div class="audio-note" id="audioNote">The audio file could not be loaded.</div>
+
+      <div class="rail" id="rail" aria-hidden="true"></div>
+      <div class="track" id="track"></div>
+      <div class="ticks" id="ticks" aria-hidden="true"></div>
+      <div class="legend" id="legend"></div>
+      <div class="hint">Select a block to jump to that moment. The black marker shows the tone-setter.</div>
+    </section>
+
+    <section class="card card-pad verdict" aria-label="Verdict">
+      <h2>Tone-setter</h2>
+      <div id="verdict"><p class="verdict-body">Loading analysis.</p></div>
+    </section>
+
+    <section class="card card-pad" aria-label="Selected segment">
+      <h2>Selected segment</h2>
+      <div id="detail"><p class="verdict-body">Select a block on the timeline or a line in the transcript.</p></div>
+    </section>
+
+    <section class="card card-pad" aria-label="Voice signal">
+      <h2>Voice signal for the whole clip</h2>
+      <div id="voice"></div>
+    </section>
+
+  </main>
+
+  <aside class="card side" aria-label="Transcript">
+    <div class="side-head">
+      <h2>Transcript</h2>
+      <p>Select a line to jump to it in the audio.</p>
+    </div>
+    <div class="tr-list" id="trList"></div>
+  </aside>
+</div>
+
+<div class="foot">
+  <p>Results come from a saved pipeline run on this clip. Tone is a signal, not a prediction.</p>
+  <p id="srcNote"></p>
+  <p><a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">Source on GitHub</a>. Built for the Gnani AI Internship Challenge.</p>
+  <details>
+    <summary>Activity log</summary>
+    <div class="log" id="log"></div>
+  </details>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
 
 <script>
 const APP_NAME = "PenguinLaw";
-const PILLS = ['bullish','bearish','neutral','hesitant','confident'];
-function safePill(v){ return PILLS.indexOf(v) !== -1 ? v : 'neutral'; }
-function sentClass(s){
-  if(s === 'bullish') return 'positive';
-  if(s === 'bearish') return 'negative';
-  if(s === 'hesitant') return 'warn';
-  if(s === 'confident') return 'accent';
-  return 'neutral';
+document.title = APP_NAME + " | Voice mood console";
+document.getElementById("appName").textContent = APP_NAME;
+
+const CLIPS = [
+  {id:"clip1", name:"Clip 1", topic:"Margin and day-trading"},
+  {id:"clip2", name:"Clip 2", topic:"Fed and leverage risk"},
+  {id:"clip3", name:"Clip 3", topic:"Gen Z and retail psychology"}
+];
+const TONES = ["bullish","bearish","hesitant","confident","neutral"];
+const STEPS = ["Transcribe","Measure tone","Find tone-setter","Report"];
+const liveMode = /[?&]live=1/.test(location.search);
+
+const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
+const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1"/><rect x="13.5" y="4" width="4.5" height="16" rx="1"/></svg>';
+
+const audio = document.getElementById("audio");
+const $ = id => document.getElementById(id);
+
+let clipId = null;
+let data = null;
+let segs = [];
+let selected = -1;
+let setterIdx = null;
+let followerIdx = [];
+let segButtons = [];
+let trLines = [];
+let raf = null;
+let loadToken = 0;
+
+function el(tag, cls, text){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(text != null) e.textContent = text;
+  return e;
+}
+function tone(v){ return TONES.indexOf(v) !== -1 ? v : "neutral"; }
+function fmt(t){
+  t = Math.max(0, t || 0);
+  const m = Math.floor(t / 60), s = Math.floor(t % 60);
+  return m + ":" + String(s).padStart(2, "0");
+}
+function dur(){
+  if(data && data.duration_sec) return data.duration_sec;
+  if(segs.length) return segs[segs.length - 1].end;
+  return audio.duration || 1;
+}
+function log(msg, cls){
+  const row = el("div");
+  const d = new Date();
+  row.appendChild(el("span", "t", String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0")));
+  row.appendChild(el("span", cls || "", msg));
+  const box = $("log");
+  box.appendChild(row);
+  box.scrollTop = box.scrollHeight;
 }
 
-let currentClip = null;
-let liveMode = /[?&]live=1/.test(window.location.search);
-
-function setStepsRunning(){
-  ['step-1','step-2','step-3'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el){ el.classList.remove('done'); el.classList.add('running'); }
+/* Tabs */
+function buildTabs(){
+  const box = $("tabs");
+  CLIPS.forEach(c => {
+    const b = el("button", "tab");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.dataset.clip = c.id;
+    b.appendChild(el("span", "t1", c.name));
+    b.appendChild(el("span", "t2", c.topic));
+    b.addEventListener("click", () => loadClip(c.id));
+    box.appendChild(b);
   });
 }
-function setStepsDone(){
-  ['step-1','step-2','step-3','step-4'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el){ el.classList.add('done'); el.classList.remove('running'); }
+function markTabs(){
+  document.querySelectorAll(".tab").forEach(b => {
+    b.setAttribute("aria-selected", b.dataset.clip === clipId ? "true" : "false");
   });
 }
 
-function setState(msg, isError){
-  const s = document.getElementById('state');
-  s.className = 'state visible' + (isError ? ' error':'');
-  s.textContent = '';
-  if(!isError && msg){
-    const spin = document.createElement('span');
-    spin.className = 'spin';
-    s.appendChild(spin);
+/* Steps */
+function drawSteps(state){
+  const box = $("steps");
+  box.textContent = "";
+  STEPS.forEach(name => {
+    const s = el("div", "step " + (state || ""));
+    const m = el("span", "mark", state === "done" ? "\u2713" : "");
+    s.appendChild(m);
+    s.appendChild(el("span", "", name));
+    box.appendChild(s);
+  });
+}
+
+/* Player */
+function setPlayIcon(){
+  const b = $("playBtn");
+  b.innerHTML = audio.paused ? ICON_PLAY : ICON_PAUSE;
+  b.setAttribute("aria-label", audio.paused ? "Play" : "Pause");
+}
+$("playBtn").addEventListener("click", () => {
+  if(audio.paused){ audio.play().catch(() => {}); } else { audio.pause(); }
+});
+audio.addEventListener("play", () => { setPlayIcon(); loop(); });
+audio.addEventListener("pause", setPlayIcon);
+audio.addEventListener("ended", () => { setPlayIcon(); update(); });
+audio.addEventListener("seeked", update);
+audio.addEventListener("loadedmetadata", update);
+audio.addEventListener("error", () => { $("audioNote").style.display = "block"; });
+
+function loop(){
+  update();
+  if(!audio.paused) raf = requestAnimationFrame(loop);
+}
+function segAt(t){
+  for(let i = 0; i < segs.length; i++){
+    if(t >= segs[i].start && t < segs[i].end) return i;
   }
-  if(msg) s.appendChild(document.createTextNode(msg));
+  return -1;
 }
-
-function logLine(txt, cls){
-  const log = document.getElementById('log');
-  const line = document.createElement('div');
-  line.className = 'line';
-  const t = document.createElement('span');
-  t.className = 't';
-  const now = new Date();
-  t.textContent = String(now.getHours()).padStart(2,'0') + ':' +
-    String(now.getMinutes()).padStart(2,'0');
-  line.appendChild(t);
-  const l = document.createElement('span');
-  l.className = cls || '';
-  l.textContent = txt;
-  line.appendChild(l);
-  log.appendChild(line);
-}
-
-function buildPlayer(clipId){
-  const zone = document.getElementById('playerZone');
-  zone.textContent = '';
-  const name = document.createElement('div');
-  name.className = 'pname';
-  name.textContent = clipId === 'clip1' ? 'Clip 1' :
-    clipId === 'clip2' ? 'Clip 2' : 'Clip 3';
-  const audio = document.createElement('audio');
-  audio.controls = true;
-  audio.preload = 'metadata';
-  const src = document.createElement('source');
-  src.src = '/demo_clips/' + clipId + '.wav';
-  src.type = 'audio/wav';
-  audio.appendChild(src);
-  const dur = document.createElement('div');
-  dur.className = 'pdur';
-  dur.textContent = '–';
-  audio.addEventListener('loadedmetadata', ()=>dur.textContent = '0:' + Math.round(audio.duration) + 's');
-  zone.appendChild(name);
-  zone.appendChild(audio);
-  zone.appendChild(dur);
-}
-
-async function loadClip(clipId){
-  if(currentClip === clipId && document.getElementById('timelineZone').childElementCount > 1) return;
-  currentClip = clipId;
-
-  document.querySelectorAll('.clip-btn').forEach(b=>b.classList.toggle('active', b.dataset.clip===clipId));
-  buildPlayer(clipId);
-  document.getElementById('verdictZone').style.display = 'none';
-  logLine('load ' + clipId + (liveMode ? ' (live)' : ' (cached)'), 'info');
-
-  if(liveMode) setStepsRunning();
-  setState(liveMode ? 'Running live pipeline…' : 'Loading ' + clipId + '…');
-  try{
-    const r = await fetch('/analyze/' + clipId + (liveMode ? '?live=1' : ''));
-    if(!r.ok){
-      const body = await r.json().catch(()=>({}));
-      setState('Error: ' + (body.error || r.status), true);
-      logLine('error: ' + (body.error || r.status), 'err');
-      return;
-    }
-    const d = await r.json();
-    render(d);
-  }catch(e){
-    setState('Error: ' + e.message, true);
-    logLine('error: ' + e.message, 'err');
+function update(){
+  const t = audio.currentTime || 0;
+  const d = dur();
+  const head = $("playhead");
+  if(head) head.style.left = Math.min(100, (t / d) * 100) + "%";
+  $("ptime").textContent = fmt(t) + " / " + fmt(audio.duration && isFinite(audio.duration) ? audio.duration : d);
+  if(!audio.paused){
+    const i = segAt(t);
+    if(i !== -1 && i !== selected) select(i, false);
   }
 }
 
-function render(d){
-  setState('');
-  setStepsDone();
-  drawTimeline(d);
-  drawVerdict(d);
-  drawMood(d);
-
-  document.getElementById('transcript').textContent = d.transcript || '(empty transcript)';
-  document.getElementById('transcript').classList.remove('hint');
-  document.getElementById('verdictZone').style.display = 'block';
-  logLine('analysis ready (' + (d.segments||[]).length + ' segments)', 'ok');
-}
-
-function drawVerdict(d){
-  const box = document.getElementById('verdict');
-  box.textContent = '';
+/* Data */
+function normalise(d){
+  data = d;
+  segs = (d.segments || []).map((s, i) => {
+    const mood = s.mood || {};
+    return Object.assign({}, s, {
+      i: i,
+      mood: mood,
+      tone: tone(mood.sentiment),
+      fb: /rule-based/i.test(mood.one_line_reason || "")
+    });
+  });
   const v = d.tone_setter || {};
-  if(v.setter_segment){
-    const m = v.setter_segment.mood;
-    const head = document.createElement('div');
-    head.className = 'vhead';
-    head.appendChild(document.createTextNode('Segment ' + (v.setter_segment.segment_index+1) + ' '));
-    const pill = document.createElement('span');
-    pill.className = 'pill ' + safePill(m.sentiment);
-    pill.textContent = m.sentiment || 'neutral';
-    head.appendChild(pill);
-    const note = document.createElement('div');
-    note.className = 'vnote';
-    note.textContent = m.one_line_reason || '';
-    box.appendChild(head);
-    box.appendChild(note);
-  } else {
-    const head = document.createElement('div');
-    head.className = 'vhead';
-    head.textContent = 'No tone-setter';
-    const note = document.createElement('div');
-    note.className = 'vnote';
-    note.textContent = v.confidence_note || '';
-    box.appendChild(head);
-    box.appendChild(note);
-  }
-  if(v.followers && v.followers.length){
-    const f = document.createElement('div');
-    f.className = 'vfollow';
-    f.textContent = 'Followers: ' + v.followers.length + ' segment(s) moving the same direction.';
-    box.appendChild(f);
-  }
+  setterIdx = (v.setter_segment && typeof v.setter_segment.segment_index === "number") ? v.setter_segment.segment_index : null;
+  followerIdx = (v.followers || []).map(f => {
+    if(typeof f === "number") return f;
+    if(f && typeof f.segment_index === "number") return f.segment_index;
+    if(f && typeof f.index === "number") return f.index;
+    return null;
+  }).filter(n => n !== null && n >= 0 && n < segs.length && n !== setterIdx);
 }
 
-function drawMood(d){
-  const list = document.getElementById('moodList');
-  list.textContent = '';
-  (d.segments||[]).forEach(s=>{
-    const m = s.mood || {};
-    const seg = document.createElement('div');
-    seg.className = 'seg';
-    const time = document.createElement('div');
-    time.className = 'time';
-    time.textContent = Math.round(s.start) + '–' + Math.round(s.end) + 's';
-    const body = document.createElement('div');
-    body.className = 'body';
-    const pill = document.createElement('span');
-    pill.className = 'pill ' + safePill(m.sentiment);
-    pill.textContent = m.sentiment || 'neutral';
-    const txt = document.createElement('div');
-    txt.className = 'txt';
-    txt.textContent = s.text || 'no speech';
-    const reason = document.createElement('div');
-    reason.className = 'reason';
-    reason.textContent = 'certainty ' + Math.round((m.certainty||0)*100) +
-      '% · ' + (m.one_line_reason||'');
-    body.appendChild(pill);
-    body.appendChild(txt);
-    body.appendChild(reason);
-    seg.appendChild(time);
-    seg.appendChild(body);
-    list.appendChild(seg);
+/* Timeline */
+function drawTimeline(){
+  const track = $("track");
+  track.textContent = "";
+  segButtons = [];
+  const d = dur();
+
+  segs.forEach(s => {
+    const b = el("button", "seg" + (s.fb ? " fb" : "") + (s.i === setterIdx ? " setter" : ""));
+    b.type = "button";
+    b.dataset.tone = s.tone;
+    b.style.left = (s.start / d * 100) + "%";
+    b.style.width = ((s.end - s.start) / d * 100) + "%";
+    const cert = typeof s.mood.certainty === "number" ? s.mood.certainty : 0.5;
+    b.style.opacity = (0.5 + 0.5 * Math.min(1, Math.max(0, cert))).toFixed(2);
+    b.title = fmt(s.start) + " to " + fmt(s.end) + ": " + s.tone + ", certainty " + Math.round(cert * 100) + "%" + (s.fb ? " (rule-based fallback)" : "");
+    b.setAttribute("aria-label", "Segment " + (s.i + 1) + ", " + s.tone + ", " + fmt(s.start) + " to " + fmt(s.end));
+    b.addEventListener("click", () => select(s.i, true));
+    track.appendChild(b);
+    segButtons.push(b);
   });
+  const head = el("div", "playhead");
+  head.id = "playhead";
+  track.appendChild(head);
+
+  /* Axis ticks */
+  const ticks = $("ticks");
+  ticks.textContent = "";
+  const step = d <= 40 ? 5 : d <= 120 ? 10 : 30;
+  for(let t = 0; t <= d + 0.01; t += step){
+    const s = el("span", t === 0 ? "first" : "", t + "s");
+    s.style.left = (t / d * 100) + "%";
+    ticks.appendChild(s);
+  }
+
+  /* Lead rail: tone-setter and followers */
+  const rail = $("rail");
+  rail.textContent = "";
+  if(setterIdx !== null && segs[setterIdx]){
+    rail.style.display = "block";
+    const centre = i => ((segs[i].start + segs[i].end) / 2) / d * 100;
+    const all = [setterIdx].concat(followerIdx);
+    const xs = all.map(centre);
+    const line = el("div", "line");
+    line.style.left = Math.min.apply(null, xs) + "%";
+    line.style.width = (Math.max.apply(null, xs) - Math.min.apply(null, xs)) + "%";
+    rail.appendChild(line);
+    followerIdx.forEach(i => {
+      const dot = el("div", "dot");
+      dot.style.left = centre(i) + "%";
+      rail.appendChild(dot);
+    });
+    const sd = el("div", "dot setter");
+    sd.style.left = centre(setterIdx) + "%";
+    rail.appendChild(sd);
+    const lbl = el("div", "lbl", "Tone-setter");
+    lbl.style.left = centre(setterIdx) + "%";
+    lbl.style.top = "-16px";
+    rail.appendChild(lbl);
+    rail.style.marginTop = "18px";
+  } else {
+    rail.style.display = "none";
+  }
+
+  /* Legend */
+  const lg = $("legend");
+  lg.textContent = "";
+  TONES.forEach(t => {
+    const it = el("div", "it");
+    const sw = el("span", "sw");
+    sw.dataset.tone = t;
+    it.appendChild(sw);
+    it.appendChild(document.createTextNode(t.charAt(0).toUpperCase() + t.slice(1)));
+    lg.appendChild(it);
+  });
+  const fbItem = el("div", "it");
+  fbItem.appendChild(el("span", "sw hatch"));
+  fbItem.appendChild(document.createTextNode("Hatched: rule-based fallback, not Evon"));
+  lg.appendChild(fbItem);
+  const op = el("div", "it", "Fainter block = lower certainty");
+  lg.appendChild(op);
 }
 
-function drawTimeline(d){
-  const zone = document.getElementById('timelineZone');
-  zone.textContent = '';
-  const segs = d.segments || [];
-  if(!segs.length){
-    const e = document.createElement('div');
-    e.className = 'empty';
-    e.textContent = 'No segments to visualize.';
-    zone.appendChild(e);
+/* Verdict */
+function drawVerdict(){
+  const box = $("verdict");
+  box.textContent = "";
+  const v = data.tone_setter || {};
+  const allFb = segs.length > 0 && segs.every(s => s.fb);
+  if(setterIdx !== null && segs[setterIdx]){
+    const s = segs[setterIdx];
+    box.appendChild(el("p", "verdict-title", "The mood turned " + s.tone + " at about " + Math.round(s.start) + " seconds"));
+    const parts = [];
+    if(s.mood.one_line_reason) parts.push(s.mood.one_line_reason);
+    parts.push(followerIdx.length
+      ? followerIdx.length + " later segment" + (followerIdx.length === 1 ? "" : "s") + " moved the same way."
+      : "No later segment followed it.");
+    box.appendChild(el("p", "verdict-body", parts.join(" ")));
+  } else {
+    box.appendChild(el("p", "verdict-title", "No tone-setter found"));
+    const same = segs.length && segs.every(s => s.tone === segs[0].tone);
+    let msg = same
+      ? "Every segment read as " + segs[0].tone + ", so there was no shift for the rest to follow."
+      : (v.confidence_note || "No mood shift lasted long enough to count as a lead.");
+    if(allFb) msg += " This result comes from the rule-based fallback, so it says little about the clip itself.";
+    box.appendChild(el("p", "verdict-body", msg));
+  }
+}
+
+/* Detail */
+function meter(label, value){
+  const m = el("div", "meter");
+  const row = el("div", "ml");
+  row.appendChild(el("span", "", label));
+  row.appendChild(el("span", "", Math.round(value * 100) + "%"));
+  m.appendChild(row);
+  const bar = el("div", "bar");
+  const fill = el("i");
+  fill.style.width = Math.round(Math.min(1, Math.max(0, value)) * 100) + "%";
+  bar.appendChild(fill);
+  m.appendChild(bar);
+  return m;
+}
+function drawDetail(){
+  const box = $("detail");
+  box.textContent = "";
+  const s = segs[selected];
+  if(!s){
+    box.appendChild(el("p", "verdict-body", "Select a block on the timeline or a line in the transcript."));
     return;
   }
+  const head = el("div", "detail-head");
+  head.appendChild(el("span", "dt", "Segment " + (s.i + 1) + ", " + fmt(s.start) + " to " + fmt(s.end)));
+  const tn = el("span", "tone");
+  const sw = el("span", "sw");
+  sw.dataset.tone = s.tone;
+  tn.appendChild(sw);
+  tn.appendChild(document.createTextNode(s.tone));
+  head.appendChild(tn);
+  head.appendChild(el("span", "src" + (s.fb ? " fb" : ""), s.fb ? "Rule-based fallback" : "Evon"));
+  box.appendChild(head);
 
-  const dur = d.duration_sec || segs[segs.length-1].end;
-  const v = d.tone_setter || {};
-  const setterIdx = v.setter_segment ? v.setter_segment.segment_index : null;
+  box.appendChild(el("p", "detail-text", s.text || "No speech in this segment."));
 
-  const tl = document.createElement('div');
-  tl.className = 'timeline';
-  segs.forEach((s,i)=>{
-    const seg = document.createElement('div');
-    const w = ((s.end - s.start) / dur) * 100;
-    seg.className = 'tlseg ' + sentClass(s.mood && s.mood.sentiment) +
-      (i === setterIdx ? ' setter' : '');
-    seg.style.width = w + '%';
-    seg.textContent = (s.mood && s.mood.sentiment) || '';
-    tl.appendChild(seg);
-  });
-  zone.appendChild(tl);
+  const meters = el("div", "meters");
+  if(typeof s.mood.certainty === "number") meters.appendChild(meter("Certainty", s.mood.certainty));
+  if(typeof s.mood.pressure === "number") meters.appendChild(meter("Pressure", s.mood.pressure));
+  box.appendChild(meters);
 
-  const axis = document.createElement('div');
-  axis.className = 'tl-axis';
-  axis.appendChild(document.createTextNode('0s'));
-  axis.appendChild(document.createTextNode(dur + 's'));
-  zone.appendChild(axis);
+  if(s.mood.one_line_reason) box.appendChild(el("p", "reason", s.mood.one_line_reason));
 
-  const legend = document.createElement('div');
-  legend.className = 'tl-legend';
-  const items = [['bullish','positive'],['bearish','negative'],
-                  ['hesitant','warn'],['confident','accent'],['neutral','neutral']];
-  items.forEach(([label, cls])=>{
-    const it = document.createElement('div');
-    it.className = 'item';
-    const sw = document.createElement('span');
-    sw.className = 'sw tlseg ' + cls;
-    it.appendChild(sw);
-    it.appendChild(document.createTextNode(label));
-    legend.appendChild(it);
-  });
-  zone.appendChild(legend);
-
-  if(setterIdx !== null){
-    const note = document.createElement('div');
-    note.className = 'tl-note';
-    note.textContent = 'tone-setter marked at segment ' + (setterIdx+1) + ' (~' +
-      Math.round((v.setter_segment.start + v.setter_segment.end)/2) + 's)';
-    zone.appendChild(note);
+  const pr = s.prosody || s.features || s.audio_features;
+  if(pr && typeof pr === "object"){
+    const keys = Object.keys(pr).filter(k => typeof pr[k] === "number" && isFinite(pr[k])).slice(0, 6);
+    if(keys.length){
+      const row = el("div", "pros");
+      keys.forEach(k => {
+        const it = el("span");
+        it.appendChild(document.createTextNode(k.replace(/_/g, " ") + " "));
+        it.appendChild(el("b", "", pr[k].toFixed(2)));
+        row.appendChild(it);
+      });
+      box.appendChild(row);
+    }
   }
 }
 
-// clip selector
-document.querySelectorAll('.clip-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>loadClip(btn.dataset.clip));
-});
+/* Voice signal (clip-level prosody) */
+function drawVoice(){
+  const box = $("voice");
+  box.textContent = "";
+  const p = data && data.prosody;
+  if(!p || typeof p !== "object"){
+    box.appendChild(el("p", "verdict-body", "No voice measurements were saved for this clip."));
+    return;
+  }
+  const items = [];
+  if(typeof p.pitch_mean === "number") items.push([Math.round(p.pitch_mean) + " Hz", "Average pitch"]);
+  if(typeof p.pitch_std === "number") items.push([Math.round(p.pitch_std) + " Hz", "Pitch variation"]);
+  if(typeof p.energy_mean === "number") items.push([p.energy_mean.toFixed(3), "Average loudness"]);
+  if(typeof p.activity_ratio === "number") items.push([Math.round(p.activity_ratio * 100) + "%", "Time spent speaking"]);
+  if(!items.length){
+    box.appendChild(el("p", "verdict-body", "No voice measurements were saved for this clip."));
+    return;
+  }
+  const grid = el("div", "stats");
+  items.forEach(it => {
+    const s = el("div", "stat");
+    s.appendChild(el("div", "sv", it[0]));
+    s.appendChild(el("div", "sl", it[1]));
+    grid.appendChild(s);
+  });
+  box.appendChild(grid);
+  box.appendChild(el("p", "voice-note", "Measured from the audio. These describe how the clip sounds overall and are not a mood label."));
+}
 
-// auto-select clip 1 on first load, show real cached result
-loadClip('clip1');
+/* Transcript */
+function drawTranscript(){
+  const list = $("trList");
+  list.textContent = "";
+  trLines = [];
+  if(!segs.length){
+    list.appendChild(el("div", "tr-plain", data.transcript || "No transcript available."));
+    return;
+  }
+  segs.forEach(s => {
+    const b = el("button", "line");
+    b.type = "button";
+    b.dataset.tone = s.tone;
+    b.appendChild(el("span", "ts", fmt(s.start)));
+    b.appendChild(el("span", "tx", s.text || "(no speech)"));
+    b.addEventListener("click", () => select(s.i, true));
+    list.appendChild(b);
+    trLines.push(b);
+  });
+}
+
+/* Selection */
+function select(i, seek){
+  if(i < 0 || i >= segs.length) return;
+  selected = i;
+  segButtons.forEach((b, k) => b.classList.toggle("sel", k === i));
+  trLines.forEach((b, k) => b.classList.toggle("sel", k === i));
+  drawDetail();
+  const line = trLines[i];
+  const list = $("trList");
+  if(line && list){
+    list.scrollTop = Math.max(0, line.offsetTop - list.clientHeight / 3);
+  }
+  if(seek){
+    try{ audio.currentTime = segs[i].start; }catch(e){}
+    update();
+  }
+}
+
+/* Banner and source note */
+function drawNotes(){
+  const banner = $("banner");
+  const fbCount = segs.filter(s => s.fb).length;
+  const note = $("srcNote");
+  if(segs.length && fbCount === segs.length){
+    banner.style.display = "block";
+    banner.textContent = "";
+    const st = el("strong", "", "Rule-based fallback, not Evon. ");
+    banner.appendChild(st);
+    banner.appendChild(document.createTextNode("Every tone label on this clip comes from keyword counting. Re-run the analysis with a working Evon connection before relying on these results."));
+    note.textContent = "Tone source: rule-based fallback for all " + segs.length + " segments.";
+  } else if(fbCount){
+    banner.style.display = "block";
+    banner.textContent = fbCount + " of " + segs.length + " segments used the rule-based fallback instead of Evon. They are hatched on the timeline.";
+    note.textContent = "Tone source: Evon for " + (segs.length - fbCount) + " segments, rule-based fallback for " + fbCount + ".";
+  } else {
+    banner.style.display = "none";
+    note.textContent = segs.length ? "Tone source: Evon for all " + segs.length + " segments." : "";
+  }
+  const first = segs.length ? segs[0].end - segs[0].start : 0;
+  const even = segs.length > 2 && segs.every(s => Math.abs((s.end - s.start) - first) < 0.06);
+  if(even){
+    note.textContent += (note.textContent ? " " : "") + "Segment times are evenly spaced estimates, not measured from the audio, so the highlight may drift from what you hear.";
+  }
+}
+
+/* Loading */
+async function loadClip(id){
+  const meta = CLIPS.find(c => c.id === id);
+  if(!meta) return;
+  const token = ++loadToken;
+  clipId = id;
+  markTabs();
+  audio.pause();
+  $("audioNote").style.display = "none";
+  $("ptitle").textContent = meta.name;
+  $("ptopic").textContent = meta.topic;
+  audio.src = "/demo_clips/" + id + ".wav";
+  audio.load();
+  setPlayIcon();
+  $("ptime").textContent = "0:00 / 0:00";
+  selected = -1;
+  drawSteps(liveMode ? "running" : "");
+  $("verdict").textContent = "";
+  $("verdict").appendChild(el("p", "verdict-body", liveMode ? "Running the live pipeline." : "Loading analysis."));
+  log("load " + id + (liveMode ? " (live)" : " (saved result)"));
+
+  const slow = setTimeout(() => {
+    if(token === loadToken){
+      $("verdict").textContent = "";
+      $("verdict").appendChild(el("p", "verdict-body", "Waking up the server. This can take about 30 seconds."));
+    }
+  }, 4000);
+
+  try{
+    const r = await fetch("/analyze/" + id + (liveMode ? "?live=1" : ""));
+    if(!r.ok){
+      let msg = "Request failed (" + r.status + ").";
+      try{ const j = await r.json(); if(j && j.error) msg = j.error; }catch(e){}
+      throw new Error(msg);
+    }
+    const d = await r.json();
+    if(token !== loadToken) return;
+    normalise(d);
+    drawTimeline();
+    drawVerdict();
+    drawTranscript();
+    drawVoice();
+    drawNotes();
+    drawSteps("done");
+    const start = setterIdx !== null ? setterIdx : 0;
+    if(segs.length) select(start, false); else drawDetail();
+    update();
+    log("analysis ready (" + segs.length + " segments)");
+  }catch(e){
+    if(token !== loadToken) return;
+    $("verdict").textContent = "";
+    const p = el("p", "verdict-body err", "Could not load this clip. " + e.message + " Try again in a moment.");
+    $("verdict").appendChild(p);
+    drawSteps("");
+    log("error: " + e.message, "err");
+  }finally{
+    clearTimeout(slow);
+  }
+}
+
+buildTabs();
+drawSteps("");
+setPlayIcon();
+loadClip("clip1");
 </script>
 </body>
 </html>
