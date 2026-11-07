@@ -67,6 +67,27 @@ python scripts/transcribe.py data/audio/clip.wav --language en
 > load a `.env` file), so just export `GNANI_API_KEY` before running. Other
 > optional vars: `GNANI_BASE_URL`, `GNANI_PRISMA_MODEL`, `GNANI_EVON_MODEL`.
 
+## 2b. Train on REAL pre-labeled speech (no manual labeling)
+
+Use a public emotion-speech dataset (CREMA-D, 7,442 pre-labeled clips) and a
+documented emotion→market-tone map. One command downloads a balanced subset,
+extracts the 22 features, and trains a model:
+
+```bash
+python scripts/build_from_emotion_dataset.py --source crema --n 150 \
+    --train --out data/features_real.csv --model-out models/tone_model_v2.joblib
+```
+
+- `--n` = clips to use (150 is a good starter; 400+ for a stronger model)
+- It auto-balances across the 5 tone classes and skips failed downloads.
+- `--source local --local_dir <folder>` also works if you already downloaded the
+  dataset (e.g. unzipped RAVDESS or CREMA-D audio).
+- After training, `predict.py` auto-prefers `models/tone_model_v2.joblib`.
+
+Caveat: these are acted/studio clips. Use real earnings-call audio
+(`data/labels_template.csv` + `build_features_csv.py`) for production
+fine-tuning. The emotion-trained model is an excellent, honest baseline.
+
 **Coming back to chat when you have the key:** you'll just export
 `GNANI_API_KEY` and re-run `predict.py` + `report.py` — the code is already
 wired for live mode.

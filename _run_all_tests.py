@@ -16,6 +16,8 @@ FILES = [
     'scripts/predict.py',
     'scripts/report.py',
     'scripts/demo_server.py',
+    'scripts/build_features_csv.py',
+    'scripts/build_from_emotion_dataset.py',
     '_selftest.py',
     '_test_injection.py',
 ]

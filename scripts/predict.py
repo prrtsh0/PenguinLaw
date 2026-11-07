@@ -25,7 +25,12 @@ sys.path.insert(0, base)
 
 from features.extract import extract_features  # noqa: E402
 
-DEFAULT_MODEL = os.path.join(base, 'models', 'tone_model_v1.joblib')
+def _default_model():
+    v2 = os.path.join(base, 'models', 'tone_model_v2.joblib')
+    return v2 if os.path.exists(v2) else os.path.join(base, 'models', 'tone_model_v1.joblib')
+
+
+DEFAULT_MODEL = _default_model()
 DEFAULT_AUDIO = os.path.join(base, 'data', 'audio', 'demo.wav')
 
 
