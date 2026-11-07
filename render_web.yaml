@@ -1,0 +1,20 @@
+# Render blueprint for the PenguinLaw demo web app (NEW app; the frozen
+# demo_server blueprint stays in render.yaml untouched).
+# Free tier: sleeps after ~15 min idle -> first request may take ~30s to wake.
+services:
+  - type: web
+    name: penguinlaw-web
+    runtime: python
+    pythonVersion: "3.12.7"
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn scripts.web_app:app
+    healthCheckPath: /
+    envVars:
+      - key: GNANI_API_KEY
+        sync: false   # set in Render dashboard
+      - key: GNANI_BASE_URL
+        value: https://api.gnani.ai
+      - key: GNANI_EVON_MODEL
+        value: evon
+      - key: PYTHONUNBUFFERED
+        value: "1"
