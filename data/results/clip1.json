@@ -1,0 +1,158 @@
+{
+  "clip_id": "clip1",
+  "audio_path": "data\\demo_clips\\clip1.wav",
+  "duration_sec": 30.0,
+  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Woof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.7,
+      "text": "At a very high interest rate, and then I could buy that stock.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 2.7,
+      "end": 5.5,
+      "text": "Let's rip some day trades.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 5.5,
+      "end": 8.2,
+      "text": "Absolutely right.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 8.2,
+      "end": 10.9,
+      "text": "Investors in the US stock market are making a lot of these margin trades these days.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 10.9,
+      "end": 13.6,
+      "text": "The total amount of borrowing is at an all-time.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 13.6,
+      "end": 16.4,
+      "text": "Record level, over 1.5 trillion dollars.",
+      "mood": {
+        "sentiment": "bullish",
+        "certainty": 0.5,
+        "pressure": 0.42,
+        "one_line_reason": "Rule-based fallback: 1 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 16.4,
+      "end": 19.1,
+      "text": "That's up by 50% from a year ago.",
+      "mood": {
+        "sentiment": "bullish",
+        "certainty": 0.5,
+        "pressure": 0.42,
+        "one_line_reason": "Rule-based fallback: 1 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 19.1,
+      "end": 21.8,
+      "text": "Woof, that is a lot of leverage.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 21.8,
+      "end": 24.5,
+      "text": "Hello and welcome to Planet Money.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 24.5,
+      "end": 27.3,
+      "text": "I'm Waylon Wang and I'm Ricky Molfi.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 27.3,
+      "end": 30.0,
+      "text": "Investing behavior is changed.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 175.35907645096722,
+    "pitch_std": 93.5207899395501,
+    "pitch_range": 220.61468573512968,
+    "energy_mean": 0.08169352263212204,
+    "energy_std": 0.0569382943212986,
+    "activity_ratio": 0.6993603411513859,
+    "speech_rate_seg_per_sec": 1.7,
+    "mfcc_0": -227.75509643554688,
+    "mfcc_1": 85.61793518066406,
+    "mfcc_2": -28.30292510986328,
+    "mfcc_3": 22.168996810913086,
+    "mfcc_4": -24.427122116088867,
+    "mfcc_5": -12.315752029418945,
+    "mfcc_6": -17.446718215942383,
+    "mfcc_7": -23.311559677124023,
+    "mfcc_8": -8.671326637268066,
+    "mfcc_9": -11.366023063659668,
+    "mfcc_10": -15.870868682861328,
+    "mfcc_11": -8.825386047363281,
+    "mfcc_12": -11.172411918640137,
+    "spectral_flux_mean": 2.885655403137207,
+    "duration_sec": 30.0
+  },
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  }
+}

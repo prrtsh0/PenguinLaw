@@ -1,0 +1,136 @@
+{
+  "clip_id": "clip3",
+  "audio_path": "data\\demo_clips\\clip3.wav",
+  "duration_sec": 30.0,
+  "transcript": "Gen Z is anyone aged around 18 to 29. I think you know, number 1, it's not good. That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment. They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll. I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car... They're not making money on it. It's a hobby; they enjoy it. They enjoy looking at the car. I think the dangerous aspect is when we start confusing our hobby.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.3,
+      "text": "Gen Z is anyone aged around 18 to 29.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 3.3,
+      "end": 6.7,
+      "text": "I think you know, number 1, it's not good.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 6.7,
+      "end": 10.0,
+      "text": "That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 10.0,
+      "end": 13.3,
+      "text": "They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 13.3,
+      "end": 16.7,
+      "text": "I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car...",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 16.7,
+      "end": 20.0,
+      "text": "They're not making money on it.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 20.0,
+      "end": 23.3,
+      "text": "It's a hobby; they enjoy it.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 23.3,
+      "end": 26.7,
+      "text": "They enjoy looking at the car.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 26.7,
+      "end": 30.0,
+      "text": "I think the dangerous aspect is when we start confusing our hobby.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 128.302148326516,
+    "pitch_std": 29.465969907402716,
+    "pitch_range": 95.20586336866637,
+    "energy_mean": 0.0852779895067215,
+    "energy_std": 0.058552201837301254,
+    "activity_ratio": 0.6993603411513859,
+    "speech_rate_seg_per_sec": 1.5,
+    "mfcc_0": -221.55076599121094,
+    "mfcc_1": 89.69113159179688,
+    "mfcc_2": -16.62588119506836,
+    "mfcc_3": 19.013486862182617,
+    "mfcc_4": -8.506711959838867,
+    "mfcc_5": -14.947071075439453,
+    "mfcc_6": -20.88762092590332,
+    "mfcc_7": -18.77739906311035,
+    "mfcc_8": -18.0557918548584,
+    "mfcc_9": -6.163432598114014,
+    "mfcc_10": -12.10230541229248,
+    "mfcc_11": -4.429267406463623,
+    "mfcc_12": -8.434858322143555,
+    "spectral_flux_mean": 2.8602511882781982,
+    "duration_sec": 30.0
+  },
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  }
+}

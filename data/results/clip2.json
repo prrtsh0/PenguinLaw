@@ -1,0 +1,125 @@
+{
+  "clip_id": "clip2",
+  "audio_path": "data\\demo_clips\\clip2.wav",
+  "duration_sec": 30.0,
+  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course 2000",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.8,
+      "text": "The Fed could say, \"Okay, we should be more cautious.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 3.8,
+      "end": 7.5,
+      "text": "Your brokerage firm can loan you,\" say.",
+      "mood": {
+        "sentiment": "confident",
+        "certainty": 0.5,
+        "pressure": 0.42,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 1 confident cues."
+      }
+    },
+    {
+      "start": 7.5,
+      "end": 11.2,
+      "text": "The Federal Reserve played around with this requirement in the years after the Great Depression.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 11.2,
+      "end": 15.0,
+      "text": "Interestingly, that crash came after soaring margin debt fueled a bubble.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 15.0,
+      "end": 18.8,
+      "text": "Should the Fed get involved today?",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 18.8,
+      "end": 22.5,
+      "text": "This is more complicated.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 22.5,
+      "end": 26.2,
+      "text": "Yes, margin debt is at a historic level, but Urian says it's not.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    },
+    {
+      "start": 26.2,
+      "end": 30.0,
+      "text": "Of course 2000",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.3,
+        "pressure": 0.3,
+        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 215.61364731352882,
+    "pitch_std": 96.39482350913951,
+    "pitch_range": 322.44106335991046,
+    "energy_mean": 0.07011108100414276,
+    "energy_std": 0.0498344749212265,
+    "activity_ratio": 0.6993603411513859,
+    "speech_rate_seg_per_sec": 1.7666666666666666,
+    "mfcc_0": -246.9248809814453,
+    "mfcc_1": 62.5589599609375,
+    "mfcc_2": -27.355533599853516,
+    "mfcc_3": 23.65130615234375,
+    "mfcc_4": -28.162687301635742,
+    "mfcc_5": -10.163844108581543,
+    "mfcc_6": -25.9020938873291,
+    "mfcc_7": -20.10828971862793,
+    "mfcc_8": -10.742650032043457,
+    "mfcc_9": -14.790387153625488,
+    "mfcc_10": -14.38848876953125,
+    "mfcc_11": -9.865609169006348,
+    "mfcc_12": -11.204934120178223,
+    "spectral_flux_mean": 3.1037070751190186,
+    "duration_sec": 30.0
+  },
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  }
+}

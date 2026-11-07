@@ -89,50 +89,91 @@ class EvonClient:
     """
 
     def __init__(self):
-        self.api_key = os.environ.get('GNANI_API_KEY')
-        self.api_url = os.environ.get('GNANI_EVON_API_URL')
-        self.model = os.environ.get('GNANI_EVON_MODEL', 'evon')
+        # Real hosted LLM reasoning. Provider auto-detected:
+        #   GNANI_LLM_PROVIDER = openai | anthropic   (infer if unset)
+        #   OpenAI  -> OPENAI_API_KEY, default model gpt-4o-mini
+        #   Anthropic -> ANTHROPIC_API_KEY, default model claude-3-5-haiku
+        self.provider = (os.environ.get('GNANI_LLM_PROVIDER') or '').lower()
+        self.model = os.environ.get('GNANI_LLM_MODEL', '')
         self.timeout = int(os.environ.get('GNANI_TIMEOUT_SECONDS', '120'))
+        self._oai_key = os.environ.get('OPENAI_API_KEY')
+        self._llm_base_url = os.environ.get('GNANI_LLM_BASE_URL') or None
+        self._anthropic_key = os.environ.get('ANTHROPIC_API_KEY')
         self._client = None
         self._fallback = RuleBasedMood()
 
+        if not self.provider:
+            if self._anthropic_key:
+                self.provider = 'anthropic'
+            elif self._oai_key:
+                self.provider = 'openai'
+
     def analyze_segment(self, text):
-        if self.api_url and self.api_key:
+        if self.provider == 'anthropic' and self._anthropic_key:
             try:
-                from openai import OpenAI
-                if self._client is None:
-                    self._client = OpenAI(api_key=self.api_key,
-                                          base_url=self.api_url)
-                prompt = (
-                    "You are a market-mood analyst. Given ONE speaker segment "
-                    "from a markets conversation, return STRICT JSON only "
-                    "(no prose) with exactly these keys:\n"
-                    "{\n"
-                    '  "sentiment": "<one of '
-                    'bullish|bearish|neutral|hesitant|confident>",\n'
-                    '  "certainty": <0.0-1.0>,\n'
-                    '  "pressure": <0.0-1.0>,\n'
-                    '  "one_line_reason": "<short plain-English reason>"\n'
-                    "}\n"
-                    f"SEGMENT TEXT: \"{text}\""
-                )
-                resp = self._client.chat.completions.create(
-                    model=self.model,
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.0,
-                    request_timeout=self.timeout,
-                )
-                content = resp.choices[0].message.content or ''
-                return self._parse(content)
+                return self._anthropic_analyze(text)
             except Exception as e:
-                # fall back to rules on any failure (don't crash the pipeline)
                 out = self._fallback.analyze_segment(text)
                 out['one_line_reason'] = (
-                    f"Evon unavailable ({type(e).__name__}); {out['one_line_reason']}"
+                    f"Anthropic unavailable ({type(e).__name__}); {out['one_line_reason']}"
                 )
                 return out
-        # no hosted Evon configured -> rule-based
+        if self.provider == 'openai' and self._oai_key:
+            try:
+                return self._openai_analyze(text)
+            except Exception as e:
+                out = self._fallback.analyze_segment(text)
+                out['one_line_reason'] = (
+                    f"OpenAI unavailable ({type(e).__name__}); {out['one_line_reason']}"
+                )
+                return out
         return self._fallback.analyze_segment(text)
+
+    def _openai_analyze(self, text):
+        from openai import OpenAI
+        if self._client is None:
+            self._client = OpenAI(api_key=self._oai_key,
+                                  base_url=self._llm_base_url)
+        model = self.model or 'gpt-4o-mini'
+        prompt = self._prompt()
+        resp = self._client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt.format(text=text)}],
+            temperature=0.0,
+            request_timeout=self.timeout,
+        )
+        return self._parse(resp.choices[0].message.content or '')
+
+    def _anthropic_analyze(self, text):
+        import anthropic
+        if self._client is None:
+            self._client = anthropic.Anthropic(api_key=self._anthropic_key)
+        model = self.model or 'claude-3-5-haiku-latest'
+        msg = self._client.messages.create(
+            model=model,
+            max_tokens=200,
+            temperature=0.0,
+            messages=[{"role": "user", "content": self._prompt().format(text=text)}],
+        )
+        content = ''.join(
+            b.text for b in msg.content if getattr(b, 'type', '') == 'text')
+        return self._parse(content)
+
+    @staticmethod
+    def _prompt():
+        return (
+            "You are a market-mood analyst. Given ONE speaker segment from a "
+            "markets conversation, return STRICT JSON only (no prose) with "
+            "exactly these keys:\n"
+            "{\n"
+            '  "sentiment": "<one of bullish|bearish|neutral|hesitant|'
+            'confident>",\n'
+            '  "certainty": <0.0-1.0>,\n'
+            '  "pressure": <0.0-1.0>,\n'
+            '  "one_line_reason": "<short plain-English reason>"\n'
+            "}\n"
+             'SEGMENT TEXT: "{text}"'
+        )
 
     @staticmethod
     def _parse(content):

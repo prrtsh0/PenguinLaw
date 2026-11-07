@@ -38,7 +38,7 @@ def main():
         if clip not in CLIPS:
             sys.exit(f'unknown clip {clip}')
         result = analyze(clip, force_live=live)
-        data(f"analyzed {clip}; wrote data/results/{clip}.json")
+        print(f"analyzed {clip}; wrote data/results/{clip}.json")
     elif cmd == 'all':
         from scripts.analyze_clip import analyze, CLIPS
         from scripts.tone_setter import merge

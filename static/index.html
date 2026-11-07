@@ -3,203 +3,563 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PenguinLaw — Who sets the tone the market follows?</title>
+<title>PenguinLaw — Tone Console</title>
 <style>
   :root{
-    --dark:#0a1830; --mid:#10264a; --blue:#1e4f96; --accent:#3b82f6;
-    --white:#ffffff; --soft:#e8eef7; --muted:#9fb3d0; --good:#22c55e;
-    --bad:#ef4444; --warn:#f59e0b;
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-2:#0f141b;
+    --border:#252d3a;
+    --border-soft:#1f2630;
+    --text:#e6edf3;
+    --text-secondary:#9aa7b8;
+    --text-muted:#6b7686;
+    --accent:#3b82f6;
+    --accent-soft:rgba(59,130,246,.14);
+    --good:#34d399;
+    --good-soft:rgba(52,211,153,.12);
+    --bad:#f87171;
+    --bad-soft:rgba(248,113,113,.12);
+    --warn:#fbbf24;
+    --warn-soft:rgba(251,191,36,.12);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--dark); color:var(--white); min-height:100vh;
-  }
-  .wrap{max-width:560px; margin:0 auto; padding:20px 16px 64px;}
-  header{text-align:center; padding:14px 0 18px;}
-  header h1{font-size:24px; letter-spacing:.5px;}
-  header p{color:var(--muted); font-size:13px; margin-top:6px;}
-  .appdot{display:inline-block; width:8px; height:8px; border-radius:50%;
-    background:var(--good); margin-right:6px;}
-  .clips{display:flex; gap:10px; justify-content:center; margin:16px 0 22px;}
-  .clip-btn{background:var(--mid); color:var(--white); border:1px solid var(--blue);
-    border-radius:10px; padding:12px 14px; font-size:14px; cursor:pointer;
-    min-width:86px; transition:background .15s;}
-  .clip-btn.active{background:var(--blue);}
-  .clip-btn:disabled{opacity:.5; cursor:default;}
-  .player{margin:12px 0 18px;}
-  .player audio{width:100%;}
-  .card{background:var(--mid); border:1px solid var(--blue); border-radius:12px;
-    padding:16px; margin-bottom:16px;}
-  .card h2{font-size:15px; color:var(--accent); margin-bottom:8px;
-    text-transform:uppercase; letter-spacing:.6px;}
-  .transcript{color:var(--soft); font-size:14px; line-height:1.55;}
-  .mood{font-size:14px; line-height:1.6;}
-  .seg{display:flex; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06);}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); min-height:100vh; display:flex;
+    flex-direction:column; -webkit-font-smoothing:antialiased;}
+
+  /* === Top bar === */
+  .topbar{border-bottom:1px solid var(--border); background:var(--panel);
+    padding:0 16px; height:52px; display:flex; align-items:center; gap:14px;}
+  .logo{display:flex; align-items:center; gap:9px; font-weight:700; font-size:15px;}
+  .logo .mark{width:26px; height:26px; border-radius:7px; background:var(--accent);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700;}
+  .logo .sub{color:var(--text-muted); font-weight:500; font-size:12px;}
+  .mode{display:flex; gap:4px;}
+  .mode-btn{background:transparent; border:none; color:var(--text-secondary);
+    font-size:13px; font-weight:500; padding:7px 12px; border-radius:8px; cursor:pointer;}
+  .mode-btn:hover{color:var(--text); background:var(--panel-2);}
+  .mode-btn.active{color:var(--accent); background:var(--accent-soft);}
+  .status-ind{display:flex; align-items:center; gap:7px; margin-left:auto;
+    font-size:12px; font-weight:600; color:var(--good); padding:5px 10px;
+    border:1px solid var(--good); border-radius:999px; background:var(--good-soft);}
+  .status-ind .pulse{width:8px; height:8px; border-radius:50%; background:var(--good);
+    animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .topbar .links{display:flex; gap:6px;}
+  .topbar .links a{font-size:12px; color:var(--text-secondary); text-decoration:none;
+    padding:6px 10px; border:1px solid var(--border); border-radius:8px;}
+  .topbar .links a:hover{color:var(--text); border-color:var(--accent);}
+
+  /* === Body === */
+  .body{flex:1; display:grid; grid-template-columns:250px minmax(0,1fr) 320px;
+    gap:1px; background:var(--border);}
+  .col{background:var(--bg); display:flex; flex-direction:column; min-height:0;}
+
+  /* Left: steps */
+  .col-left{padding:14px;}
+  .col-title{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-muted); margin-bottom:12px;}
+  .steps{list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .step{border:1px solid var(--border); border-radius:10px; padding:11px 13px;
+    background:var(--panel); cursor:pointer; transition:border-color .15s;}
+  .step:hover{border-color:var(--accent);}
+  .step .row{display:flex; align-items:center; gap:9px;}
+  .step .num{font-family:var(--mono); font-size:12px; color:var(--accent);
+    letter-spacing:.04em;}
+  .step .name{font-size:13px; font-weight:600;}
+  .step .status{margin-left:auto; font-size:10px; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--text-muted);}
+  .step .status.done{color:var(--good);}
+  .step .status.active{color:var(--accent);}
+  .step p{font-size:11px; color:var(--text-muted); margin-top:5px; line-height:1.5;}
+
+  .clips{display:flex; flex-direction:column; gap:8px;}
+  .clip-btn{display:flex; flex-direction:column; gap:1px; text-align:left;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:10px 13px; cursor:pointer; font-size:13px; font-weight:600;
+    color:var(--text-secondary); transition:border-color .15s, color .15s, box-shadow .15s;}
+  .clip-btn .sub{font-size:11px; font-weight:400; color:var(--text-muted);}
+  .clip-btn:hover{border-color:var(--accent); color:var(--text);}
+  .clip-btn.active{border-color:var(--accent); color:var(--text);
+    box-shadow:0 0 0 1px var(--accent); background:var(--accent-soft);}
+
+  /* Center */
+  .col-center{padding:14px; overflow-y:auto;}
+  .player{border:1px solid var(--border); border-radius:10px; padding:12px;
+    background:var(--panel); margin-bottom:14px; display:flex; align-items:center; gap:14px;}
+  .player .clipname{font-size:13px; font-weight:600; min-width:76px;}
+  .player audio{flex:1; height:34px;}
+  .player .dur{font-family:var(--mono); font-size:12px; color:var(--text-muted);}
+
+  .viz{border:1px solid var(--border); border-radius:10px; background:var(--panel);}
+  .viz-head{padding:12px 14px; border-bottom:1px solid var(--border); display:flex;
+    align-items:center; gap:8px;}
+  .viz-head h3{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-muted);}
+  .viz-body{padding:14px;}
+
+  .timeline{position:relative; height:72px; border-radius:8px; overflow:hidden;
+    background:var(--panel-2); border:1px solid var(--border); display:flex;}
+  .tlseg{height:100%; display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; color:#fff; letter-spacing:.02em; overflow:hidden;
+    text-transform:uppercase; min-width:14px;}
+  .tlseg.positive{background:var(--good);}
+  .tlseg.negative{background:var(--bad);}
+  .tlseg.neutral{background:var(--text-muted);}
+  .tlseg.warn{background:var(--warn);}
+  .tlseg.accent{background:var(--accent);}
+  .tl-marker{position:absolute; top:0; bottom:0; width:3px; background:#fff;}
+  .tl-axis{display:flex; justify-content:space-between; margin-top:6px;
+    font-size:11px; color:var(--text-muted); font-family:var(--mono);}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px; font-size:12px;
+    color:var(--text-secondary);}
+  .legend .item{display:flex; align-items:center; gap:6px;}
+  .legend .swatch{width:12px; height:12px; border-radius:3px;}
+  .empty{color:var(--text-muted); font-size:13px; padding:12px 0;}
+
+  /* Tabs: only one view at a time */
+  .tabs{display:flex; gap:4px; margin-top:14px; border-bottom:1px solid var(--border);}
+  .tab{background:transparent; border:none; color:var(--text-secondary); font-size:13px;
+    font-weight:500; padding:9px 14px; cursor:pointer; border-bottom:2px solid transparent;}
+  .tab:hover{color:var(--text);}
+  .tab.active{color:var(--accent); border-bottom-color:var(--accent);}
+  .tab-body{margin-top:12px;}
+  .tab-pane{display:none;}
+  .tab-pane.active{display:block;}
+
+  .pill{display:inline-block; font-size:10px; font-weight:600; text-transform:uppercase;
+    letter-spacing:.04em; padding:2px 8px; border-radius:999px;}
+  .pill.bullish{background:var(--good-soft); color:var(--good);}
+  .pill.bearish{background:var(--bad-soft); color:var(--bad);}
+  .pill.neutral{background:var(--good-soft); color:var(--text-secondary);}
+  .pill.hesitant{background:var(--warn-soft); color:var(--warn);}
+  .pill.confident{background:var(--accent-soft); color:var(--accent);}
+
+  .verdict-box{border:1px solid var(--border); border-radius:10px; padding:14px;
+    background:var(--panel-2);}
+  .verdict-box .head{font-size:13px; font-weight:600; margin-bottom:6px; display:flex;
+    align-items:center; gap:8px;}
+  .verdict-box .note{font-size:13px; color:var(--text-secondary); line-height:1.55;}
+  .verdict-box .followers{margin-top:10px; font-size:12px; color:var(--text-muted);}
+
+  .seg{display:flex; gap:12px; padding:10px 4px; border-bottom:1px solid var(--border-soft);}
   .seg:last-child{border-bottom:none;}
-  .seg .time{color:var(--muted); font-size:12px; white-space:nowrap; min-width:58px;}
+  .seg .time{font-family:var(--mono); font-size:12px; color:var(--text-muted);
+    min-width:58px; padding-top:3px; font-variant-numeric:tabular-nums;}
   .seg .body{flex:1;}
-  .seg .txt{color:var(--soft); font-size:13px;}
-  .seg .reason{color:var(--muted); font-size:12px; margin-top:2px;}
-  .pill{display:inline-block; font-size:12px; font-weight:600; padding:2px 9px;
-    border-radius:999px; margin-bottom:4px;}
-  .pill.bullish{background:rgba(34,197,94,.18); color:var(--good);}
-  .pill.bearish{background:rgba(239,68,68,.18); color:var(--bad);}
-  .pill.neutral{background:rgba(159,179,208,.2); color:var(--soft);}
-  .pill.hesitant{background:rgba(245,158,11,.18); color:var(--warn);}
-  .pill.confident{background:rgba(59,130,246,.2); color:var(--accent);}
-  .verdict-title{font-size:15px; font-weight:700; margin-bottom:6px;}
-  .setter{background:rgba(59,130,246,.12); border:1px solid var(--accent);
-    border-radius:8px; padding:10px; margin-top:8px;}
-  .note{color:var(--soft); font-size:13px; line-height:1.5;}
-  .one-liner{background:linear-gradient(135deg,#1e4f96,#0a1830);
-    border:1px solid var(--accent);}
-  .meta{color:var(--muted); font-size:12px; text-align:center; margin-top:8px;}
-  .footer{text-align:center; color:var(--muted); font-size:12px;
-    margin-top:28px; line-height:1.5;}
-  .state{text-align:center; color:var(--accent); font-size:14px;
-    padding:40px 0;}
-  .error{color:var(--bad);}
+  .seg .txt{font-size:14px; color:var(--text); margin-top:4px; line-height:1.5;}
+  .seg .reason{font-size:12px; color:var(--text-muted); margin-top:3px;}
+
+  .transcript{font-size:13px; line-height:1.7; white-space:pre-wrap; color:var(--text);}
+
+  /* Right: log */
+  .col-right{padding:14px; background:var(--panel-2);}
+  .log{font-family:var(--mono); font-size:12px; color:var(--text-secondary);
+    line-height:1.8;}
+  .log .line{display:flex; gap:10px; padding:2px 0;}
+  .log .t{color:var(--text-muted);}
+  .log .ok{color:var(--good);}
+  .log .info{color:var(--accent);}
+  .log .err{color:var(--bad);}
+
+  .meta{font-size:12px; color:var(--text-muted); margin-top:14px; font-family:var(--mono);}
+
+  /* Footer */
+  .footer{border-top:1px solid var(--border); background:var(--panel); padding:14px 20px;
+    font-size:12px; color:var(--text-muted); line-height:1.6;}
+  .footer a{color:var(--accent); text-decoration:none;}
+
+  .state{display:none; border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+    margin-bottom:12px; font-size:13px; color:var(--text-secondary); background:var(--panel);}
+  .state.error{border-color:var(--bad); color:var(--bad); background:var(--bad-soft);}
+  .state .spin{display:inline-block; width:14px; height:14px; border:2px solid var(--border);
+    border-top-color:var(--accent); border-radius:50%; margin-right:8px; vertical-align:-2px;
+    animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .state.visible{display:flex; align-items:center;}
+
+  @media (max-width:1000px){
+    .body{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1><span class="appdot"></span>PenguinLaw</h1>
-    <p>Who sets the tone the market follows?</p>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="logo">
+      <span class="mark">PL</span>
+      <span>PenguinLaw <span class="sub">/ tone console</span></span>
+    </div>
+    <div class="mode">
+      <button class="mode-btn active">Timeline</button>
+      <button class="mode-btn">Listen</button>
+    </div>
+    <div class="status-ind"><span class="pulse"></span>System Ready</div>
+    <nav class="links">
+      <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://docs.gnani.ai/" target="_blank" rel="noopener">Docs</a>
+    </nav>
   </header>
 
-  <div class="clips">
-    <button class="clip-btn" data-clip="clip1">Clip 1</button>
-    <button class="clip-btn" data-clip="clip2">Clip 2</button>
-    <button class="clip-btn" data-clip="clip3">Clip 3</button>
+  <div class="body">
+
+    <!-- Left: workflow steps -->
+    <aside class="col col-left">
+      <div class="col-title">Source</div>
+      <div class="clips">
+        <button class="clip-btn" data-clip="clip1">Clip 1
+          <span class="sub">margin / day-trading</span></button>
+        <button class="clip-btn" data-clip="clip2">Clip 2
+          <span class="sub">Fed / leverage risk</span></button>
+        <button class="clip-btn" data-clip="clip3">Clip 3
+          <span class="sub">Gen Z / retail psychology</span></button>
+      </div>
+      <div class="col-title" style="margin-top:18px">Workflow Steps</div>
+      <ul class="steps">
+        <li class="step">
+          <div class="row"><span class="num">01</span><span class="name">Transcribe</span>
+            <span class="status done">Prisma</span></div>
+          <p>Gnani Prisma speech-to-text.</p>
+        </li>
+        <li class="step">
+          <div class="row"><span class="num">02</span><span class="name">Measure Tone</span>
+            <span class="status done">Segment</span></div>
+          <p>Sentiment + confidence per segment.</p>
+        </li>
+        <li class="step">
+          <div class="row"><span class="num">03</span><span class="name">Find Setter</span>
+            <span class="status done">Heuristic</span></div>
+          <p>Flags the decisive mood shift.</p>
+        </li>
+        <li class="step">
+          <div class="row"><span class="num">04</span><span class="name">Report</span>
+            <span class="status">Summary</span></div>
+          <p>Verdict + confidence.</p>
+        </li>
+      </ul>
+      <div id="state" class="state"></div>
+    </aside>
+
+    <!-- Center: player + viz + tabs -->
+    <main class="col col-center">
+      <div class="player" id="playerZone">
+        <div class="empty">Select a clip to load its audio and analysis.</div>
+      </div>
+
+      <div class="viz">
+        <div class="viz-head"><h3>Tone Timeline</h3></div>
+        <div class="viz-body">
+          <div id="timelineZone">
+            <div class="empty">No clip selected.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs" style="display:none">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="mood">Mood</button>
+        <button class="tab" data-tab="transcript">Transcript</button>
+      </div>
+      <div class="tab-body" id="tabBody" style="display:none">
+        <div class="tab-pane active" data-pane="summary" id="pane-summary"></div>
+        <div class="tab-pane" data-pane="mood" id="pane-mood"></div>
+        <div class="tab-pane" data-pane="transcript">
+          <div class="transcript" id="transcript"></div>
+        </div>
+      </div>
+
+      <div class="meta" id="meta"></div>
+    </main>
+
+    <!-- Right: console log -->
+    <aside class="col col-right">
+      <div class="col-title">Event Log</div>
+      <div class="log" id="log">
+        <div class="line"><span class="t">--:--:--</span><span>console ready</span></div>
+      </div>
+    </aside>
+
   </div>
 
-  <div class="player" id="player" style="display:none">
-    <audio id="audio" controls preload="none"></audio>
-  </div>
-
-  <div id="state" class="state">Pick a clip to load its analysis.</div>
-  <div id="content" style="display:none">
-    <div class="card one-liner">
-      <h2>Summary</h2>
-      <div id="oneline" class="note"></div>
-    </div>
-    <div class="card">
-      <h2>Tone-setter</h2>
-      <div id="verdict" class="note"></div>
-    </div>
-    <div class="card">
-      <h2>Per-segment mood</h2>
-      <div id="moods" class="mood"></div>
-    </div>
-    <div class="card">
-      <h2>Transcript</h2>
-      <div id="transcript" class="transcript"></div>
-    </div>
-    <div class="meta" id="meta"></div>
-  </div>
-
-  <div class="footer">
-    Results from a real pipeline run on this clip. Tone is a signal, not a prediction.
-  </div>
-</div>
+  <footer class="footer">
+    Results from a real pipeline run on this clip. Tone is a signal, not a prediction.<br>
+    Repo: <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">
+    github.com/prrtsh0/PenguinLaw</a> · Gnani AI Internship Challenge
+  </footer>
 
 <script>
 const APP_NAME = "PenguinLaw";
-document.querySelectorAll('.clip-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>loadClip(btn.dataset.clip, btn));
-});
+const PILLS = ['bullish','bearish','neutral','hesitant','confident'];
+function safePill(v){ return PILLS.indexOf(v) !== -1 ? v : 'neutral'; }
+function sentClass(s){
+  if(s === 'bullish') return 'positive';
+  if(s === 'bearish') return 'negative';
+  if(s === 'hesitant') return 'warn';
+  if(s === 'confident') return 'accent';
+  return 'neutral';
+}
+const CLIP_INFO = {
+  clip1: 'Clip 1 · margin / day-trading',
+  clip2: 'Clip 2 · Fed / leverage risk',
+  clip3: 'Clip 3 · Gen Z / retail psychology'
+};
 
 let currentClip = null;
+let currentTab = 'summary';
+
+document.querySelectorAll('.clip-btn').forEach(()=>{}); // placeholder
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    currentTab = tab.dataset.tab;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t===tab));
+    document.querySelectorAll('.tab-pane').forEach(p=>
+      p.classList.toggle('active', p.dataset.pane===currentTab));
+  });
+});
 
 function setState(msg, isError){
   const s = document.getElementById('state');
-  s.style.display = 'block';
-  s.className = 'state' + (isError ? ' error':'');
-  s.textContent = msg;
-  document.getElementById('content').style.display = 'none';
-  document.getElementById('player').style.display = 'none';
+  s.className = 'state visible' + (isError ? ' error':'');
+  s.textContent = '';
+  if(!isError && msg){
+    const spin = document.createElement('span');
+    spin.className = 'spin';
+    s.appendChild(spin);
+  }
+  if(msg) s.appendChild(document.createTextNode(msg));
 }
 
-async function loadClip(clipId, btn){
-  document.querySelectorAll('.clip-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  currentClip = clipId;
-  setState('Waking up the server, ~30s...');
+function logLine(txt, cls){
+  const log = document.getElementById('log');
+  const line = document.createElement('div');
+  line.className = 'line';
+  const t = document.createElement('span');
+  t.className = 't';
+  t.textContent = new Date().toLocaleTimeString('en-GB', {hour12:false});
+  line.appendChild(t);
+  const l = document.createElement('span');
+  l.className = cls || '';
+  l.textContent = txt;
+  line.appendChild(l);
+  log.appendChild(line);
+}
 
-  const audio = document.getElementById('audio');
-  // placeholder audio URL: the /analyze route returns JSON only; we use the
-  // real clip file served from /demo_clips/<clip>.wav (static).
-  audio.src = '/demo_clips/' + clipId + '.wav';
-  document.getElementById('player').style.display = 'block';
+function buildPlayer(clipId){
+  const zone = document.getElementById('playerZone');
+  zone.textContent = '';
+  const name = document.createElement('div');
+  name.className = 'clipname';
+  name.textContent = CLIP_INFO[clipId] || clipId;
+  const audio = document.createElement('audio');
+  audio.controls = true;
+  audio.preload = 'metadata';
+  const src = document.createElement('source');
+  src.src = '/demo_clips/' + clipId + '.wav';
+  src.type = 'audio/wav';
+  audio.appendChild(src);
+  const dur = document.createElement('div');
+  dur.className = 'dur';
+  dur.textContent = '–';
+  audio.addEventListener('loadedmetadata', ()=>dur.textContent = '0:' + Math.round(audio.duration) + 's');
+  zone.appendChild(name);
+  zone.appendChild(audio);
+  zone.appendChild(dur);
+}
+
+async function loadClip(clipId){
+  if(currentClip === clipId) return;
+  currentClip = clipId;
+
+  document.getElementById('tabs').style.display = 'none';
+  document.getElementById('tabBody').style.display = 'none';
+  buildPlayer(clipId);
+  logLine('loading ' + clipId, 'info');
+  setState('Analyzing ' + clipId + '…');
 
   try{
     const r = await fetch('/analyze/' + clipId);
     if(!r.ok){
       const body = await r.json().catch(()=>({}));
       setState('Error: ' + (body.error || r.status), true);
+      logLine('error: ' + (body.error || r.status), 'err');
       return;
     }
     const d = await r.json();
     render(d);
   }catch(e){
-    setState('Could not reach the server. Try again.', true);
+    setState('Error: ' + e.message, true);
+    logLine('error: ' + e.message, 'err');
   }
 }
 
 function render(d){
-  document.getElementById('state').style.display = 'none';
-  document.getElementById('content').style.display = 'block';
+  setState('');
+  drawTimeline(d);
+  drawSummary(d);
+  drawMood(d);
+  document.getElementById('transcript').textContent = d.transcript || '(empty transcript)';
+  document.getElementById('meta').textContent =
+    'clip ' + d.clip_id + ' · ' + d.duration_sec + 's · ' + APP_NAME;
 
-  // one-line summary
+  document.getElementById('tabs').style.display = 'flex';
+  document.getElementById('tabBody').style.display = 'block';
+  currentTab = 'summary';
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab==='summary'));
+  document.querySelectorAll('.tab-pane').forEach(p=>
+    p.classList.toggle('active', p.dataset.pane==='summary'));
+
+  logLine('transcription complete (' + (d.segments||[]).length + ' segments)', 'ok');
   const v = d.tone_setter || {};
-  const setter = v.setter_segment;
-  let line = 'No persistent tone shift detected in this clip.';
-  if(setter){
-    const m = setter.segment.mood;
-    line = 'The tone takes a decisive turn to "' + m.sentiment + '" at ' +
-      setter.segment.start + 's (' + m.one_line_reason + ').';
+  if(v.setter_segment){
+    logLine('tone-setter = segment ' + (v.setter_segment.segment_index+1), 'ok');
+  } else {
+    logLine('no decisive tone-setter', 'info');
   }
-  document.getElementById('oneline').textContent = line;
+}
 
-  // verdict card
-  let verdictHtml = '<div class="verdict-title">Tone-setter</div>';
-  if(setter){
-    const m = setter.segment.mood;
-    const idx = setter.segment_index;
-    verdictHtml += '<div class="setter">Segment ' + (idx+1) +
-      ' (starting ' + setter.segment.start + 's) sets the tone: ' +
-      '<span class="pill ' + m.sentiment + '">' + m.sentiment + '</span><br>' +
-      '<span class="note">' + (m.one_line_reason || '') + '</span></div>';
+function drawSummary(d){
+  const pane = document.getElementById('pane-summary');
+  pane.textContent = '';
+  const v = d.tone_setter || {};
+  const box = document.createElement('div');
+  box.className = 'verdict-box';
+  if(v.setter_segment){
+    const m = v.setter_segment.mood;
+    const head = document.createElement('div');
+    head.className = 'head';
+    head.appendChild(document.createTextNode('Tone-setter: segment ' + (v.setter_segment.segment_index+1) + ' '));
+    const pill = document.createElement('span');
+    pill.className = 'pill ' + safePill(m.sentiment);
+    pill.textContent = m.sentiment || 'neutral';
+    head.appendChild(pill);
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = m.one_line_reason || '';
+    box.appendChild(head);
+    box.appendChild(note);
+  } else {
+    const head = document.createElement('div');
+    head.className = 'head';
+    head.textContent = 'No tone-setter';
+    const note = document.createElement('div');
+    note.className = 'note';
+    note.textContent = v.confidence_note || '';
+    box.appendChild(head);
+    box.appendChild(note);
   }
-  verdictHtml += '<div class="note" style="margin-top:8px">' +
-    (v.confidence_note || '') + '</div>';
   if(v.followers && v.followers.length){
-    verdictHtml += '<div class="note" style="margin-top:6px">Followers: ' +
-      v.followers.length + ' segment(s) moving the same way.</div>';
+    const f = document.createElement('div');
+    f.className = 'followers';
+    f.textContent = 'Followers: ' + v.followers.length + ' segment(s) moving the same direction.';
+    box.appendChild(f);
   }
-  document.getElementById('verdict').innerHTML = verdictHtml;
+  pane.appendChild(box);
+}
 
-  // per-segment moods
-  let moodsHtml = '';
+function drawMood(d){
+  const pane = document.getElementById('pane-mood');
+  pane.textContent = '';
   (d.segments||[]).forEach(s=>{
     const m = s.mood || {};
-    moodsHtml += '<div class="seg"><div class="time">' +
-      Math.round(s.start) + '–' + Math.round(s.end) + 's</div>' +
-      '<div class="body">' +
-      '<span class="pill ' + m.sentiment + '">' + m.sentiment + '</span>' +
-      '<div class="txt">' + (s.text || 'no speech') + '</div>' +
-      '<div class="reason">certainty ' + Math.round((m.certainty||0)*100) +
-      '% · ' + (m.one_line_reason||'') + '</div></div></div>';
+    const seg = document.createElement('div');
+    seg.className = 'seg';
+    const time = document.createElement('div');
+    time.className = 'time';
+    time.textContent = Math.round(s.start) + '–' + Math.round(s.end) + 's';
+    const body = document.createElement('div');
+    body.className = 'body';
+    const pill = document.createElement('span');
+    pill.className = 'pill ' + safePill(m.sentiment);
+    pill.textContent = m.sentiment || 'neutral';
+    const txt = document.createElement('div');
+    txt.className = 'txt';
+    txt.textContent = s.text || 'no speech';
+    const reason = document.createElement('div');
+    reason.className = 'reason';
+    reason.textContent = 'certainty ' + Math.round((m.certainty||0)*100) +
+      '% · ' + (m.one_line_reason||'');
+    body.appendChild(pill);
+    body.appendChild(txt);
+    body.appendChild(reason);
+    seg.appendChild(time);
+    seg.appendChild(body);
+    pane.appendChild(seg);
   });
-  document.getElementById('moods').innerHTML = moodsHtml;
-
-  document.getElementById('transcript').textContent =
-    d.transcript || '(empty transcript)';
-  document.getElementById('meta').textContent =
-    'Clip ' + d.clip_id + ' · ' + d.duration_sec + 's · ' + APP_NAME;
 }
+
+function drawTimeline(d){
+  const zone = document.getElementById('timelineZone');
+  zone.textContent = '';
+  const segs = d.segments || [];
+  if(!segs.length){
+    const e = document.createElement('div');
+    e.className = 'empty';
+    e.textContent = 'No segments to visualize.';
+    zone.appendChild(e);
+    return;
+  }
+  const dur = d.duration_sec || segs[segs.length-1].end;
+  const tl = document.createElement('div');
+  tl.className = 'timeline';
+  segs.forEach(s=>{
+    const seg = document.createElement('div');
+    const w = ((s.end - s.start) / dur) * 100;
+    seg.className = 'tlseg ' + sentClass(s.mood && s.mood.sentiment);
+    seg.style.width = w + '%';
+    seg.textContent = (s.mood && s.mood.sentiment) || '';
+    tl.appendChild(seg);
+  });
+  const v = d.tone_setter || {};
+  if(v.setter_segment){
+    const mid = (v.setter_segment.start + v.setter_segment.end) / 2;
+    const mark = document.createElement('div');
+    mark.className = 'tl-marker';
+    mark.style.left = (mid / dur * 100) + '%';
+    tl.appendChild(mark);
+  }
+  zone.appendChild(tl);
+  const axis = document.createElement('div');
+  axis.className = 'tl-axis';
+  axis.appendChild(document.createTextNode('0s'));
+  axis.appendChild(document.createTextNode(dur + 's'));
+  zone.appendChild(axis);
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  const items = [['bullish','positive'],['bearish','negative'],
+                  ['hesitant','warn'],['confident','accent'],['neutral','neutral']];
+  items.forEach(([label, cls])=>{
+    const it = document.createElement('div');
+    it.className = 'item';
+    const sw = document.createElement('span');
+    sw.className = 'swatch tlseg ' + cls;
+    it.appendChild(sw);
+    it.appendChild(document.createTextNode(label));
+    legend.appendChild(it);
+  });
+  zone.appendChild(legend);
+  if(v.setter_segment){
+    const note = document.createElement('div');
+    note.className = 'empty';
+    note.style.marginTop = '10px';
+    note.textContent = '▲ tone-setter at ~' +
+      Math.round((v.setter_segment.start + v.setter_segment.end)/2) + 's';
+    zone.appendChild(note);
+  }
+}
+
+// clip selector buttons (left column)
+document.querySelectorAll('.clip-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.clip-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    loadClip(btn.dataset.clip);
+  });
+});
 </script>
 </body>
 </html>
