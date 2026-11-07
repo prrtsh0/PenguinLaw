@@ -78,6 +78,8 @@ button{font:inherit;color:inherit}
 }
 .step.done{color:var(--ink)}
 .step.done .mark{background:var(--bullish);border-color:var(--bullish)}
+.step.warn{color:var(--ink)}
+.step.warn .mark{background:var(--hesitant);border-color:var(--hesitant);font-weight:700}
 .step.running .mark{border-color:var(--accent);border-top-color:transparent;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.step.running .mark{animation:none}}
@@ -375,12 +377,14 @@ function markTabs(){
 }
 
 /* Steps */
-function drawSteps(state){
+function drawSteps(state, fallbackAll){
   const box = $("steps");
   box.textContent = "";
-  STEPS.forEach(name => {
-    const s = el("div", "step " + (state || ""));
-    const m = el("span", "mark", state === "done" ? "\u2713" : "");
+  STEPS.forEach((name, idx) => {
+    const warn = state === "done" && fallbackAll && (idx === 1 || idx === 2);
+    const s = el("div", "step " + (warn ? "warn" : (state || "")));
+    const m = el("span", "mark", warn ? "!" : (state === "done" ? "\u2713" : ""));
+    if(warn) s.title = "Not a real result: tone came from the rule-based fallback, not Evon.";
     s.appendChild(m);
     s.appendChild(el("span", "", name));
     box.appendChild(s);
@@ -430,11 +434,24 @@ function normalise(d){
   data = d;
   segs = (d.segments || []).map((s, i) => {
     const mood = s.mood || {};
+    const rawEngine = String(mood.engine || s.engine || d.tone_engine || "");
+    const reason = mood.one_line_reason || "";
+    const heuristic = /rule-based|lexicon|fallback|keyword|heuristic|\bcues\b/i.test(reason) ||
+      /rule|lexicon|fallback|keyword|heuristic/i.test(rawEngine);
+    let kind = "unknown";
+    if(heuristic) kind = "heuristic";
+    else if(/evon/i.test(rawEngine)) kind = "evon";
+    else if(rawEngine) kind = "llm";
+    const label = kind === "evon" ? "Evon"
+      : kind === "llm" ? rawEngine
+      : kind === "heuristic" ? "Rule-based, not a model"
+      : "Engine not recorded";
     return Object.assign({}, s, {
       i: i,
       mood: mood,
       tone: tone(mood.sentiment),
-      fb: /rule-based/i.test(mood.one_line_reason || "")
+      fb: kind === "heuristic" || kind === "unknown",
+      label: label
     });
   });
   const v = d.tone_setter || {};
@@ -445,6 +462,10 @@ function normalise(d){
     if(f && typeof f.index === "number") return f.index;
     return null;
   }).filter(n => n !== null && n >= 0 && n < segs.length && n !== setterIdx);
+  if(segs.length && segs.every(s => s.fb)){
+    setterIdx = null;
+    followerIdx = [];
+  }
 }
 
 /* Timeline */
@@ -524,7 +545,7 @@ function drawTimeline(){
   });
   const fbItem = el("div", "it");
   fbItem.appendChild(el("span", "sw hatch"));
-  fbItem.appendChild(document.createTextNode("Hatched: rule-based fallback, not Evon"));
+  fbItem.appendChild(document.createTextNode("Hatched: not a model result"));
   lg.appendChild(fbItem);
   const op = el("div", "it", "Fainter block = lower certainty");
   lg.appendChild(op);
@@ -586,7 +607,7 @@ function drawDetail(){
   tn.appendChild(sw);
   tn.appendChild(document.createTextNode(s.tone));
   head.appendChild(tn);
-  head.appendChild(el("span", "src" + (s.fb ? " fb" : ""), s.fb ? "Rule-based fallback" : "Evon"));
+  head.appendChild(el("span", "src" + (s.fb ? " fb" : ""), s.label));
   box.appendChild(head);
 
   box.appendChild(el("p", "detail-text", s.text || "No speech in this segment."));
@@ -687,20 +708,23 @@ function drawNotes(){
   const banner = $("banner");
   const fbCount = segs.filter(s => s.fb).length;
   const note = $("srcNote");
+  const counts = {};
+  segs.forEach(s => { counts[s.label] = (counts[s.label] || 0) + 1; });
+  const summary = Object.keys(counts).map(k => counts[k] + " segments: " + k).join("; ");
   if(segs.length && fbCount === segs.length){
     banner.style.display = "block";
     banner.textContent = "";
-    const st = el("strong", "", "Rule-based fallback, not Evon. ");
+    const st = el("strong", "", "Not a model result. ");
     banner.appendChild(st);
-    banner.appendChild(document.createTextNode("Every tone label on this clip comes from keyword counting. Re-run the analysis with a working Evon connection before relying on these results."));
-    note.textContent = "Tone source: rule-based fallback for all " + segs.length + " segments.";
+    banner.appendChild(document.createTextNode("Every tone label on this clip comes from keyword or lexicon counting, or has no recorded engine. Do not present it as Evon or any other model output."));
+    note.textContent = "Tone source: " + summary + ".";
   } else if(fbCount){
     banner.style.display = "block";
-    banner.textContent = fbCount + " of " + segs.length + " segments used the rule-based fallback instead of Evon. They are hatched on the timeline.";
-    note.textContent = "Tone source: Evon for " + (segs.length - fbCount) + " segments, rule-based fallback for " + fbCount + ".";
+    banner.textContent = fbCount + " of " + segs.length + " segments are not model results (rule-based or no recorded engine). They are hatched on the timeline.";
+    note.textContent = "Tone source: " + summary + ".";
   } else {
     banner.style.display = "none";
-    note.textContent = segs.length ? "Tone source: Evon for all " + segs.length + " segments." : "";
+    note.textContent = segs.length ? "Tone source: " + summary + "." : "";
   }
   const first = segs.length ? segs[0].end - segs[0].start : 0;
   const even = segs.length > 2 && segs.every(s => Math.abs((s.end - s.start) - first) < 0.06);
@@ -752,7 +776,7 @@ async function loadClip(id){
     drawTranscript();
     drawVoice();
     drawNotes();
-    drawSteps("done");
+    drawSteps("done", segs.length > 0 && segs.every(s => s.fb));
     const start = setterIdx !== null ? setterIdx : 0;
     if(segs.length) select(start, false); else drawDetail();
     update();
