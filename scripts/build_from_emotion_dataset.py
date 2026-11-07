@@ -21,8 +21,10 @@ Usage examples:
 import argparse
 import csv
 import json
+import math
 import os
 import random
+import re
 import subprocess
 import sys
 import urllib.parse
@@ -89,6 +91,35 @@ def download(url, dest):
     urllib.request.urlretrieve(url, dest)
 
 
+def safe_dest(audio_dir, provider_path):
+    """Return a destination path strictly inside audio_dir, or None if the
+    provider metadata would escape the intended data root."""
+    # normalize separators so backslash traversal is caught too
+    norm = provider_path.replace('\\', '/')
+    # absolute paths are always rejected
+    if os.path.isabs(norm) or norm.startswith('/'):
+        return None
+    # split into path segments; reject any traversal component
+    parts = [p for p in norm.split('/') if p not in ('', '.')]
+    if '..' in parts:
+        return None
+    name = parts[-1] if parts else ''
+    if not name or name in ('.', '..'):
+        return None
+    # keep only safe characters
+    name = re.sub(r'[^A-Za-z0-9._-]', '_', name)
+    if not name:
+        return None
+    root = os.path.abspath(audio_dir)
+    dest = os.path.abspath(os.path.join(root, name))
+    try:
+        if os.path.commonpath([root, dest]) != root:
+            return None
+    except ValueError:
+        return None
+    return dest
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--source', choices=['crema', 'ravdess', 'local'],
@@ -152,26 +183,58 @@ def main():
 
     # ---- stage 3: download (if remote) + extract features ----------------
     keys = feature_names()
+    required_keys = set(keys)
     out_rows = []
     skipped = []
     for path, emotion, tone in picked:
+        # provider path must not attempt traversal before we even build a URL
+        if '..' in path.replace('\\', '/').split('/'):
+            skipped.append((path, 'unsafe provider path (traversal)'))
+            continue
+
         local = path
         if not os.path.exists(local):
-            dest = os.path.join(audio_dir, os.path.basename(path))
+            dest = safe_dest(audio_dir, path)
+            if dest is None:
+                skipped.append((path, 'unsafe destination path rejected'))
+                continue
             try:
                 download(CREMA_BASE + urllib.parse.quote(path), dest)
                 local = dest
             except Exception as e:
                 skipped.append((path, f'download failed: {e}'))
                 continue
+
         try:
             feats = extract_features(local)
         except Exception as e:
             skipped.append((path, f'extract failed: {e}'))
             continue
+
+        # validate the feature row: must contain exactly the 22 expected keys,
+        # all with finite (non-NaN/non-inf) numeric values.
+        if not isinstance(feats, dict):
+            skipped.append((path, 'extract returned non-dict'))
+            continue
+        missing = [k for k in keys if k not in feats]
+        non_finite = []
+        for k in keys:
+            v = feats.get(k)
+            try:
+                vf = float(v)
+            except (TypeError, ValueError):
+                non_finite.append(k)
+                continue
+            if not math.isfinite(vf) or vf != vf:  # covers NaN
+                non_finite.append(k)
+        if missing or non_finite:
+            skipped.append((path, 'invalid features: '
+                            f'missing={len(missing)}, non-finite={len(non_finite)}'))
+            continue
+
         row = {'id': os.path.basename(path), 'label': tone}
         for k in keys:
-            row[k] = feats.get(k, 0.0)
+            row[k] = feats[k]
         out_rows.append(row)
 
     if not out_rows:
