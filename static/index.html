@@ -4,282 +4,113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PenguinLaw — Tone Console</title>
-<style>
-  :root{
-    --bg:#0d1117;
-    --panel:#161b22;
-    --panel-2:#0f141b;
-    --border:#252d3a;
-    --border-soft:#1f2630;
-    --text:#e6edf3;
-    --text-secondary:#9aa7b8;
-    --text-muted:#6b7686;
-    --accent:#3b82f6;
-    --accent-soft:rgba(59,130,246,.14);
-    --good:#34d399;
-    --good-soft:rgba(52,211,153,.12);
-    --bad:#f87171;
-    --bad-soft:rgba(248,113,113,.12);
-    --warn:#fbbf24;
-    --warn-soft:rgba(251,191,36,.12);
-    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg); color:var(--text); min-height:100vh; display:flex;
-    flex-direction:column; -webkit-font-smoothing:antialiased;}
-
-  /* === Top bar === */
-  .topbar{border-bottom:1px solid var(--border); background:var(--panel);
-    padding:0 16px; height:52px; display:flex; align-items:center; gap:14px;}
-  .logo{display:flex; align-items:center; gap:9px; font-weight:700; font-size:15px;}
-  .logo .mark{width:26px; height:26px; border-radius:7px; background:var(--accent);
-    color:#fff; display:flex; align-items:center; justify-content:center;
-    font-size:12px; font-weight:700;}
-  .logo .sub{color:var(--text-muted); font-weight:500; font-size:12px;}
-  .mode{display:flex; gap:4px;}
-  .mode-btn{background:transparent; border:none; color:var(--text-secondary);
-    font-size:13px; font-weight:500; padding:7px 12px; border-radius:8px; cursor:pointer;}
-  .mode-btn:hover{color:var(--text); background:var(--panel-2);}
-  .mode-btn.active{color:var(--accent); background:var(--accent-soft);}
-  .status-ind{display:flex; align-items:center; gap:7px; margin-left:auto;
-    font-size:12px; font-weight:600; color:var(--good); padding:5px 10px;
-    border:1px solid var(--good); border-radius:999px; background:var(--good-soft);}
-  .status-ind .pulse{width:8px; height:8px; border-radius:50%; background:var(--good);
-    animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-  .topbar .links{display:flex; gap:6px;}
-  .topbar .links a{font-size:12px; color:var(--text-secondary); text-decoration:none;
-    padding:6px 10px; border:1px solid var(--border); border-radius:8px;}
-  .topbar .links a:hover{color:var(--text); border-color:var(--accent);}
-
-  /* === Body === */
-  .body{flex:1; display:grid; grid-template-columns:250px minmax(0,1fr) 320px;
-    gap:1px; background:var(--border);}
-  .col{background:var(--bg); display:flex; flex-direction:column; min-height:0;}
-
-  /* Left: steps */
-  .col-left{padding:14px;}
-  .col-title{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--text-muted); margin-bottom:12px;}
-  .steps{list-style:none; display:flex; flex-direction:column; gap:8px;}
-  .step{border:1px solid var(--border); border-radius:10px; padding:11px 13px;
-    background:var(--panel); cursor:pointer; transition:border-color .15s;}
-  .step:hover{border-color:var(--accent);}
-  .step .row{display:flex; align-items:center; gap:9px;}
-  .step .num{font-family:var(--mono); font-size:12px; color:var(--accent);
-    letter-spacing:.04em;}
-  .step .name{font-size:13px; font-weight:600;}
-  .step .status{margin-left:auto; font-size:10px; font-weight:700; letter-spacing:.05em;
-    text-transform:uppercase; color:var(--text-muted);}
-  .step .status.done{color:var(--good);}
-  .step .status.active{color:var(--accent);}
-  .step p{font-size:11px; color:var(--text-muted); margin-top:5px; line-height:1.5;}
-
-  .clips{display:flex; flex-direction:column; gap:8px;}
-  .clip-btn{display:flex; flex-direction:column; gap:1px; text-align:left;
-    background:var(--panel); border:1px solid var(--border); border-radius:10px;
-    padding:10px 13px; cursor:pointer; font-size:13px; font-weight:600;
-    color:var(--text-secondary); transition:border-color .15s, color .15s, box-shadow .15s;}
-  .clip-btn .sub{font-size:11px; font-weight:400; color:var(--text-muted);}
-  .clip-btn:hover{border-color:var(--accent); color:var(--text);}
-  .clip-btn.active{border-color:var(--accent); color:var(--text);
-    box-shadow:0 0 0 1px var(--accent); background:var(--accent-soft);}
-
-  /* Center */
-  .col-center{padding:14px; overflow-y:auto;}
-  .player{border:1px solid var(--border); border-radius:10px; padding:12px;
-    background:var(--panel); margin-bottom:14px; display:flex; align-items:center; gap:14px;}
-  .player .clipname{font-size:13px; font-weight:600; min-width:76px;}
-  .player audio{flex:1; height:34px;}
-  .player .dur{font-family:var(--mono); font-size:12px; color:var(--text-muted);}
-
-  .viz{border:1px solid var(--border); border-radius:10px; background:var(--panel);}
-  .viz-head{padding:12px 14px; border-bottom:1px solid var(--border); display:flex;
-    align-items:center; gap:8px;}
-  .viz-head h3{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--text-muted);}
-  .viz-body{padding:14px;}
-
-  .timeline{position:relative; height:72px; border-radius:8px; overflow:hidden;
-    background:var(--panel-2); border:1px solid var(--border); display:flex;}
-  .tlseg{height:100%; display:flex; align-items:center; justify-content:center;
-    font-size:10px; font-weight:700; color:#fff; letter-spacing:.02em; overflow:hidden;
-    text-transform:uppercase; min-width:14px;}
-  .tlseg.positive{background:var(--good);}
-  .tlseg.negative{background:var(--bad);}
-  .tlseg.neutral{background:var(--text-muted);}
-  .tlseg.warn{background:var(--warn);}
-  .tlseg.accent{background:var(--accent);}
-  .tl-marker{position:absolute; top:0; bottom:0; width:3px; background:#fff;}
-  .tl-axis{display:flex; justify-content:space-between; margin-top:6px;
-    font-size:11px; color:var(--text-muted); font-family:var(--mono);}
-  .legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px; font-size:12px;
-    color:var(--text-secondary);}
-  .legend .item{display:flex; align-items:center; gap:6px;}
-  .legend .swatch{width:12px; height:12px; border-radius:3px;}
-  .empty{color:var(--text-muted); font-size:13px; padding:12px 0;}
-
-  /* Tabs: only one view at a time */
-  .tabs{display:flex; gap:4px; margin-top:14px; border-bottom:1px solid var(--border);}
-  .tab{background:transparent; border:none; color:var(--text-secondary); font-size:13px;
-    font-weight:500; padding:9px 14px; cursor:pointer; border-bottom:2px solid transparent;}
-  .tab:hover{color:var(--text);}
-  .tab.active{color:var(--accent); border-bottom-color:var(--accent);}
-  .tab-body{margin-top:12px;}
-  .tab-pane{display:none;}
-  .tab-pane.active{display:block;}
-
-  .pill{display:inline-block; font-size:10px; font-weight:600; text-transform:uppercase;
-    letter-spacing:.04em; padding:2px 8px; border-radius:999px;}
-  .pill.bullish{background:var(--good-soft); color:var(--good);}
-  .pill.bearish{background:var(--bad-soft); color:var(--bad);}
-  .pill.neutral{background:var(--good-soft); color:var(--text-secondary);}
-  .pill.hesitant{background:var(--warn-soft); color:var(--warn);}
-  .pill.confident{background:var(--accent-soft); color:var(--accent);}
-
-  .verdict-box{border:1px solid var(--border); border-radius:10px; padding:14px;
-    background:var(--panel-2);}
-  .verdict-box .head{font-size:13px; font-weight:600; margin-bottom:6px; display:flex;
-    align-items:center; gap:8px;}
-  .verdict-box .note{font-size:13px; color:var(--text-secondary); line-height:1.55;}
-  .verdict-box .followers{margin-top:10px; font-size:12px; color:var(--text-muted);}
-
-  .seg{display:flex; gap:12px; padding:10px 4px; border-bottom:1px solid var(--border-soft);}
-  .seg:last-child{border-bottom:none;}
-  .seg .time{font-family:var(--mono); font-size:12px; color:var(--text-muted);
-    min-width:58px; padding-top:3px; font-variant-numeric:tabular-nums;}
-  .seg .body{flex:1;}
-  .seg .txt{font-size:14px; color:var(--text); margin-top:4px; line-height:1.5;}
-  .seg .reason{font-size:12px; color:var(--text-muted); margin-top:3px;}
-
-  .transcript{font-size:13px; line-height:1.7; white-space:pre-wrap; color:var(--text);}
-
-  /* Right: log */
-  .col-right{padding:14px; background:var(--panel-2);}
-  .log{font-family:var(--mono); font-size:12px; color:var(--text-secondary);
-    line-height:1.8;}
-  .log .line{display:flex; gap:10px; padding:2px 0;}
-  .log .t{color:var(--text-muted);}
-  .log .ok{color:var(--good);}
-  .log .info{color:var(--accent);}
-  .log .err{color:var(--bad);}
-
-  .meta{font-size:12px; color:var(--text-muted); margin-top:14px; font-family:var(--mono);}
-
-  /* Footer */
-  .footer{border-top:1px solid var(--border); background:var(--panel); padding:14px 20px;
-    font-size:12px; color:var(--text-muted); line-height:1.6;}
-  .footer a{color:var(--accent); text-decoration:none;}
-
-  .state{display:none; border:1px solid var(--border); border-radius:8px; padding:10px 12px;
-    margin-bottom:12px; font-size:13px; color:var(--text-secondary); background:var(--panel);}
-  .state.error{border-color:var(--bad); color:var(--bad); background:var(--bad-soft);}
-  .state .spin{display:inline-block; width:14px; height:14px; border:2px solid var(--border);
-    border-top-color:var(--accent); border-radius:50%; margin-right:8px; vertical-align:-2px;
-    animation:spin .8s linear infinite;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .state.visible{display:flex; align-items:center;}
-
-  @media (max-width:1000px){
-    .body{grid-template-columns:1fr;}
-  }
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
   <!-- Top bar -->
   <header class="topbar">
-    <div class="logo">
-      <span class="mark">PL</span>
-      <span>PenguinLaw <span class="sub">/ tone console</span></span>
+    <div class="brand">
+      <span class="name">PenguinLaw</span>
+      <span class="slug">/ tone console</span>
     </div>
     <div class="mode">
-      <button class="mode-btn active">Timeline</button>
-      <button class="mode-btn">Listen</button>
+      <button class="active" type="button">Timeline</button>
+      <button type="button">Listen</button>
     </div>
-    <div class="status-ind"><span class="pulse"></span>System Ready</div>
+    <div class="spacer"></div>
+    <div class="status"><span class="dot"></span>System Ready</div>
     <nav class="links">
       <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">GitHub</a>
       <a href="https://docs.gnani.ai/" target="_blank" rel="noopener">Docs</a>
     </nav>
   </header>
 
-  <div class="body">
+  <!-- 3-panel layout -->
+  <div class="layout">
 
-    <!-- Left: workflow steps -->
-    <aside class="col col-left">
-      <div class="col-title">Source</div>
-      <div class="clips">
-        <button class="clip-btn" data-clip="clip1">Clip 1
-          <span class="sub">margin / day-trading</span></button>
-        <button class="clip-btn" data-clip="clip2">Clip 2
-          <span class="sub">Fed / leverage risk</span></button>
-        <button class="clip-btn" data-clip="clip3">Clip 3
-          <span class="sub">Gen Z / retail psychology</span></button>
-      </div>
-      <div class="col-title" style="margin-top:18px">Workflow Steps</div>
-      <ul class="steps">
-        <li class="step">
-          <div class="row"><span class="num">01</span><span class="name">Transcribe</span>
-            <span class="status done">Prisma</span></div>
-          <p>Gnani Prisma speech-to-text.</p>
-        </li>
-        <li class="step">
-          <div class="row"><span class="num">02</span><span class="name">Measure Tone</span>
-            <span class="status done">Segment</span></div>
-          <p>Sentiment + confidence per segment.</p>
-        </li>
-        <li class="step">
-          <div class="row"><span class="num">03</span><span class="name">Find Setter</span>
-            <span class="status done">Heuristic</span></div>
-          <p>Flags the decisive mood shift.</p>
-        </li>
-        <li class="step">
-          <div class="row"><span class="num">04</span><span class="name">Report</span>
-            <span class="status">Summary</span></div>
-          <p>Verdict + confidence.</p>
-        </li>
-      </ul>
-      <div id="state" class="state"></div>
-    </aside>
+    <!-- Left: source + workflow steps -->
+    <aside class="col">
+      <div class="col-pad">
+        <div class="section-label">Source</div>
+        <div class="clip-list">
+          <button class="clip-btn" data-clip="clip1">
+            <span class="cid">01</span><span class="cname">Clip 1 · margin / day-trading</span>
+          </button>
+          <button class="clip-btn" data-clip="clip2">
+            <span class="cid">02</span><span class="cname">Clip 2 · Fed / leverage risk</span>
+          </button>
+          <button class="clip-btn" data-clip="clip3">
+            <span class="cid">03</span><span class="cname">Clip 3 · Gen Z / retail psychology</span>
+          </button>
+        </div>
 
-    <!-- Center: player + viz + tabs -->
-    <main class="col col-center">
-      <div class="player" id="playerZone">
-        <div class="empty">Select a clip to load its audio and analysis.</div>
-      </div>
-
-      <div class="viz">
-        <div class="viz-head"><h3>Tone Timeline</h3></div>
-        <div class="viz-body">
-          <div id="timelineZone">
-            <div class="empty">No clip selected.</div>
+        <div class="section-label" style="margin-top:18px">Workflow Steps</div>
+        <div class="steps">
+          <div class="step" id="step-1">
+            <div class="row"><span class="num">01</span><span class="name">Transcribe</span>
+              <span class="state">prisma</span></div>
+            <p>Gnani Prisma speech-to-text.</p>
+          </div>
+          <div class="step" id="step-2">
+            <div class="row"><span class="num">02</span><span class="name">Measure Tone</span>
+              <span class="state">segments</span></div>
+            <p>Sentiment + confidence per segment.</p>
+          </div>
+          <div class="step" id="step-3">
+            <div class="row"><span class="num">03</span><span class="name">Find Setter</span>
+              <span class="state">heuristic</span></div>
+            <p>Flags the decisive mood shift.</p>
+          </div>
+          <div class="step" id="step-4">
+            <div class="row"><span class="num">04</span><span class="name">Report</span>
+              <span class="state">summary</span></div>
+            <p>Verdict + confidence.</p>
           </div>
         </div>
-      </div>
 
-      <div class="tabs" id="tabs" style="display:none">
-        <button class="tab active" data-tab="summary">Summary</button>
-        <button class="tab" data-tab="mood">Mood</button>
-        <button class="tab" data-tab="transcript">Transcript</button>
+        <div id="state" class="state"></div>
       </div>
-      <div class="tab-body" id="tabBody" style="display:none">
-        <div class="tab-pane active" data-pane="summary" id="pane-summary"></div>
-        <div class="tab-pane" data-pane="mood" id="pane-mood"></div>
-        <div class="tab-pane" data-pane="transcript">
-          <div class="transcript" id="transcript"></div>
+    </aside>
+
+    <!-- Center: player + timeline + verdict -->
+    <main class="col">
+      <div class="col-pad">
+        <div class="player" id="playerZone">
+          <div class="empty">Select a clip to load its audio and analysis.</div>
+        </div>
+
+        <div class="viz">
+          <div class="viz-head">Tone Timeline</div>
+          <div class="viz-body">
+            <div id="timelineZone">
+              <div class="empty">No clip selected.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="verdict" id="verdictZone" style="display:none">
+          <div class="vlabel">Tone-setter</div>
+          <div id="verdict"></div>
         </div>
       </div>
-
-      <div class="meta" id="meta"></div>
     </main>
 
-    <!-- Right: console log -->
-    <aside class="col col-right">
-      <div class="col-title">Event Log</div>
-      <div class="log" id="log">
-        <div class="line"><span class="t">--:--:--</span><span>console ready</span></div>
+    <!-- Right: log + segments + transcript -->
+    <aside class="col">
+      <div class="col-pad">
+        <div class="section-label">Event Log</div>
+        <div class="log" id="log">
+          <div class="line"><span class="t">--:--</span><span>console ready</span></div>
+        </div>
+
+        <div class="section-label" style="margin-top:14px">Per-segment Mood</div>
+        <div class="log" id="moodList" style="flex:0 0 auto; max-height:180px">
+          <div class="empty">Select a clip.</div>
+        </div>
+
+        <div class="section-label" style="margin-top:14px">Transcript</div>
+        <div class="transcript" id="transcript">Select a clip to load its transcript.</div>
       </div>
     </aside>
 
@@ -287,8 +118,7 @@
 
   <footer class="footer">
     Results from a real pipeline run on this clip. Tone is a signal, not a prediction.<br>
-    Repo: <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">
-    github.com/prrtsh0/PenguinLaw</a> · Gnani AI Internship Challenge
+    Repo: <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener">github.com/prrtsh0/PenguinLaw</a> · Gnani AI Internship Challenge
   </footer>
 
 <script>
@@ -302,25 +132,22 @@ function sentClass(s){
   if(s === 'confident') return 'accent';
   return 'neutral';
 }
-const CLIP_INFO = {
-  clip1: 'Clip 1 · margin / day-trading',
-  clip2: 'Clip 2 · Fed / leverage risk',
-  clip3: 'Clip 3 · Gen Z / retail psychology'
-};
 
 let currentClip = null;
-let currentTab = 'summary';
+let liveMode = /[?&]live=1/.test(window.location.search);
 
-document.querySelectorAll('.clip-btn').forEach(()=>{}); // placeholder
-
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    currentTab = tab.dataset.tab;
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t===tab));
-    document.querySelectorAll('.tab-pane').forEach(p=>
-      p.classList.toggle('active', p.dataset.pane===currentTab));
+function setStepsRunning(){
+  ['step-1','step-2','step-3'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.classList.remove('done'); el.classList.add('running'); }
   });
-});
+}
+function setStepsDone(){
+  ['step-1','step-2','step-3','step-4'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.classList.add('done'); el.classList.remove('running'); }
+  });
+}
 
 function setState(msg, isError){
   const s = document.getElementById('state');
@@ -340,7 +167,9 @@ function logLine(txt, cls){
   line.className = 'line';
   const t = document.createElement('span');
   t.className = 't';
-  t.textContent = new Date().toLocaleTimeString('en-GB', {hour12:false});
+  const now = new Date();
+  t.textContent = String(now.getHours()).padStart(2,'0') + ':' +
+    String(now.getMinutes()).padStart(2,'0');
   line.appendChild(t);
   const l = document.createElement('span');
   l.className = cls || '';
@@ -353,8 +182,9 @@ function buildPlayer(clipId){
   const zone = document.getElementById('playerZone');
   zone.textContent = '';
   const name = document.createElement('div');
-  name.className = 'clipname';
-  name.textContent = CLIP_INFO[clipId] || clipId;
+  name.className = 'pname';
+  name.textContent = clipId === 'clip1' ? 'Clip 1' :
+    clipId === 'clip2' ? 'Clip 2' : 'Clip 3';
   const audio = document.createElement('audio');
   audio.controls = true;
   audio.preload = 'metadata';
@@ -363,7 +193,7 @@ function buildPlayer(clipId){
   src.type = 'audio/wav';
   audio.appendChild(src);
   const dur = document.createElement('div');
-  dur.className = 'dur';
+  dur.className = 'pdur';
   dur.textContent = '–';
   audio.addEventListener('loadedmetadata', ()=>dur.textContent = '0:' + Math.round(audio.duration) + 's');
   zone.appendChild(name);
@@ -372,17 +202,18 @@ function buildPlayer(clipId){
 }
 
 async function loadClip(clipId){
-  if(currentClip === clipId) return;
+  if(currentClip === clipId && document.getElementById('timelineZone').childElementCount > 1) return;
   currentClip = clipId;
 
-  document.getElementById('tabs').style.display = 'none';
-  document.getElementById('tabBody').style.display = 'none';
+  document.querySelectorAll('.clip-btn').forEach(b=>b.classList.toggle('active', b.dataset.clip===clipId));
   buildPlayer(clipId);
-  logLine('loading ' + clipId, 'info');
-  setState('Analyzing ' + clipId + '…');
+  document.getElementById('verdictZone').style.display = 'none';
+  logLine('load ' + clipId + (liveMode ? ' (live)' : ' (cached)'), 'info');
 
+  if(liveMode) setStepsRunning();
+  setState(liveMode ? 'Running live pipeline…' : 'Loading ' + clipId + '…');
   try{
-    const r = await fetch('/analyze/' + clipId);
+    const r = await fetch('/analyze/' + clipId + (liveMode ? '?live=1' : ''));
     if(!r.ok){
       const body = await r.json().catch(()=>({}));
       setState('Error: ' + (body.error || r.status), true);
@@ -399,71 +230,56 @@ async function loadClip(clipId){
 
 function render(d){
   setState('');
+  setStepsDone();
   drawTimeline(d);
-  drawSummary(d);
+  drawVerdict(d);
   drawMood(d);
+
   document.getElementById('transcript').textContent = d.transcript || '(empty transcript)';
-  document.getElementById('meta').textContent =
-    'clip ' + d.clip_id + ' · ' + d.duration_sec + 's · ' + APP_NAME;
-
-  document.getElementById('tabs').style.display = 'flex';
-  document.getElementById('tabBody').style.display = 'block';
-  currentTab = 'summary';
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab==='summary'));
-  document.querySelectorAll('.tab-pane').forEach(p=>
-    p.classList.toggle('active', p.dataset.pane==='summary'));
-
-  logLine('transcription complete (' + (d.segments||[]).length + ' segments)', 'ok');
-  const v = d.tone_setter || {};
-  if(v.setter_segment){
-    logLine('tone-setter = segment ' + (v.setter_segment.segment_index+1), 'ok');
-  } else {
-    logLine('no decisive tone-setter', 'info');
-  }
+  document.getElementById('transcript').classList.remove('hint');
+  document.getElementById('verdictZone').style.display = 'block';
+  logLine('analysis ready (' + (d.segments||[]).length + ' segments)', 'ok');
 }
 
-function drawSummary(d){
-  const pane = document.getElementById('pane-summary');
-  pane.textContent = '';
+function drawVerdict(d){
+  const box = document.getElementById('verdict');
+  box.textContent = '';
   const v = d.tone_setter || {};
-  const box = document.createElement('div');
-  box.className = 'verdict-box';
   if(v.setter_segment){
     const m = v.setter_segment.mood;
     const head = document.createElement('div');
-    head.className = 'head';
-    head.appendChild(document.createTextNode('Tone-setter: segment ' + (v.setter_segment.segment_index+1) + ' '));
+    head.className = 'vhead';
+    head.appendChild(document.createTextNode('Segment ' + (v.setter_segment.segment_index+1) + ' '));
     const pill = document.createElement('span');
     pill.className = 'pill ' + safePill(m.sentiment);
     pill.textContent = m.sentiment || 'neutral';
     head.appendChild(pill);
     const note = document.createElement('div');
-    note.className = 'note';
+    note.className = 'vnote';
     note.textContent = m.one_line_reason || '';
     box.appendChild(head);
     box.appendChild(note);
   } else {
     const head = document.createElement('div');
-    head.className = 'head';
+    head.className = 'vhead';
     head.textContent = 'No tone-setter';
     const note = document.createElement('div');
-    note.className = 'note';
+    note.className = 'vnote';
     note.textContent = v.confidence_note || '';
     box.appendChild(head);
     box.appendChild(note);
   }
   if(v.followers && v.followers.length){
     const f = document.createElement('div');
-    f.className = 'followers';
+    f.className = 'vfollow';
     f.textContent = 'Followers: ' + v.followers.length + ' segment(s) moving the same direction.';
     box.appendChild(f);
   }
-  pane.appendChild(box);
 }
 
 function drawMood(d){
-  const pane = document.getElementById('pane-mood');
-  pane.textContent = '';
+  const list = document.getElementById('moodList');
+  list.textContent = '';
   (d.segments||[]).forEach(s=>{
     const m = s.mood || {};
     const seg = document.createElement('div');
@@ -488,7 +304,7 @@ function drawMood(d){
     body.appendChild(reason);
     seg.appendChild(time);
     seg.appendChild(body);
-    pane.appendChild(seg);
+    list.appendChild(seg);
   });
 }
 
@@ -503,63 +319,61 @@ function drawTimeline(d){
     zone.appendChild(e);
     return;
   }
+
   const dur = d.duration_sec || segs[segs.length-1].end;
+  const v = d.tone_setter || {};
+  const setterIdx = v.setter_segment ? v.setter_segment.segment_index : null;
+
   const tl = document.createElement('div');
   tl.className = 'timeline';
-  segs.forEach(s=>{
+  segs.forEach((s,i)=>{
     const seg = document.createElement('div');
     const w = ((s.end - s.start) / dur) * 100;
-    seg.className = 'tlseg ' + sentClass(s.mood && s.mood.sentiment);
+    seg.className = 'tlseg ' + sentClass(s.mood && s.mood.sentiment) +
+      (i === setterIdx ? ' setter' : '');
     seg.style.width = w + '%';
     seg.textContent = (s.mood && s.mood.sentiment) || '';
     tl.appendChild(seg);
   });
-  const v = d.tone_setter || {};
-  if(v.setter_segment){
-    const mid = (v.setter_segment.start + v.setter_segment.end) / 2;
-    const mark = document.createElement('div');
-    mark.className = 'tl-marker';
-    mark.style.left = (mid / dur * 100) + '%';
-    tl.appendChild(mark);
-  }
   zone.appendChild(tl);
+
   const axis = document.createElement('div');
   axis.className = 'tl-axis';
   axis.appendChild(document.createTextNode('0s'));
   axis.appendChild(document.createTextNode(dur + 's'));
   zone.appendChild(axis);
+
   const legend = document.createElement('div');
-  legend.className = 'legend';
+  legend.className = 'tl-legend';
   const items = [['bullish','positive'],['bearish','negative'],
                   ['hesitant','warn'],['confident','accent'],['neutral','neutral']];
   items.forEach(([label, cls])=>{
     const it = document.createElement('div');
     it.className = 'item';
     const sw = document.createElement('span');
-    sw.className = 'swatch tlseg ' + cls;
+    sw.className = 'sw tlseg ' + cls;
     it.appendChild(sw);
     it.appendChild(document.createTextNode(label));
     legend.appendChild(it);
   });
   zone.appendChild(legend);
-  if(v.setter_segment){
+
+  if(setterIdx !== null){
     const note = document.createElement('div');
-    note.className = 'empty';
-    note.style.marginTop = '10px';
-    note.textContent = '▲ tone-setter at ~' +
-      Math.round((v.setter_segment.start + v.setter_segment.end)/2) + 's';
+    note.className = 'tl-note';
+    note.textContent = 'tone-setter marked at segment ' + (setterIdx+1) + ' (~' +
+      Math.round((v.setter_segment.start + v.setter_segment.end)/2) + 's)';
     zone.appendChild(note);
   }
 }
 
-// clip selector buttons (left column)
+// clip selector
 document.querySelectorAll('.clip-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.clip-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    loadClip(btn.dataset.clip);
-  });
+  btn.addEventListener('click', ()=>loadClip(btn.dataset.clip));
 });
+
+// auto-select clip 1 on first load, show real cached result
+loadClip('clip1');
 </script>
 </body>
 </html>
