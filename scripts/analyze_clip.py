@@ -31,54 +31,114 @@ SEGMENT_SECONDS = 10.0
 TONE_LABELS = ['bullish', 'bearish', 'neutral', 'hesitant', 'confident']
 
 
-class EvonClient:
-    """Minimal wrapper around the Gnani Evon chat endpoint (OpenAI-compatible).
+class RuleBasedMood:
+    """Deterministic fallback mood mapper (used when Evon is unavailable).
 
-    Uses the openai library (already a dependency) against api.gnani.ai.
-    Falls back to a structured parse of the text response on JSON failure.
+    This is a heuristic, not a trained model. It keys off simple sentiment
+    word cues and is documented as such.
+    """
+
+    POSITIVE = ('bullish', 'optimistic', 'strong', 'up', 'growth', 'beat',
+                'record', 'gain', 'positive', 'momentum', 'outperform')
+    NEGATIVE = ('bearish', 'weak', 'down', 'decline', 'miss', 'cut',
+                'loss', 'negative', 'risk', 'underperform', 'drop')
+    HESITANT = ('hesitant', 'uncertain', 'unsure', 'maybe', 'might',
+                'concern', 'challenge', 'unclear', 'worried')
+    CONFIDENT = ('confident', 'firm', 'steady', 'certain', 'clearly',
+                 'surely', 'committed', 'definitely')
+
+    def analyze_segment(self, text):
+        low = text.lower()
+        pos = sum(1 for w in self.POSITIVE if w in low)
+        neg = sum(1 for w in self.NEGATIVE if w in low)
+        hes = sum(1 for w in self.HESITANT if w in low)
+        conf = sum(1 for w in self.CONFIDENT if w in low)
+
+        # decide sentiment
+        if pos > neg + hes + conf:
+            sentiment = 'bullish'
+        elif neg > pos + hes + conf:
+            sentiment = 'bearish'
+        elif conf > hes and conf >= pos and conf >= neg:
+            sentiment = 'confident'
+        elif hes > pos + neg + conf:
+            sentiment = 'hesitant'
+        else:
+            sentiment = 'neutral'
+
+        total = pos + neg + hes + conf
+        certainty = min(0.95, 0.4 + 0.1 * total) if total else 0.3
+        pressure = min(0.9, 0.3 + 0.12 * (pos + neg + conf))
+        reason = (f"Rule-based fallback: {pos} positive, {neg} negative, "
+                  f"{hes} hesitant, {conf} confident cues.")
+        return {
+            'sentiment': sentiment,
+            'certainty': round(certainty, 2),
+            'pressure': round(pressure, 2),
+            'one_line_reason': reason,
+        }
+
+
+class EvonClient:
+    """Wrapper for a hosted chat/Evon endpoint (OpenAI-compatible).
+
+    Reads GNANI_EVON_API_URL from env, optional; if unset or the call fails,
+    we fall back to RuleBasedMood. Evon itself is open-weight on Hugging Face;
+    if you have a hosted endpoint, set GNANI_EVON_API_URL and
+    GNANI_EVON_MODEL.
     """
 
     def __init__(self):
         self.api_key = os.environ.get('GNANI_API_KEY')
-        if not self.api_key:
-            raise RuntimeError('GNANI_API_KEY not set (env var)')
-        self.base_url = os.environ.get('GNANI_BASE_URL', 'https://api.gnani.ai')
+        self.api_url = os.environ.get('GNANI_EVON_API_URL')
         self.model = os.environ.get('GNANI_EVON_MODEL', 'evon')
         self.timeout = int(os.environ.get('GNANI_TIMEOUT_SECONDS', '120'))
-        try:
-            from openai import OpenAI
-            self._client = OpenAI(api_key=self.api_key, base_url=self.base_url)
-        except Exception as e:  # pragma: no cover
-            raise RuntimeError(f'Evon client init failed: {e}')
+        self._client = None
+        self._fallback = RuleBasedMood()
 
     def analyze_segment(self, text):
-        prompt = (
-            "You are a market-mood analyst. Given ONE speaker segment from a "
-            "markets conversation, return STRICT JSON only (no prose) with "
-            "exactly these keys:\n"
-            "{\n"
-            '  "sentiment": "<one of bullish|bearish|neutral|hesitant|confident>",\n'
-            '  "certainty": <0.0-1.0>,\n'
-            '  "pressure": <0.0-1.0>,   # how much this segment pushes the market mood\n'
-            '  "one_line_reason": "<short plain-English reason>"\n'
-            "}\n"
-            f"SEGMENT TEXT: \"{text}\""
-        )
-        resp = self._client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0,
-            request_timeout=self.timeout,
-        )
-        content = resp.choices[0].message.content or ''
-        return self._parse(content)
+        if self.api_url and self.api_key:
+            try:
+                from openai import OpenAI
+                if self._client is None:
+                    self._client = OpenAI(api_key=self.api_key,
+                                          base_url=self.api_url)
+                prompt = (
+                    "You are a market-mood analyst. Given ONE speaker segment "
+                    "from a markets conversation, return STRICT JSON only "
+                    "(no prose) with exactly these keys:\n"
+                    "{\n"
+                    '  "sentiment": "<one of '
+                    'bullish|bearish|neutral|hesitant|confident>",\n'
+                    '  "certainty": <0.0-1.0>,\n'
+                    '  "pressure": <0.0-1.0>,\n'
+                    '  "one_line_reason": "<short plain-English reason>"\n'
+                    "}\n"
+                    f"SEGMENT TEXT: \"{text}\""
+                )
+                resp = self._client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.0,
+                    request_timeout=self.timeout,
+                )
+                content = resp.choices[0].message.content or ''
+                return self._parse(content)
+            except Exception as e:
+                # fall back to rules on any failure (don't crash the pipeline)
+                out = self._fallback.analyze_segment(text)
+                out['one_line_reason'] = (
+                    f"Evon unavailable ({type(e).__name__}); {out['one_line_reason']}"
+                )
+                return out
+        # no hosted Evon configured -> rule-based
+        return self._fallback.analyze_segment(text)
 
     @staticmethod
     def _parse(content):
         """Best-effort JSON extraction with a safe fallback."""
         parsed = None
         try:
-            # find the first {...} JSON object in the response
             start = content.find('{')
             end = content.rfind('}')
             if start != -1 and end > start:
@@ -88,7 +148,6 @@ class EvonClient:
             parsed = None
 
         if not isinstance(parsed, dict):
-            # fallback: derive sentiment from obvious words
             low = content.lower()
             default = {
                 'sentiment': 'neutral',
@@ -106,7 +165,6 @@ class EvonClient:
                 default['sentiment'] = 'confident'
             return default
 
-        # prune keys
         out = {
             'sentiment': str(parsed.get('sentiment', 'neutral')),
             'certainty': float(parsed.get('certainty', 0.5)),
@@ -121,11 +179,25 @@ class EvonClient:
 
 
 def segment_transcript(segments, total_dur):
-    """Split the full transcript into 10s windows with text per window."""
-    # segments from Prisma typically carry start/end or timing; if none, window.
+    """Split the transcript into windows.
+
+    If Prisma returned timestamped segments, aggregate them into ~10s windows.
+    Otherwise (REST returns a single transcript with no timing), split the
+    transcript into sentence-ish chunks and spread them evenly across the clip
+    duration so the tone-setter still has multiple segments to work with.
+    """
     if not segments:
         return [{'start': 0.0, 'end': total_dur, 'text': ''}]
-    # If Prisma gave timestamped segments, aggregate them into windows.
+    # If any segment carries a timestamp, use time-based windows.
+    has_timing = any(
+        s.get('start') is not None or s.get('begin') is not None
+        or s.get('offset') is not None
+        for s in segments
+    )
+    if not has_timing:
+        return _sentence_windows([s.get('text', '') for s in segments],
+                                 total_dur)
+
     windows = []
     n = max(1, int(total_dur // SEGMENT_SECONDS) + 1)
     for i in range(n):
@@ -136,6 +208,32 @@ def segment_transcript(segments, total_dur):
             if _seg_overlaps(s, start, end)
         ).strip()
         windows.append({'start': round(start, 1), 'end': round(end, 1), 'text': text})
+    return windows
+
+
+def _sentence_windows(texts, total_dur):
+    """Spread joined sentence-like chunks across `total_dur` evenly."""
+    joined = ' '.join(t for t in texts if t).strip()
+    if not joined:
+        return [{'start': 0.0, 'end': total_dur, 'text': ''}]
+    # crude sentence split
+    parts = []
+    import re as _re
+    for chunk in _re.split(r'(?<=[.!?])\s+', joined):
+        chunk = chunk.strip()
+        if chunk:
+            parts.append(chunk)
+    if not parts:
+        parts = [joined]
+    n = len(parts)
+    step = total_dur / n
+    windows = []
+    for i, p in enumerate(parts):
+        windows.append({
+            'start': round(i * step, 1),
+            'end': round((i + 1) * step, 1),
+            'text': p,
+        })
     return windows
 
 
@@ -167,21 +265,34 @@ def analyze(clip_id, force_live=False, use_cache=True):
         with open(result_path, encoding='utf-8') as fh:
             return json.load(fh)
 
-    # Prisma transcription (existing client)
-    from gnani_client import GnaniClient, GnaniError  # noqa: E402
+    # Prisma transcription (new live client for api.vachana.ai)
+    from scripts.gnani_live import GnaniLiveClient, GnaniLiveError  # noqa: E402
     try:
-        client = GnaniClient()
-    except GnaniError as e:
+        client = GnaniLiveClient()
+    except GnaniLiveError as e:
         raise RuntimeError(f'Prisma setup failed: {e}')
 
     try:
-        tr = client.transcribe(audio)
-    except GnaniError as e:
+        tr = client.transcribe(audio, language_code='en-IN',
+                               model='prisma-v3.0')
+    except GnaniLiveError as e:
         raise RuntimeError(f'Prisma transcription failed: {e}')
 
     transcript = tr.get('transcript', '')
     prisma_segments = tr.get('segments') or []
-    total_dur = float(tr.get('duration_sec') or SEGMENT_SECONDS)
+
+    # Real duration from the audio file (REST returns no duration)
+    try:
+        import soundfile as sf
+        info = sf.info(audio)
+        total_dur = float(info.frames) / float(info.samplerate)
+    except Exception:
+        total_dur = float(tr.get('duration_sec') or SEGMENT_SECONDS)
+
+    # If REST returned no timestamped segments, treat the full transcript as a
+    # single pseudo-segment so sentence-windows can be built.
+    if not prisma_segments and transcript.strip():
+        prisma_segments = [{'text': transcript}]
 
     windows = segment_transcript(prisma_segments, total_dur)
 
