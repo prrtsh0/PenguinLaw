@@ -9,10 +9,10 @@
       "end": 2.7,
       "text": "At a very high interest rate, and then I could buy that stock.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "bullish",
+        "certainty": 0.68,
+        "pressure": 0.68,
+        "one_line_reason": "Lexicon-weighted 2+/0-/1?/0! cues. [prosody used]"
       }
     },
     {
@@ -21,9 +21,9 @@
       "text": "Let's rip some day trades.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.38,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -31,10 +31,10 @@
       "end": 8.2,
       "text": "Absolutely right.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "confident",
+        "certainty": 0.46,
+        "pressure": 0.68,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/2! cues. [prosody used]"
       }
     },
     {
@@ -43,9 +43,9 @@
       "text": "Investors in the US stock market are making a lot of these margin trades these days.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.37,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -54,9 +54,9 @@
       "text": "The total amount of borrowing is at an all-time.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.36,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -65,9 +65,9 @@
       "text": "Record level, over 1.5 trillion dollars.",
       "mood": {
         "sentiment": "bullish",
-        "certainty": 0.5,
-        "pressure": 0.42,
-        "one_line_reason": "Rule-based fallback: 1 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.58,
+        "pressure": 0.62,
+        "one_line_reason": "Lexicon-weighted 2+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -76,9 +76,9 @@
       "text": "That's up by 50% from a year ago.",
       "mood": {
         "sentiment": "bullish",
-        "certainty": 0.5,
-        "pressure": 0.42,
-        "one_line_reason": "Rule-based fallback: 1 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.54,
+        "pressure": 0.56,
+        "one_line_reason": "Lexicon-weighted 1+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -87,9 +87,9 @@
       "text": "Woof, that is a lot of leverage.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.36,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -98,9 +98,9 @@
       "text": "Hello and welcome to Planet Money.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.26,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -109,9 +109,9 @@
       "text": "I'm Waylon Wang and I'm Ricky Molfi.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.28,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     },
     {
@@ -120,9 +120,9 @@
       "text": "Investing behavior is changed.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.36,
+        "pressure": 0.38,
+        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
       }
     }
   ],
@@ -149,10 +149,5 @@
     "mfcc_12": -11.172411918640137,
     "spectral_flux_mean": 2.885655403137207,
     "duration_sec": 30.0
-  },
-  "tone_setter": {
-    "setter_segment": null,
-    "followers": [],
-    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
   }
 }

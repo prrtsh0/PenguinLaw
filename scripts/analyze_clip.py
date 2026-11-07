@@ -17,7 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from features.extract import extract_features  # noqa: E402
+from features.extract import extract_features, extract_window_features  # noqa: E402
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLIPS = {
@@ -38,46 +38,131 @@ class RuleBasedMood:
     word cues and is documented as such.
     """
 
-    POSITIVE = ('bullish', 'optimistic', 'strong', 'up', 'growth', 'beat',
-                'record', 'gain', 'positive', 'momentum', 'outperform')
-    NEGATIVE = ('bearish', 'weak', 'down', 'decline', 'miss', 'cut',
-                'loss', 'negative', 'risk', 'underperform', 'drop')
-    HESITANT = ('hesitant', 'uncertain', 'unsure', 'maybe', 'might',
-                'concern', 'challenge', 'unclear', 'worried')
-    CONFIDENT = ('confident', 'firm', 'steady', 'certain', 'clearly',
-                 'surely', 'committed', 'definitely')
+    POSITIVE = {
+        "bullish": 3, "optimistic": 2, "strong": 2, "up": 1.5,
+        "growth": 2, "beat": 2.5, "beats": 2.5, "record": 2,
+        "gain": 1.5, "gains": 1.5, "positive": 2, "momentum": 2,
+        "outperform": 2.5, "rally": 2.5, "surge": 2, "soar": 2.5,
+        "expand": 1.5, "recover": 1.5, "improve": 1.5, "exceed": 2,
+        "buy": 1.5, "opportunity": 1.5, "profit": 2, "earnings": 1,
+        "revenue": 1, "high": 1, "solid": 1.5, "robust": 2,
+        "healthy": 1.5, "accelerate": 2, "resilient": 2, "jump": 2,
+        "climb": 1.5, "rise": 1.5, "rising": 1.5, "higher": 1.5,
+        "favorable": 1.5,
+    }
 
-    def analyze_segment(self, text):
+    NEGATIVE = {
+        "bearish": 3, "weak": 2, "down": 1.5, "decline": 2,
+        "miss": 2.5, "cut": 2, "loss": 2, "negative": 2, "risk": 2,
+        "underperform": 2.5, "drop": 2, "fall": 1.5, "fell": 2,
+        "slump": 2.5, "weakness": 2, "volatile": 2, "uncertainty": 1.5,
+        "lower": 1.5, "sell": 1.5, "poor": 1.5, "downgrade": 2.5,
+        "warn": 2, "deteriorate": 2.5, "struggle": 2, "pressure": 1.5,
+        "below": 1.5, "short": 1, "debt": 1, "layoff": 2,
+        "restructuring": 2, "sluggish": 2, "disappoint": 2.5,
+    }
+
+    HESITANT = {
+        "hesitant": 2.5, "uncertain": 2.5, "unsure": 2.5, "maybe": 1.5,
+        "might": 1.5, "could": 1, "concern": 2, "challenge": 2,
+        "unclear": 2.5, "worried": 2, "ambiguous": 2, "speculate": 2,
+        "contemplate": 1.5, "questionable": 2, "tepid": 2, "mixed": 1.5,
+    }
+
+    CONFIDENT = {
+        "confident": 2.5, "firm": 2, "steady": 1.5, "certain": 2.5,
+        "clearly": 2, "surely": 2, "committed": 2, "definitely": 2.5,
+        "absolutely": 2.5, "guarantee": 3, "certainly": 2.5,
+        "undoubtedly": 2.5, "maintain": 2, "conviction": 3,
+        "will": 1, "should": 1, "forecast": 1.5, "target": 1.5,
+    }
+
+    NEGATORS = ("not", "no", "never", "without", "lacks",
+                "fail", "fails", "failed", "reject", "denies",
+                "cannot", "hardly", "barely")
+
+
+    def _score(self, low):
+        tokens = low.split()
+        pos = neg = hes = conf = 0.0
+        n = len(tokens)
+        i = 0
+        while i < n:
+            w = tokens[i]
+            negated = False
+            if i > 0 and tokens[i-1] in self.NEGATORS:
+                negated = True
+            cat = None
+            weight = 0.0
+            lw = w.lower()
+            if lw in self.POSITIVE:
+                cat, weight = "pos", self.POSITIVE[lw]
+            elif lw in self.NEGATIVE:
+                cat, weight = "neg", self.NEGATIVE[lw]
+            elif lw in self.HESITANT:
+                cat, weight = "hes", self.HESITANT[lw]
+            elif lw in self.CONFIDENT:
+                cat, weight = "conf", self.CONFIDENT[lw]
+            if cat:
+                if negated and cat in ("pos", "neg"):
+                    if cat == "pos":
+                        neg += weight
+                    else:
+                        pos += weight
+                elif cat == "pos":
+                    pos += weight
+                elif cat == "neg":
+                    neg += weight
+                elif cat == "hes":
+                    hes += weight
+                elif cat == "conf":
+                    conf += weight
+            i += 1
+        return pos, neg, hes, conf
+
+
+    def analyze_segment(self, text, prosody=None):
         low = text.lower()
-        pos = sum(1 for w in self.POSITIVE if w in low)
-        neg = sum(1 for w in self.NEGATIVE if w in low)
-        hes = sum(1 for w in self.HESITANT if w in low)
-        conf = sum(1 for w in self.CONFIDENT if w in low)
+        pos, neg, hes, conf = self._score(low)
 
-        # decide sentiment
-        if pos > neg + hes + conf:
-            sentiment = 'bullish'
-        elif neg > pos + hes + conf:
-            sentiment = 'bearish'
+        if pos >= max(neg, hes, conf) and pos > 0:
+            sentiment = "bullish"
+        elif neg > pos and neg >= hes and neg >= conf:
+            sentiment = "bearish"
         elif conf > hes and conf >= pos and conf >= neg:
-            sentiment = 'confident'
-        elif hes > pos + neg + conf:
-            sentiment = 'hesitant'
+            sentiment = "confident"
+        elif hes >= max(pos, neg, conf) and hes > 0:
+            sentiment = "hesitant"
         else:
-            sentiment = 'neutral'
+            sentiment = "neutral"
 
         total = pos + neg + hes + conf
-        certainty = min(0.95, 0.4 + 0.1 * total) if total else 0.3
-        pressure = min(0.9, 0.3 + 0.12 * (pos + neg + conf))
-        reason = (f"Rule-based fallback: {pos} positive, {neg} negative, "
-                  f"{hes} hesitant, {conf} confident cues.")
-        return {
-            'sentiment': sentiment,
-            'certainty': round(certainty, 2),
-            'pressure': round(pressure, 2),
-            'one_line_reason': reason,
-        }
+        certainty = min(0.97, 0.35 + 0.08 * total) if total else 0.3
+        pressure = min(0.95, 0.3 + 0.12 * (pos + neg + conf))
 
+        if prosody:
+            energy = prosody.get("energy_mean", 0.0)
+            flux = prosody.get("spectral_flux_mean", 0.0)
+            rate = prosody.get("speech_rate_seg_per_sec", 0.0)
+            pitch_std = prosody.get("pitch_std", 0.0)
+            if energy > 0.15:
+                pressure = min(0.97, pressure + 0.1)
+            if flux > 0.05:
+                pressure = min(0.97, pressure + 0.08)
+            if 1.5 < rate < 12:
+                certainty = min(0.97, certainty + 0.08)
+            certainty = min(0.97, max(0.1, certainty - pitch_std / 2000.0))
+
+        reason = (f"Lexicon-weighted {int(pos)}+/{int(neg)}-/{int(hes)}?"
+                  f"/{int(conf)}! cues.")
+        if prosody:
+            reason += " [prosody used]"
+        return {
+            "sentiment": sentiment,
+            "certainty": round(certainty, 2),
+            "pressure": round(pressure, 2),
+            "one_line_reason": reason,
+        }
 
 class EvonClient:
     """Wrapper for a hosted chat/Evon endpoint (OpenAI-compatible).
@@ -108,12 +193,12 @@ class EvonClient:
             elif self._oai_key:
                 self.provider = 'openai'
 
-    def analyze_segment(self, text):
+    def analyze_segment(self, text, prosody=None):
         if self.provider == 'anthropic' and self._anthropic_key:
             try:
                 return self._anthropic_analyze(text)
             except Exception as e:
-                out = self._fallback.analyze_segment(text)
+                out = self._fallback.analyze_segment(text, prosody=prosody)
                 out['one_line_reason'] = (
                     f"Anthropic unavailable ({type(e).__name__}); {out['one_line_reason']}"
                 )
@@ -122,12 +207,12 @@ class EvonClient:
             try:
                 return self._openai_analyze(text)
             except Exception as e:
-                out = self._fallback.analyze_segment(text)
+                out = self._fallback.analyze_segment(text, prosody=prosody)
                 out['one_line_reason'] = (
                     f"OpenAI unavailable ({type(e).__name__}); {out['one_line_reason']}"
                 )
                 return out
-        return self._fallback.analyze_segment(text)
+        return self._fallback.analyze_segment(text, prosody=prosody)
 
     def _openai_analyze(self, text):
         from openai import OpenAI
@@ -355,7 +440,11 @@ def analyze(clip_id, force_live=False, use_cache=True):
                 },
             })
             continue
-        mood = evon.analyze_segment(text)
+        try:
+            wp = extract_window_features(audio, w["start"], w["end"])
+        except Exception:
+            wp = None
+        mood = evon.analyze_segment(text, prosody=wp)
         segments.append({
             'start': w['start'],
             'end': w['end'],
