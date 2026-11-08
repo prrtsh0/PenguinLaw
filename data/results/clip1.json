@@ -9,10 +9,10 @@
       "end": 2.7,
       "text": "At a very high interest rate, and then I could buy that stock.",
       "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.68,
-        "pressure": 0.68,
-        "one_line_reason": "Lexicon-weighted 2+/0-/1?/0! cues. [prosody used]"
+        "sentiment": "hesitant",
+        "certainty": 0.6,
+        "pressure": 0.2,
+        "one_line_reason": "Discusses buying stocks conditionally based on high interest rates."
       }
     },
     {
@@ -20,10 +20,10 @@
       "end": 5.5,
       "text": "Let's rip some day trades.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.38,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "bullish",
+        "certainty": 0.9,
+        "pressure": 0.5,
+        "one_line_reason": "Enthusiastic expression about aggressive short-term day trading."
       }
     },
     {
@@ -31,10 +31,10 @@
       "end": 8.2,
       "text": "Absolutely right.",
       "mood": {
-        "sentiment": "confident",
-        "certainty": 0.46,
-        "pressure": 0.68,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/2! cues. [prosody used]"
+        "sentiment": "neutral",
+        "certainty": 0.5,
+        "pressure": 0.1,
+        "one_line_reason": "General conversational agreement without direct market context."
       }
     },
     {
@@ -42,10 +42,10 @@
       "end": 10.9,
       "text": "Investors in the US stock market are making a lot of these margin trades these days.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.37,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "bullish",
+        "certainty": 0.8,
+        "pressure": 0.6,
+        "one_line_reason": "Highlights increasing speculative margin trading by US stock investors."
       }
     },
     {
@@ -53,10 +53,10 @@
       "end": 13.6,
       "text": "The total amount of borrowing is at an all-time.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.36,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "hesitant",
+        "certainty": 0.7,
+        "pressure": 0.7,
+        "one_line_reason": "Notes that total borrowing for investments has reached an all-time high."
       }
     },
     {
@@ -64,10 +64,10 @@
       "end": 16.4,
       "text": "Record level, over 1.5 trillion dollars.",
       "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.58,
-        "pressure": 0.62,
-        "one_line_reason": "Lexicon-weighted 2+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "bearish",
+        "certainty": 0.8,
+        "pressure": 0.8,
+        "one_line_reason": "Points out record-level borrowing exceeding 1.5 trillion dollars."
       }
     },
     {
@@ -75,10 +75,10 @@
       "end": 19.1,
       "text": "That's up by 50% from a year ago.",
       "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.54,
-        "pressure": 0.56,
-        "one_line_reason": "Lexicon-weighted 1+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "bearish",
+        "certainty": 0.8,
+        "pressure": 0.8,
+        "one_line_reason": "Emphasizes a massive 50% year-over-year increase in debt."
       }
     },
     {
@@ -86,10 +86,10 @@
       "end": 21.8,
       "text": "Whoof, that is a lot of leverage.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.36,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "bearish",
+        "certainty": 0.9,
+        "pressure": 0.9,
+        "one_line_reason": "Expresses concern over dangerously high levels of financial leverage."
       }
     },
     {
@@ -98,9 +98,9 @@
       "text": "Hello and welcome to Planet Money.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.26,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "certainty": 1.0,
+        "pressure": 0.0,
+        "one_line_reason": "Standard podcast introduction."
       }
     },
     {
@@ -109,9 +109,9 @@
       "text": "I'm Waylon Wang and I'm Ricky Molfi.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.28,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "certainty": 1.0,
+        "pressure": 0.0,
+        "one_line_reason": "Podcast hosts introducing themselves."
       }
     },
     {
@@ -119,10 +119,10 @@
       "end": 30.0,
       "text": "Investing behavior is changed.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.36,
-        "pressure": 0.38,
-        "one_line_reason": "Lexicon-weighted 0+/0-/0?/0! cues. [prosody used]"
+        "sentiment": "hesitant",
+        "certainty": 0.7,
+        "pressure": 0.4,
+        "one_line_reason": "General observation that overall investing behavior has shifted."
       }
     }
   ],
@@ -149,5 +149,6 @@
     "mfcc_12": -11.172411918640137,
     "spectral_flux_mean": 2.885655403137207,
     "duration_sec": 30.0
-  }
+  },
+  "tone_engine": "gemini-3.5-flash-lite"
 }

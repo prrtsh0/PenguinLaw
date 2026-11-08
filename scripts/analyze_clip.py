@@ -164,6 +164,120 @@ class RuleBasedMood:
             "one_line_reason": reason,
         }
 
+class GeminiClient:
+    """Tone analysis via Google Gemini (AI Studio free tier).
+
+    Reads LLM_API_KEY (API key) and LLM_MODEL (model id, default
+    gemini-2.0-flash-lite) from the environment. Sends ONE request for all
+    segments of a clip and requires a strict JSON array back — one object per
+    segment: {market_related, stance, certainty, pressure, reason}. Validates
+    the JSON and retries once; if it still fails it raises an error with the
+    raw body. There is NO fallback to the lexicon.
+    """
+
+    DEFAULT_MODEL = 'gemini-2.0-flash-lite'
+
+    def __init__(self):
+        self.api_key = os.environ.get('LLM_API_KEY', '').strip()
+        self.model = (os.environ.get('LLM_MODEL', '').strip()
+                      or self.DEFAULT_MODEL)
+        self.timeout = int(os.environ.get('GNANI_TIMEOUT_SECONDS', '120'))
+        if not self.api_key:
+            raise RuntimeError(
+                'LLM_API_KEY is not set; cannot run the Gemini tone step.'
+            )
+
+    def _request(self, texts):
+        import requests
+        url = ('https://generativelanguage.googleapis.com/v1beta/models/'
+               f'{self.model}:generateContent')
+        headers = {'x-goog-api-key': self.api_key,
+                   'Content-Type': 'application/json'}
+        lines = '\n'.join(f'[{i}] "{t}"' for i, t in enumerate(texts))
+        prompt = (
+            'You are a market-mood analyst. Below is a series of timestamped '
+            'speaker segments from a markets conversation. For EACH segment, '
+            'output exactly one JSON object in the SAME order, forming a JSON '
+            'array. Return STRICT JSON ONLY \u2014 no prose, no markdown fences.\n'
+            'Each object must have exactly these keys:\n'
+            '{\n'
+            '  "market_related": <true|false>,\n'
+            '  "stance": "<risk_on|risk_off|uncertain|none>",\n'
+            '  "certainty": <0.0-1.0>,\n'
+            '  "pressure": <0.0-1.0>,\n'
+            '  "reason": "<short plain-English reason>"\n'
+            '}\n'
+            'Segments:\n' + lines
+        )
+        body = {
+            'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
+            'generationConfig': {'temperature': 0.0,
+                                 'responseMimeType': 'application/json'},
+        }
+        resp = requests.post(url, headers=headers, json=body,
+                             timeout=self.timeout)
+        if resp.status_code != 200:
+            raise RuntimeError(
+                f'Gemini HTTP {resp.status_code}: {resp.text[:300]}'
+            )
+        data = resp.json()
+        try:
+            return data['candidates'][0]['content']['parts'][0]['text']
+        except (KeyError, IndexError, TypeError):
+            raise RuntimeError(
+                f'Gemini unexpected response envelope: {json.dumps(data)[:300]}'
+            )
+
+    def analyze_clip(self, segments):
+        texts = [s['text'] for s in segments]
+        last_raw = ''
+        for attempt in range(2):      # validate + retry once
+            last_raw = self._request(texts)
+            moods = self._parse(last_raw, len(segments))
+            if moods is not None:
+                return moods
+        raise RuntimeError(
+            'Gemini returned invalid JSON after one retry. Raw body:\n'
+            + last_raw[:500]
+        )
+
+    @staticmethod
+    def _parse(content, expected):
+        text = content.strip()
+        if text.startswith('```'):
+            text = text.strip('`').lstrip()
+            if text.lower().startswith('json'):
+                text = text[4:]
+        try:
+            arr = json.loads(text)
+        except Exception:
+            return None
+        if not isinstance(arr, list) or len(arr) != expected:
+            return None
+        stance_map = {'risk_on': 'bullish', 'risk_off': 'bearish',
+                      'uncertain': 'hesitant', 'none': 'neutral'}
+        out = []
+        for item in arr:
+            if not isinstance(item, dict):
+                return None
+            stance = str(item.get('stance', 'none')).lower()
+            sentiment = stance_map.get(stance, 'neutral')
+            if item.get('market_related') is False:
+                sentiment = 'neutral'
+            try:
+                certainty = float(item.get('certainty', 0.5))
+                pressure = float(item.get('pressure', 0.5))
+            except (TypeError, ValueError):
+                return None
+            out.append({
+                'sentiment': sentiment,
+                'certainty': max(0.0, min(1.0, certainty)),
+                'pressure': max(0.0, min(1.0, pressure)),
+                'one_line_reason': str(item.get('reason', '')),
+            })
+        return out
+
+
 class EvonClient:
     """Wrapper for a hosted chat/Evon endpoint (OpenAI-compatible).
 
@@ -422,10 +536,12 @@ def analyze(clip_id, force_live=False, use_cache=True):
 
     windows = segment_transcript(prisma_segments, total_dur)
 
-    # Evon per segment (skip empty text windows -> neutral fallback)
-    evon = EvonClient()
+    # Batch tone analysis via Google Gemini (ONE request per clip). No lexicon
+    # fallback: if Gemini returns bad JSON twice, analyze raises an error.
+    gemini = GeminiClient()
     segments = []
-    for w in windows:
+    pending = []            # indices of windows with real speech (in order)
+    for i, w in enumerate(windows):
         text = w['text']
         if not text.strip():
             segments.append({
@@ -439,18 +555,19 @@ def analyze(clip_id, force_live=False, use_cache=True):
                     'one_line_reason': 'No speech detected in this window.',
                 },
             })
-            continue
-        try:
-            wp = extract_window_features(audio, w["start"], w["end"])
-        except Exception:
-            wp = None
-        mood = evon.analyze_segment(text, prosody=wp)
-        segments.append({
-            'start': w['start'],
-            'end': w['end'],
-            'text': text,
-            'mood': mood,
-        })
+        else:
+            pending.append(i)
+            segments.append({
+                'start': w['start'],
+                'end': w['end'],
+                'text': text,
+                'mood': None,
+            })
+
+    if pending:
+        moods = gemini.analyze_clip([segments[i] for i in pending])
+        for i, mood in zip(pending, moods):
+            segments[i]['mood'] = mood
 
     # Prosody (supporting signal only)
     try:
@@ -465,6 +582,7 @@ def analyze(clip_id, force_live=False, use_cache=True):
         'transcript': transcript,
         'segments': segments,
         'prosody': feats,
+        'tone_engine': gemini.model,
     }
     with open(result_path, 'w', encoding='utf-8') as fh:
         json.dump(result, fh, ensure_ascii=False, indent=2)

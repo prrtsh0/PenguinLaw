@@ -2,17 +2,17 @@
   "clip_id": "clip2",
   "audio_path": "data\\demo_clips\\clip2.wav",
   "duration_sec": 30.0,
-  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course 2000",
+  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course.",
   "segments": [
     {
       "start": 0.0,
       "end": 3.8,
       "text": "The Fed could say, \"Okay, we should be more cautious.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
+        "sentiment": "hesitant",
+        "certainty": 0.6,
         "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "one_line_reason": "Discusses potential cautious Fed policy shifts."
       }
     },
     {
@@ -20,10 +20,10 @@
       "end": 7.5,
       "text": "Your brokerage firm can loan you,\" say.",
       "mood": {
-        "sentiment": "confident",
-        "certainty": 0.5,
-        "pressure": 0.42,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 1 confident cues."
+        "sentiment": "neutral",
+        "certainty": 0.2,
+        "pressure": 0.1,
+        "one_line_reason": "Explains basic brokerage mechanics."
       }
     },
     {
@@ -32,9 +32,9 @@
       "text": "The Federal Reserve played around with this requirement in the years after the Great Depression.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.5,
+        "pressure": 0.2,
+        "one_line_reason": "Historical context about Federal Reserve regulations."
       }
     },
     {
@@ -42,10 +42,10 @@
       "end": 15.0,
       "text": "Interestingly, that crash came after soaring margin debt fueled a bubble.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "bearish",
+        "certainty": 0.7,
+        "pressure": 0.6,
+        "one_line_reason": "References historical crashes and margin debt bubbles."
       }
     },
     {
@@ -53,10 +53,10 @@
       "end": 18.8,
       "text": "Should the Fed get involved today?",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "hesitant",
+        "certainty": 0.5,
+        "pressure": 0.4,
+        "one_line_reason": "Questions potential regulatory intervention in current markets."
       }
     },
     {
@@ -64,10 +64,10 @@
       "end": 22.5,
       "text": "This is more complicated.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "hesitant",
+        "certainty": 0.4,
+        "pressure": 0.2,
+        "one_line_reason": "Highlights complexity of current market conditions."
       }
     },
     {
@@ -75,21 +75,21 @@
       "end": 26.2,
       "text": "Yes, margin debt is at a historic level, but Urian says it's not.",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "sentiment": "hesitant",
+        "certainty": 0.5,
+        "pressure": 0.5,
+        "one_line_reason": "Mentions record margin debt levels with conflicting views."
       }
     },
     {
       "start": 26.2,
       "end": 30.0,
-      "text": "Of course 2000",
+      "text": "Of course.",
       "mood": {
         "sentiment": "neutral",
-        "certainty": 0.3,
-        "pressure": 0.3,
-        "one_line_reason": "Rule-based fallback: 0 positive, 0 negative, 0 hesitant, 0 confident cues."
+        "certainty": 0.1,
+        "pressure": 0.0,
+        "one_line_reason": "Conversational filler with no distinct market stance."
       }
     }
   ],
@@ -117,9 +117,5 @@
     "spectral_flux_mean": 3.1037070751190186,
     "duration_sec": 30.0
   },
-  "tone_setter": {
-    "setter_segment": null,
-    "followers": [],
-    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
-  }
+  "tone_engine": "gemini-3.5-flash-lite"
 }
