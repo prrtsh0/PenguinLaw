@@ -2,7 +2,7 @@
   "clip_id": "clip1",
   "audio_path": "data\\demo_clips\\clip1.wav",
   "duration_sec": 30.0,
-  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Woof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
+  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Whoof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
   "segments": [
     {
       "start": 0.0,
@@ -84,7 +84,7 @@
     {
       "start": 19.1,
       "end": 21.8,
-      "text": "Woof, that is a lot of leverage.",
+      "text": "Whoof, that is a lot of leverage.",
       "mood": {
         "sentiment": "neutral",
         "certainty": 0.36,
