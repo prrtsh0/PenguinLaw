@@ -7,3 +7,7 @@ models/*.onnx
 .env
 __pycache__/
 *.pyc
+
+data/*.parquet
+data/crema_tree.json
+data/crema_audio/

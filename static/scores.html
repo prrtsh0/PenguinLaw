@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PenguinLaw — Evaluation Scores</title>
+<style>
+  :root { --bg:#0e1117; --panel:#161b22; --line:#30363d; --txt:#e6edf3;
+          --mut:#8b949e; --acc:#3fb950; --warn:#d29922; --bad:#f85149; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font-family:system-ui,Segoe UI,Roboto,sans-serif; padding:32px; }
+  .wrap { max-width:960px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--mut); font-size:13px; margin-bottom:24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px; margin-bottom:18px; }
+  .card h2 { font-size:15px; margin:0 0 14px; color:var(--txt); }
+  .kpi { display:flex; gap:14px; flex-wrap:wrap; }
+  .kpi .box { flex:1; min-width:150px; background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:14px; }
+  .kpi .label { font-size:12px; color:var(--mut); }
+  .kpi .value { font-size:26px; font-weight:600; margin-top:4px; }
+  .kpi .value.good { color:var(--acc); } .kpi .value.ok { color:var(--warn); } .kpi .value.bad { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:8px 10px; text-align:right; border-bottom:1px solid var(--line); }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--mut); font-weight:500; }
+  .cm-wrap { overflow:auto; }
+  table.cm { width:auto; }
+  table.cm th, table.cm td { min-width:52px; text-align:center; }
+  table.cm .rowlab { text-align:left; color:var(--mut); font-size:12px; }
+  .empty { padding:40px; text-align:center; color:var(--mut); font-size:16px; }
+  .pill { display:inline-block; background:var(--bg); border:1px solid var(--line); border-radius:20px; padding:3px 12px; font-size:12px; color:var(--mut); margin-right:6px; margin-bottom:6px; }
+  .lim { color:var(--mut); font-size:13px; margin:4px 0; }
+  .mut { color:var(--mut); }
+  code { background:var(--bg); padding:1px 5px; border-radius:4px; font-size:12px; }
+  .json { white-space:pre-wrap; font-family:ui-monospace,SFMono-Regular,monospace; font-size:12px; color:var(--mut); max-height:240px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>PenguinLaw — Model evaluation</h1>
+  <div class="sub">Real labelled speech-emotion evaluation · generated from <code>static/eval/summary.json</code></div>
+
+  <div id="noresults" class="card empty" style="display:none">
+    No results yet. Run the pipeline to generate <code>static/eval/summary.json</code>.
+  </div>
+
+  <div id="content" style="display:none">
+
+    <div class="card">
+      <h2>Dataset</h2>
+      <div id="datasets"></div>
+    </div>
+
+    <div class="card">
+      <h2>Split</h2>
+      <div id="split" class="mut"></div>
+    </div>
+
+    <div class="card">
+      <h2>Model</h2>
+      <div id="model"></div>
+    </div>
+
+    <div class="card">
+      <h2>Test results — CREMA-D (held-out speakers)</h2>
+      <div class="kpi" id="kpis"></div>
+    </div>
+
+    <div class="card">
+      <h2>Per-class</h2>
+      <table id="perclass"></table>
+    </div>
+
+    <div class="card">
+      <h2>Confusion matrix</h2>
+      <div class="cm-wrap"><table class="cm" id="cm"></table></div>
+    </div>
+
+    <div class="card">
+      <h2>Cross-corpus — RAVDESS (no retraining)</h2>
+      <div id="cross"></div>
+    </div>
+
+    <div class="card">
+      <h2>Human check</h2>
+      <div id="human"></div>
+    </div>
+
+    <div class="card">
+      <h2>Limitations</h2>
+      <div id="limitations"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var noresults = document.getElementById('noresults');
+  var content = document.getElementById('content');
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  }); }
+  function pct(x){ return (x*100).toFixed(2) + '%'; }
+
+  fetch('eval/summary.json')
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (d) {
+      content.style.display = '';
+
+      // datasets
+      var dhtml = '';
+      (d.datasets || []).forEach(function (ds) {
+        dhtml += '<span class="pill">' + esc(ds.name) + ' — ' +
+          esc(ds.role) + ' · ' + ds.clips_used + ' clips · ' + ds.speakers + ' speakers</span>';
+      });
+      document.getElementById('datasets').innerHTML = dhtml;
+
+      // split
+      var s = d.split || {};
+      document.getElementById('split').innerHTML =
+        'Method: <b>' + esc(s.method || '?') + '</b> — train ' + s.train_clips +
+        ' clips (' + s.train_speakers + ' speakers) · test ' + s.test_clips +
+        ' clips (' + s.test_speakers + ' speakers)';
+
+      // model
+      var m = d.model || {};
+      document.getElementById('model').innerHTML =
+        '<span class="pill">' + esc(m.type || '?') + '</span> ' +
+        '<span class="pill">trained on ' + esc(m.trained_on || '?') + '</span> ' +
+        '<span class="pill">' + (m.features ? m.features.length : '?') + ' features</span>';
+
+      // kpis
+      var res = d.results || {};
+      var kpi = [
+        { label:'Accuracy', value:pct(res.accuracy), cls: res.accuracy > 0.6 ? 'good' : (res.accuracy > 0.3 ? 'ok':'bad') },
+        { label:'Macro F1', value:pct(res.macro_f1), cls: res.macro_f1 > 0.6 ? 'good' : (res.macro_f1 > 0.3 ? 'ok':'bad') },
+        { label:'Majority baseline', value:pct(res.majority_baseline), cls:'mut' },
+        { label:'Chance', value:pct(res.chance), cls:'mut' }
+      ];
+      document.getElementById('kpis').innerHTML = kpi.map(function (k) {
+        return '<div class="box"><div class="label">' + esc(k.label) + '</div>' +
+          '<div class="value ' + k.cls + '">' + esc(k.value) + '</div></div>';
+      }).join('');
+
+      // per-class
+      var pc = res.per_class || {};
+      var plabels = Object.keys(pc);
+      var prow = '<tr><th>Emotion</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr>';
+      prow += plabels.map(function (k) {
+        var v = pc[k] || {};
+        return '<tr><td>' + esc(k) + '</td><td>' + pct(v.precision || 0) + '</td>' +
+          '<td>' + pct(v.recall || 0) + '</td><td>' + pct(v.f1 || 0) +
+          '</td><td>' + (v.support || 0) + '</td></tr>';
+      }).join('');
+      document.getElementById('perclass').innerHTML = prow;
+
+      // confusion matrix
+      var conf = res.confusion || {};
+      var labels = conf.labels || [];
+      var mat = conf.matrix || [];
+      var chead = '<tr><th class="rowlab">true ↓ / pred →</th>' +
+        labels.map(function (l) { return '<th>' + esc(l) + '</th>'; }).join('') + '</tr>';
+      var crows = mat.map(function (row, i) {
+        return '<tr><td class="rowlab">' + esc(labels[i] || '') + '</td>' +
+          row.map(function (v) { return '<td>' + v + '</td>'; }).join('') + '</tr>';
+      }).join('');
+      document.getElementById('cm').innerHTML = chead + crows;
+
+      // cross-corpus
+      var cc = d.cross_corpus;
+      document.getElementById('cross').innerHTML = cc
+        ? 'trained on <b>' + esc(cc.train) + '</b> → tested on <b>' + esc(cc.test) +
+          '</b> · <b>' + pct(cc.accuracy) + '</b> accuracy over ' + cc.n + ' clips'
+        : 'Not available';
+
+      // human check
+      var h = d.human_check;
+      document.getElementById('human').innerHTML = h
+        ? '<pre class="json">' + esc(JSON.stringify(h, null, 2)) + '</pre>'
+        : 'No human check recorded yet';
+
+      // limitations
+      document.getElementById('limitations').innerHTML = (d.limitations || []).map(function (l) {
+        return '<div class="lim">• ' + esc(l) + '</div>';
+      }).join('') || '<div class="lim">None listed</div>';
+    })
+    .catch(function (e) {
+      noresults.style.display = '';
+    });
+})();
+</script>
+</body>
+</html>
