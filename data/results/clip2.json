@@ -2,7 +2,7 @@
   "clip_id": "clip2",
   "audio_path": "data\\demo_clips\\clip2.wav",
   "duration_sec": 30.0,
-  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course.",
+  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course 2000",
   "segments": [
     {
       "start": 0.0,
@@ -12,7 +12,7 @@
         "sentiment": "hesitant",
         "certainty": 0.6,
         "pressure": 0.3,
-        "one_line_reason": "Discusses potential cautious Fed policy shifts."
+        "one_line_reason": "Discusses potential cautious Fed monetary policy stance."
       }
     },
     {
@@ -23,7 +23,7 @@
         "sentiment": "neutral",
         "certainty": 0.2,
         "pressure": 0.1,
-        "one_line_reason": "Explains basic brokerage mechanics."
+        "one_line_reason": "Explains a basic brokerage lending mechanic without market direction."
       }
     },
     {
@@ -34,7 +34,7 @@
         "sentiment": "neutral",
         "certainty": 0.5,
         "pressure": 0.2,
-        "one_line_reason": "Historical context about Federal Reserve regulations."
+        "one_line_reason": "Historical reference to past Federal Reserve regulatory actions."
       }
     },
     {
@@ -43,9 +43,9 @@
       "text": "Interestingly, that crash came after soaring margin debt fueled a bubble.",
       "mood": {
         "sentiment": "bearish",
-        "certainty": 0.7,
+        "certainty": 0.8,
         "pressure": 0.6,
-        "one_line_reason": "References historical crashes and margin debt bubbles."
+        "one_line_reason": "Refers to a historical market crash caused by margin debt bubbles."
       }
     },
     {
@@ -56,7 +56,7 @@
         "sentiment": "hesitant",
         "certainty": 0.5,
         "pressure": 0.4,
-        "one_line_reason": "Questions potential regulatory intervention in current markets."
+        "one_line_reason": "Questions potential regulatory intervention by the Fed."
       }
     },
     {
@@ -66,8 +66,8 @@
       "mood": {
         "sentiment": "hesitant",
         "certainty": 0.4,
-        "pressure": 0.2,
-        "one_line_reason": "Highlights complexity of current market conditions."
+        "pressure": 0.3,
+        "one_line_reason": "Highlights the complexity of the current financial situation."
       }
     },
     {
@@ -77,19 +77,19 @@
       "mood": {
         "sentiment": "hesitant",
         "certainty": 0.5,
-        "pressure": 0.5,
-        "one_line_reason": "Mentions record margin debt levels with conflicting views."
+        "pressure": 0.4,
+        "one_line_reason": "Presents conflicting views on historic margin debt levels."
       }
     },
     {
       "start": 26.2,
       "end": 30.0,
-      "text": "Of course.",
+      "text": "Of course 2000",
       "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.1,
-        "pressure": 0.0,
-        "one_line_reason": "Conversational filler with no distinct market stance."
+        "sentiment": "bearish",
+        "certainty": 0.6,
+        "pressure": 0.5,
+        "one_line_reason": "Briefly references the market peak and crash of the year 2000."
       }
     }
   ],
@@ -118,29 +118,152 @@
     "duration_sec": 30.0
   },
   "tone_engine": "gemini-3.5-flash-lite",
+  "stt_engine": "prisma-v3.0",
+  "voice_windows": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "probabilities": {
+        "ANG": 0.5467,
+        "DIS": 0.1,
+        "FEA": 0.1333,
+        "HAP": 0.22,
+        "NEU": 0.0,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 3.0,
+      "end": 6.0,
+      "probabilities": {
+        "ANG": 0.4267,
+        "DIS": 0.1033,
+        "FEA": 0.16,
+        "HAP": 0.3067,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 6.0,
+      "end": 9.0,
+      "probabilities": {
+        "ANG": 0.5567,
+        "DIS": 0.1,
+        "FEA": 0.1133,
+        "HAP": 0.2267,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "probabilities": {
+        "ANG": 0.56,
+        "DIS": 0.1033,
+        "FEA": 0.1267,
+        "HAP": 0.2,
+        "NEU": 0.01,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 12.0,
+      "end": 15.0,
+      "probabilities": {
+        "ANG": 0.6133,
+        "DIS": 0.08,
+        "FEA": 0.16,
+        "HAP": 0.1367,
+        "NEU": 0.0033,
+        "SAD": 0.0067
+      }
+    },
+    {
+      "start": 15.0,
+      "end": 18.0,
+      "probabilities": {
+        "ANG": 0.5933,
+        "DIS": 0.09,
+        "FEA": 0.1467,
+        "HAP": 0.1633,
+        "NEU": 0.0033,
+        "SAD": 0.0033
+      }
+    },
+    {
+      "start": 18.0,
+      "end": 21.0,
+      "probabilities": {
+        "ANG": 0.45,
+        "DIS": 0.1167,
+        "FEA": 0.1633,
+        "HAP": 0.27,
+        "NEU": 0.0,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 21.0,
+      "end": 24.0,
+      "probabilities": {
+        "ANG": 0.5533,
+        "DIS": 0.11,
+        "FEA": 0.1333,
+        "HAP": 0.2033,
+        "NEU": 0.0,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 24.0,
+      "end": 27.0,
+      "probabilities": {
+        "ANG": 0.5567,
+        "DIS": 0.1133,
+        "FEA": 0.13,
+        "HAP": 0.2,
+        "NEU": 0.0,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 27.0,
+      "end": 30.0,
+      "probabilities": {
+        "ANG": 0.59,
+        "DIS": 0.09,
+        "FEA": 0.11,
+        "HAP": 0.2067,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    }
+  ],
   "analysis": {
-    "generated_at": "2026-11-09T09:35:12.890463+00:00",
+    "generated_at": "2026-11-09T13:40:28.248247+00:00",
     "engine": "gemini-3.5-flash-lite",
     "clip_id": "clip2",
-    "situation": "A recorded commentary or podcast excerpt discussing Federal Reserve margin debt policies, historical market crashes, and differing expert opinions.",
-    "baseline": "Informational delivery style with elevated pitch variation and occasional sharp fluctuations in tone typical of financial commentary.",
+    "situation": "Financial commentary or podcast discussing historical and current Federal Reserve margin debt policies.",
+    "baseline": "Monotone or standard analytical delivery discussing historical financial policy.",
     "observations": [
       {
-        "type": "contradiction",
-        "evidence": "margin debt is at a historic level, but Urian says it's not",
-        "time": 22.5,
-        "voice": "Elevated anger/frustration probability",
-        "why_it_matters": "Directly juxtaposes two mutually exclusive premises without resolving the factual disagreement.",
+        "type": "topic_shift",
+        "evidence": "Of course 2000",
+        "time": 28.0,
+        "voice": "anger probability elevated (0.59)",
+        "why_it_matters": "The abrupt cutoff leaves the reference to the year 2000 unexplained, creating an incomplete thought that an interviewer should clarify.",
         "strength": "moderate"
       }
     ],
     "innocent_explanations": [
-      "The speaker is simply summarising a public debate between two opposing financial analysts or presenting two sides of an ongoing economic argument."
+      "The speaker may have been abruptly cut off by audio editing or was transitioning naturally to discuss the dot-com bubble of 2000 as a historical parallel."
     ],
     "what_to_ask_next": [
-      "What specific metrics does Urian use to argue that margin debt is not at a historic level?"
+      "What specific parallel were you drawing regarding the year 2000?"
     ],
-    "impact": "Highlights a core discrepancy in the economic data being cited, which an interviewer would probe for clarification.",
-    "limits": ""
+    "impact": "The abrupt ending leaves a key historical comparison hanging without context.",
+    "limits": "The recording is extremely short and appears to be an uncontextualized excerpt or fragment from a broader financial broadcast."
   }
 }

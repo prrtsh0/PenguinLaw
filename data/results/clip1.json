@@ -2,7 +2,7 @@
   "clip_id": "clip1",
   "audio_path": "data\\demo_clips\\clip1.wav",
   "duration_sec": 30.0,
-  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Whoof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
+  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Woof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
   "segments": [
     {
       "start": 0.0,
@@ -10,9 +10,9 @@
       "text": "At a very high interest rate, and then I could buy that stock.",
       "mood": {
         "sentiment": "hesitant",
-        "certainty": 0.6,
-        "pressure": 0.2,
-        "one_line_reason": "Discusses buying stocks conditionally based on high interest rates."
+        "certainty": 0.7,
+        "pressure": 0.4,
+        "one_line_reason": "Discusses buying stocks under a specific interest rate condition."
       }
     },
     {
@@ -22,7 +22,7 @@
       "mood": {
         "sentiment": "bullish",
         "certainty": 0.9,
-        "pressure": 0.5,
+        "pressure": 0.8,
         "one_line_reason": "Enthusiastic expression about aggressive short-term day trading."
       }
     },
@@ -34,7 +34,7 @@
         "sentiment": "neutral",
         "certainty": 0.5,
         "pressure": 0.1,
-        "one_line_reason": "General conversational agreement without direct market context."
+        "one_line_reason": "Conversational agreement without specific market context."
       }
     },
     {
@@ -44,8 +44,8 @@
       "mood": {
         "sentiment": "bullish",
         "certainty": 0.8,
-        "pressure": 0.6,
-        "one_line_reason": "Highlights increasing speculative margin trading by US stock investors."
+        "pressure": 0.7,
+        "one_line_reason": "Notes high participation in US stock market margin trading."
       }
     },
     {
@@ -53,10 +53,10 @@
       "end": 13.6,
       "text": "The total amount of borrowing is at an all-time.",
       "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.7,
-        "pressure": 0.7,
-        "one_line_reason": "Notes that total borrowing for investments has reached an all-time high."
+        "sentiment": "bullish",
+        "certainty": 0.9,
+        "pressure": 0.8,
+        "one_line_reason": "Highlights extreme levels of market borrowing."
       }
     },
     {
@@ -64,10 +64,10 @@
       "end": 16.4,
       "text": "Record level, over 1.5 trillion dollars.",
       "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.8,
-        "pressure": 0.8,
-        "one_line_reason": "Points out record-level borrowing exceeding 1.5 trillion dollars."
+        "sentiment": "bullish",
+        "certainty": 0.9,
+        "pressure": 0.85,
+        "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
       }
     },
     {
@@ -75,21 +75,21 @@
       "end": 19.1,
       "text": "That's up by 50% from a year ago.",
       "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.8,
-        "pressure": 0.8,
-        "one_line_reason": "Emphasizes a massive 50% year-over-year increase in debt."
+        "sentiment": "bullish",
+        "certainty": 0.9,
+        "pressure": 0.85,
+        "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
       }
     },
     {
       "start": 19.1,
       "end": 21.8,
-      "text": "Whoof, that is a lot of leverage.",
+      "text": "Woof, that is a lot of leverage.",
       "mood": {
         "sentiment": "bearish",
-        "certainty": 0.9,
-        "pressure": 0.9,
-        "one_line_reason": "Expresses concern over dangerously high levels of financial leverage."
+        "certainty": 0.7,
+        "pressure": 0.6,
+        "one_line_reason": "Expresses concern over dangerously high levels of leverage in the market."
       }
     },
     {
@@ -100,7 +100,7 @@
         "sentiment": "neutral",
         "certainty": 1.0,
         "pressure": 0.0,
-        "one_line_reason": "Standard podcast introduction."
+        "one_line_reason": "Podcast introduction."
       }
     },
     {
@@ -111,7 +111,7 @@
         "sentiment": "neutral",
         "certainty": 1.0,
         "pressure": 0.0,
-        "one_line_reason": "Podcast hosts introducing themselves."
+        "one_line_reason": "Host introductions for the podcast."
       }
     },
     {
@@ -120,8 +120,8 @@
       "text": "Investing behavior is changed.",
       "mood": {
         "sentiment": "hesitant",
-        "certainty": 0.7,
-        "pressure": 0.4,
+        "certainty": 0.8,
+        "pressure": 0.5,
         "one_line_reason": "General observation that overall investing behavior has shifted."
       }
     }
@@ -151,21 +151,139 @@
     "duration_sec": 30.0
   },
   "tone_engine": "gemini-3.5-flash-lite",
-  "tone_setter": {
-    "setter_segment": null,
-    "followers": [],
-    "confidence_note": "No persistent sentiment shift found; tone stays near 'hesitant' throughout. No clear tone-setter."
-  },
+  "stt_engine": "prisma-v3.0",
+  "voice_windows": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "probabilities": {
+        "ANG": 0.5067,
+        "DIS": 0.1267,
+        "FEA": 0.1267,
+        "HAP": 0.2367,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 3.0,
+      "end": 6.0,
+      "probabilities": {
+        "ANG": 0.5733,
+        "DIS": 0.0867,
+        "FEA": 0.16,
+        "HAP": 0.1733,
+        "NEU": 0.0067,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 6.0,
+      "end": 9.0,
+      "probabilities": {
+        "ANG": 0.5767,
+        "DIS": 0.0833,
+        "FEA": 0.15,
+        "HAP": 0.19,
+        "NEU": 0.0,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "probabilities": {
+        "ANG": 0.5233,
+        "DIS": 0.1167,
+        "FEA": 0.13,
+        "HAP": 0.2233,
+        "NEU": 0.0067,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 12.0,
+      "end": 15.0,
+      "probabilities": {
+        "ANG": 0.5333,
+        "DIS": 0.1533,
+        "FEA": 0.11,
+        "HAP": 0.1967,
+        "NEU": 0.0067,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 15.0,
+      "end": 18.0,
+      "probabilities": {
+        "ANG": 0.5,
+        "DIS": 0.1333,
+        "FEA": 0.14,
+        "HAP": 0.21,
+        "NEU": 0.0167,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 18.0,
+      "end": 21.0,
+      "probabilities": {
+        "ANG": 0.61,
+        "DIS": 0.09,
+        "FEA": 0.15,
+        "HAP": 0.1467,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 21.0,
+      "end": 24.0,
+      "probabilities": {
+        "ANG": 0.64,
+        "DIS": 0.08,
+        "FEA": 0.1033,
+        "HAP": 0.17,
+        "NEU": 0.0,
+        "SAD": 0.0067
+      }
+    },
+    {
+      "start": 24.0,
+      "end": 27.0,
+      "probabilities": {
+        "ANG": 0.61,
+        "DIS": 0.0867,
+        "FEA": 0.1533,
+        "HAP": 0.1467,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    },
+    {
+      "start": 27.0,
+      "end": 30.0,
+      "probabilities": {
+        "ANG": 0.64,
+        "DIS": 0.1,
+        "FEA": 0.12,
+        "HAP": 0.1367,
+        "NEU": 0.0033,
+        "SAD": 0.0
+      }
+    }
+  ],
   "analysis": {
-    "generated_at": "2026-11-09T09:32:03.861873+00:00",
+    "generated_at": "2026-11-09T13:40:24.626780+00:00",
     "engine": "gemini-3.5-flash-lite",
     "clip_id": "clip1",
-    "situation": "This is a scripted audio recording of a podcast intro discussing high interest rates, margin trades, and market leverage.",
-    "baseline": "Standard scripted broadcast delivery intended for an engaging podcast intro.",
+    "situation": "A recorded podcast introduction discussing US stock market margin trading and leverage.",
+    "baseline": "Standard journalistic and podcast delivery with dramatic inflection for listener engagement.",
     "observations": [],
     "innocent_explanations": [],
     "what_to_ask_next": [],
-    "impact": "The clip is a standard, scripted podcast introduction featuring theatrical or energetic reading, which does not provide spontaneous conversational behavior suitable for behavioural analysis.",
-    "limits": "The clip cannot support behavioural observations because it is a pre-scripted media broadcast rather than an investigative or spontaneous conversational interview."
+    "impact": "",
+    "limits": "The clip is a scripted podcast introduction and news overview rather than an investigative interview, making standard behavioral analysis markers inapplicable."
   }
 }
