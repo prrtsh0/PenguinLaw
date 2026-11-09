@@ -296,5 +296,57 @@
     "impact": "",
     "limits": "The clip cannot support observations because it is a produced, scripted podcast intro rather than an investigative interview or interpersonal dialogue."
   },
-  "voice_model": "crema-randomforest"
+  "voice_model": "crema-randomforest",
+  "tone_setter": {
+    "setter_segment": {
+      "segment_index": 3,
+      "segment": {
+        "start": 8.2,
+        "end": 10.9,
+        "text": "Investors in the US stock market are making a lot of these margin trades these days.",
+        "mood": {
+          "sentiment": "bullish",
+          "certainty": 0.8,
+          "pressure": 0.7,
+          "one_line_reason": "Notes high participation in US stock market margin trading."
+        }
+      }
+    },
+    "followers": [
+      {
+        "start": 10.9,
+        "end": 13.6,
+        "text": "The total amount of borrowing is at an all-time.",
+        "mood": {
+          "sentiment": "bullish",
+          "certainty": 0.9,
+          "pressure": 0.8,
+          "one_line_reason": "Highlights extreme levels of market borrowing."
+        }
+      },
+      {
+        "start": 13.6,
+        "end": 16.4,
+        "text": "Record level, over 1.5 trillion dollars.",
+        "mood": {
+          "sentiment": "bullish",
+          "certainty": 0.9,
+          "pressure": 0.85,
+          "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
+        }
+      },
+      {
+        "start": 16.4,
+        "end": 19.1,
+        "text": "That's up by 50% from a year ago.",
+        "mood": {
+          "sentiment": "bullish",
+          "certainty": 0.9,
+          "pressure": 0.85,
+          "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
+        }
+      }
+    ],
+    "confidence_note": "Tone shifts from 'hesitant' at segment 4 ('bullish') and holds for the next 2+ segments, making it the tone-setter. 3 later segment(s) follow the same direction."
+  }
 }

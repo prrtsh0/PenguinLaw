@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PenguinLaw — Docs</title>
+<style>
+  :root { --bg:#0e1117; --panel:#161b22; --line:#30363d; --txt:#e6edf3;
+          --mut:#8b949e; --acc:#3fb950; --warn:#d29922; --bad:#f85149; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt);
+         font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  a { color:#58a6ff; text-decoration:none; } a:hover { text-decoration:underline; }
+  .nav { display:flex; gap:18px; align-items:center; padding:12px 20px;
+         background:var(--panel); border-bottom:1px solid var(--line);
+         font-size:14px; position:sticky; top:0; z-index:10; }
+  .nav .brand { font-weight:700; font-size:15px; margin-right:8px; }
+  .nav a { color:var(--txt); }
+  .nav .active { color:var(--acc); }
+  .layout { display:flex; max-width:1180px; margin:0 auto; gap:28px; padding:24px 20px 60px; }
+  .side { flex:0 0 220px; }
+  .side .doc { display:block; padding:8px 12px; margin:2px 0; border-radius:8px;
+               color:var(--txt); font-size:14px; }
+  .side .doc:hover { background:var(--panel); text-decoration:none; }
+  .side .doc.active { background:var(--panel); border:1px solid var(--line); color:var(--acc); }
+  .main { flex:1 1 auto; min-width:0; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px;
+          padding:22px 26px; }
+  .card h1 { margin:0 0 6px; font-size:24px; }
+  .card .sub { color:var(--mut); font-size:13px; margin-bottom:18px; }
+  .doc-body { font-size:15px; color:var(--txt); }
+  .doc-body h1 { font-size:23px; border-bottom:1px solid var(--line); padding-bottom:8px; }
+  .doc-body h2 { font-size:19px; margin-top:28px; }
+  .doc-body h3 { font-size:16px; }
+  .doc-body pre { background:#0d1117; border:1px solid var(--line); border-radius:8px;
+                  padding:14px 16px; overflow:auto; font-size:13px; line-height:1.5; }
+  .doc-body code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+                   background:#0d1117; padding:1px 6px; border-radius:5px; font-size:13px; }
+  .doc-body pre code { background:transparent; padding:0; }
+  .doc-body table { border-collapse:collapse; width:100%; font-size:13px; margin:14px 0; }
+  .doc-body th, .doc-body td { border:1px solid var(--line); padding:7px 11px; text-align:left; }
+  .doc-body th { background:#0d1117; color:var(--mut); font-weight:500; }
+  .doc-body blockquote { margin:14px 0; padding:6px 16px; border-left:3px solid var(--acc);
+                         color:var(--mut); }
+  .doc-body li { margin:2px 0; }
+  .doc-body hr { border:none; border-top:1px solid var(--line); margin:22px 0; }
+  .empty { padding:40px; text-align:center; color:var(--mut); }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="brand">PenguinLaw</span>
+  <a href="/index.html">Home</a>
+  <a href="/scores.html">Scores</a>
+  <a href="/benchmarks.html">Benchmarks</a>
+  <a href="/docs.html" class="active">Docs</a>
+  <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener" style="margin-left:auto;color:var(--mut)">GitHub ↗</a>
+</div>
+
+<div class="layout">
+  <aside class="side" id="docsList"></aside>
+  <main class="main">
+    <div class="card">
+      <h1 id="docTitle">Docs</h1>
+      <div class="sub" id="docSub"></div>
+      <div class="doc-body" id="docBody"><div class="empty">Select a document on the left.</div></div>
+    </div>
+  </main>
+</div>
+
+<script>
+const DOCS = [
+  { file: "README.md",         title: "About",        blurb: "Project concept & overview" },
+  { file: "JOURNEY.md",        title: "Journey",      blurb: "How the project was built" },
+  { file: "PLAN.md",           title: "Plan",         blurb: "Roadmap & approach" },
+  { file: "benchmarks.md",      title: "Benchmarks",   blurb: "Measured performance" },
+  { file: "ERRORS.md",          title: "Errors",       blurb: "Gotchas & resolutions" },
+];
+
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function inline(t){
+  t = t.replace(/`([^`]+)`/g, (m,x)=>'<code>'+esc(x)+'</code>');
+  t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m,txt,url)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(txt)+'</a>');
+  return t;
+}
+
+function render(md){
+  const lines = md.replace(/\r\n/g,"\n").split("\n");
+  let html = "";
+  let code = false, codeBuf = [];
+  let i = 0;
+  while (i < lines.length){
+    const ln = lines[i];
+    // fenced code
+    if (/^```/.test(ln)){
+      if (!code){ code = true; codeBuf = []; }
+      else { html += "<pre><code>"+esc(codeBuf.join("\n"))+"</code></pre>"; code = false; }
+      i++; continue;
+    }
+    if (code){ codeBuf.push(ln); i++; continue; }
+
+    // heading
+    const h = ln.match(/^(#{1,6})\s+(.*)$/);
+    if (h){ const lvl = h[1].length; html += "<h"+lvl+">"+inline(h[2])+"</h"+lvl+">"; i++; continue; }
+    // hr
+    if (/^\s*(---|\*\*\*|___)\s*$/.test(ln)){ html += "<hr>"; i++; continue; }
+    // blockquote
+    if (/^>\s?/.test(ln)){
+      const q = []; while (i<lines.length && /^>\s?/.test(lines[i])){ q.push(lines[i].replace(/^>\s?/,"")); i++; }
+      html += "<blockquote>"+q.map(inline).join("<br>")+"</blockquote>"; continue;
+    }
+    // table (header + separator + rows)
+    if (ln.indexOf("|") !== -1 && /\|/.test(ln) && i+1 < lines.length && /^\s*\|?[\s:-]+\|[\s:-]+/.test(lines[i+1])){
+      const rows = [];
+      while (i < lines.length && lines[i].indexOf("|") !== -1){
+        if (/^\s*\|?[\s:-]+\|[\s:-]+$/.test(lines[i].replace(/\s/g,""))) { i++; continue; }
+        rows.push(lines[i].replace(/^\s*\|/,"").replace(/\|\s*$/,"").split("|").map(s=>s.trim()));
+        i++;
+      }
+      html += "<table>";
+      rows.forEach((r,ri)=>{
+        const tag = ri === 0 ? "th" : "td";
+        html += "<tr>"+r.map(c=>"<"+tag+">"+inline(c)+"</"+tag+">").join("")+"</tr>";
+      });
+      html += "</table>"; continue;
+    }
+    // list
+    if (/^\s*[-*+]\s+/.test(ln) || /^\s*\d+\.\s+/.test(ln)){
+      const ordered = /^\s*\d+\.\s+/.test(ln);
+      const items = [];
+      while (i < lines.length){
+        const m = lines[i].match(/^\s*(?:[-*+]\s+|\d+\.\s+)(.*)$/);
+        if (!m) break;
+        items.push(inline(m[1])); i++;
+      }
+      html += (ordered?"<ol>":"<ul>") + items.map(x=>"<li>"+x+"</li>").join("") + (ordered?"</ol>":"</ul>");
+      continue;
+    }
+    // paragraph
+    if (ln.trim() !== ""){
+      const buf = [];
+      while (i < lines.length && lines[i].trim() !== "" && !/^(#{1,6})\s/.test(lines[i]) && !/^```/.test(lines[i]) && !/^\s*[-*+]\s+/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i]) && lines[i].indexOf("|") === -1){
+        buf.push(lines[i]); i++;
+      }
+      html += "<p>"+inline(buf.join(" "))+"</p>"; continue;
+    }
+    i++;
+  }
+  return html;
+}
+
+function load(file, title, blurb){
+  fetch("/docs/"+file)
+    .then(r => { if (!r.ok) throw new Error("HTTP "+r.status); return r.text(); })
+    .then(md => {
+      document.getElementById("docTitle").textContent = title;
+      document.getElementById("docSub").textContent = blurb + " · " + file;
+      document.getElementById("docBody").innerHTML = render(md);
+      document.querySelectorAll(".side .doc").forEach(a => a.classList.toggle("active", a.dataset.file === file));
+      history.replaceState(null, "", "/docs.html?d="+file);
+    })
+    .catch(e => {
+      document.getElementById("docTitle").textContent = title;
+      document.getElementById("docSub").textContent = file;
+      document.getElementById("docBody").innerHTML =
+        '<div class="empty">Could not load <code>'+esc(file)+'</code> ('+esc(e.message)+').</div>';
+    });
+}
+
+(function init(){
+  const list = document.getElementById("docsList");
+  DOCS.forEach(d => {
+    const a = document.createElement("a");
+    a.className = "doc";
+    a.href = "#";
+    a.dataset.file = d.file;
+    a.innerHTML = "<strong>"+esc(d.title)+"</strong><br><small style='color:var(--mut)'>"+esc(d.blurb)+"</small>";
+    a.addEventListener("click", ev => { ev.preventDefault(); load(d.file, d.title, d.blurb); });
+    list.appendChild(a);
+  });
+  const q = new URLSearchParams(location.search).get("d");
+  const first = DOCS.find(d => d.file === q) || DOCS[0];
+  load(first.file, first.title, first.blurb);
+})();
+</script>
+</body>
+</html>

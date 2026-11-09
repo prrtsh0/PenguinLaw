@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PenguinLaw — Benchmarks</title>
+<style>
+  :root { --bg:#0e1117; --panel:#161b22; --line:#30363d; --txt:#e6edf3;
+          --mut:#8b949e; --acc:#3fb950; --warn:#d29922; --bad:#f85149; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt);
+         font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  a { color:#58a6ff; text-decoration:none; } a:hover { text-decoration:underline; }
+  .nav { display:flex; gap:18px; align-items:center; padding:12px 20px;
+         background:var(--panel); border-bottom:1px solid var(--line);
+         font-size:14px; position:sticky; top:0; z-index:10; }
+  .nav .brand { font-weight:700; font-size:15px; margin-right:8px; }
+  .nav a { color:var(--txt); } .nav .active { color:var(--acc); }
+  .wrap { max-width:1160px; margin:0 auto; padding:26px 20px 60px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  .sub { color:var(--mut); font-size:13px; margin-bottom:22px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px;
+          padding:20px 24px; margin-bottom:18px; }
+  .card h2 { margin:0 0 14px; font-size:18px; }
+  .kpis { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+  .kpi { flex:1 1 150px; background:#0d1117; border:1px solid var(--line);
+         border-radius:10px; padding:12px 14px; }
+  .kpi .label { font-size:12px; color:var(--mut); }
+  .kpi .value { font-size:24px; font-weight:600; margin-top:4px; }
+  .kpi .value.good { color:var(--acc); } .kpi .value.ok { color:var(--warn); }
+  .kpi .value.bad { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { padding:8px 10px; text-align:right; border-bottom:1px solid var(--line); }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:var(--mut); font-weight:500; }
+  .note { color:var(--mut); font-size:13px; margin-top:10px; }
+  .badge { display:inline-block; background:#0d1117; border:1px solid var(--line);
+           border-radius:20px; padding:3px 12px; font-size:12px; color:var(--mut);
+           margin:0 6px 6px 0; }
+  .empty { padding:30px; text-align:center; color:var(--mut); }
+  .src { color:var(--mut); font-size:12px; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="brand">PenguinLaw</span>
+  <a href="/index.html">Home</a>
+  <a href="/scores.html">Scores</a>
+  <a href="/benchmarks.html" class="active">Benchmarks</a>
+  <a href="/docs.html">Docs</a>
+  <a href="https://github.com/prrtsh0/PenguinLaw" target="_blank" rel="noopener" style="margin-left:auto;color:var(--mut)">GitHub ↗</a>
+</div>
+
+<div class="wrap">
+  <h1>Model benchmarks</h1>
+  <div class="sub">Train/test accuracy · generated from <code>static/benchmarks_tone.json</code> and <code>static/eval/summary.json</code></div>
+
+  <div class="card">
+    <h2>Tone model — train/test split (the market-mood classifier)</h2>
+    <div id="tone" class="empty">Loading…</div>
+  </div>
+
+  <div class="card">
+    <h2>Voice emotion model — CREMA-D speaker-independent test</h2>
+    <div id="voice" class="empty">Loading…</div>
+  </div>
+
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct = x => (x*100).toFixed(2)+"%";
+
+function kpi(label, value, cls){
+  return '<div class="kpi"><div class="label">'+esc(label)+'</div>'+
+         '<div class="value '+(cls||"")+'">'+value+'</div></div>';
+}
+function perClassTable(per){
+  const rows = Object.entries(per).sort((a,b)=>a[0].localeCompare(b[0]));
+  let h = '<table><tr><th>Emotion</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr>';
+  rows.forEach(([k,v])=> h += '<tr><td>'+esc(k)+'</td><td>'+pct(v.precision)+'</td><td>'+pct(v.recall)+'</td><td>'+pct(v.f1)+'</td><td>'+v.support+'</td></tr>');
+  return h+'</table>';
+}
+
+function renderTone(d){
+  const box = document.getElementById("tone");
+  if (!d || !Array.isArray(d.datasets)){ box.innerHTML = '<div class="empty">No tone benchmark found.</div>'; return; }
+  box.innerHTML = d.datasets.map(ds => {
+    if (ds.error) return '<div class="card"><strong>'+esc(ds.dataset)+'</strong> — '+esc(ds.error)+'</div>';
+    const accCls = ds.accuracy >= 0.6 ? "good" : (ds.accuracy >= 0.4 ? "ok" : "bad");
+    return '<div style="margin-bottom:18px"><div class="badge">'+esc(ds.dataset)+'</div>'+
+      '<div class="sub" style="display:inline">model '+esc(ds.model)+' · '+ds.n_train+' train / '+ds.n_test+' test</div>'+
+      '<div class="kpis">'+
+        kpi("Accuracy", pct(ds.accuracy), accCls)+
+        kpi("Macro F1", pct(ds.macro_f1), "ok")+
+        kpi("Majority baseline", pct(ds.majority_baseline), "bad")+
+        kpi("Chance", pct(ds.chance), "bad")+
+      '</div>'+
+      perClassTable(ds.per_class)+
+      '<div class="note">'+esc(ds.report||"")+'</div></div>';
+  }).join("") +
+  '<div class="note">'+esc(d.note||"")+'</div>';
+}
+
+function renderVoice(d){
+  const box = document.getElementById("voice");
+  if (!d || !d.results){ box.innerHTML = '<div class="empty">No voice evaluation summary found (<code>static/eval/summary.json</code>).</div>'; return; }
+  const r = d.results;
+  const accCls = r.accuracy >= 0.6 ? "good" : (r.accuracy >= 0.4 ? "ok" : "bad");
+  let html = "";
+  if (d.split) html += '<div class="badge">'+esc(d.split.method)+' · '+d.split.train_clips+' train / '+d.split.test_clips+' test · '+d.split.test_speakers+' held-out speakers</div>';
+  html += '<div class="kpis">'+
+    kpi("Accuracy", pct(r.accuracy), accCls)+
+    kpi("Macro F1", pct(r.macro_f1), "ok")+
+    kpi("Majority baseline", pct(r.majority_baseline), "bad")+
+    kpi("Chance", pct(r.chance), "bad")+
+  '</div>';
+  html += perClassTable(r.per_class);
+  if (d.cross_corpus){
+    const c = d.cross_corpus;
+    html += '<div class="note">Cross-corpus (RAVDESS, no retraining): accuracy '+pct(c.accuracy)+' on '+c.n+' clips.</div>';
+  }
+  html += '<div class="note">'+esc((d.limitations||[]).join(" "))+'</div>';
+  box.innerHTML = html;
+}
+
+Promise.all([
+  fetch("eval/summary.json").then(r=>r.ok?r.json():null),
+  fetch("benchmarks_tone.json").then(r=>r.ok?r.json():null)
+]).then(([voice, tone]) => {
+  renderVoice(voice);
+  renderTone(tone);
+}).catch(() => {
+  document.getElementById("voice").innerHTML = '<div class="empty">Could not load benchmark data.</div>';
+});
+</script>
+</body>
+</html>

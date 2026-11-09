@@ -15,7 +15,8 @@ import os
 import sys
 import time
 
-from flask import Flask, jsonify, send_from_directory, abort, request
+from flask import (Flask, jsonify, send_from_directory, abort, request,
+                 send_file)
 from werkzeug.exceptions import HTTPException
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -96,6 +97,26 @@ def _allow_live():
         _live_timestamps.append(now)
         _live_call_count['n'] += 1
         return True
+
+
+DOC_PATHS = {
+    "README.md": "README.md",
+    "JOURNEY.md": "JOURNEY.md",
+    "PLAN.md": "PLAN.md",
+    "benchmarks.md": "benchmarks.md",
+    "ERRORS.md": os.path.join("docs", "ERRORS.md"),
+}
+
+
+@app.route("/docs/<name>")
+def repo_doc(name):
+    rel = DOC_PATHS.get(name)
+    if not rel:
+        abort(404, description="Unknown doc")
+    doc_path = os.path.join(BASE, rel)
+    if not os.path.exists(doc_path):
+        abort(404, description="Doc not found")
+    return send_file(doc_path, mimetype="text/markdown; charset=utf-8")
 
 
 if __name__ == '__main__':
