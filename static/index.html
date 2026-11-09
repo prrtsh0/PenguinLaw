@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PenguinLaw</title>
+<title>PenguinLaw | Voice console</title>
 <style>
 :root{
   color-scheme: light;
@@ -119,11 +119,24 @@ button{font:inherit;color:inherit}
   min-width:3px;border-right:1px solid var(--panel);
 }
 .seg:first-child{border-radius:4px 0 0 4px}
-.seg[data-tone="bullish"]{background:var(--bullish)}
-.seg[data-tone="bearish"]{background:var(--bearish)}
-.seg[data-tone="hesitant"]{background:var(--hesitant)}
-.seg[data-tone="confident"]{background:var(--confident)}
-.seg[data-tone="neutral"]{background:var(--neutral)}
+.seg[data-tone="angry"]{background:#d6453d}
+.sw[data-tone="angry"]{background:#d6453d}
+.line[data-tone="angry"]{border-left-color:#d6453d}
+.seg[data-tone="disgust"]{background:#7c8a2e}
+.sw[data-tone="disgust"]{background:#7c8a2e}
+.line[data-tone="disgust"]{border-left-color:#7c8a2e}
+.seg[data-tone="fear"]{background:#7a5ec9}
+.sw[data-tone="fear"]{background:#7a5ec9}
+.line[data-tone="fear"]{border-left-color:#7a5ec9}
+.seg[data-tone="happy"]{background:#e0a100}
+.sw[data-tone="happy"]{background:#e0a100}
+.line[data-tone="happy"]{border-left-color:#e0a100}
+.seg[data-tone="neutral"]{background:#a9b2c3}
+.sw[data-tone="neutral"]{background:#a9b2c3}
+.line[data-tone="neutral"]{border-left-color:#a9b2c3}
+.seg[data-tone="sad"]{background:#2f5bea}
+.sw[data-tone="sad"]{background:#2f5bea}
+.line[data-tone="sad"]{border-left-color:#2f5bea}
 .seg.fb{
   background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.65) 0 4px,rgba(255,255,255,0) 4px 8px);
 }
@@ -142,12 +155,6 @@ button{font:inherit;color:inherit}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:12px;color:var(--muted)}
 .legend .it{display:flex;align-items:center;gap:6px}
 .sw{width:10px;height:10px;border-radius:2px;display:inline-block}
-.sw[data-tone="bullish"]{background:var(--bullish)}
-.sw[data-tone="bearish"]{background:var(--bearish)}
-.sw[data-tone="hesitant"]{background:var(--hesitant)}
-.sw[data-tone="confident"]{background:var(--confident)}
-.sw[data-tone="neutral"]{background:var(--neutral)}
-.sw.hatch{background:var(--neutral) repeating-linear-gradient(135deg,rgba(255,255,255,.7) 0 2px,rgba(255,255,255,0) 2px 4px)}
 .hint{color:var(--faint);font-size:12px;margin-top:6px}
 
 /* Verdict */
@@ -170,6 +177,21 @@ button{font:inherit;color:inherit}
 .pros{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}
 .pros b{color:var(--ink);font-weight:600}
 
+/* Analyst read */
+.asub{font-weight:600;font-size:13px;margin:14px 0 4px;color:var(--ink)}
+.asub:first-child{margin-top:0}
+.obs{border-top:1px solid var(--line);padding:10px 0}
+.obs .oh{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-bottom:4px}
+.badge{font:inherit;font-size:12px;background:transparent;border:1px solid var(--line);border-radius:4px;padding:1px 8px;color:var(--muted);text-transform:capitalize}
+.badge.strong{border-color:var(--bearish);color:var(--bearish)}
+.badge.moderate{border-color:var(--hesitant);color:#8a6100}
+button.badge{cursor:pointer}
+button.badge:hover{background:var(--bg)}
+.quote{font-size:16px;margin:2px 0}
+.qline{color:var(--muted);font-size:13px;margin:2px 0}
+.alist{margin:2px 0 4px;padding-left:20px;color:var(--muted);font-size:14px}
+.adisc{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+
 /* Voice signal */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 24px}
 .stat .sv{font-size:22px;font-weight:600;letter-spacing:-.01em}
@@ -190,11 +212,6 @@ button{font:inherit;color:inherit}
 .line:hover{background:var(--bg)}
 .line .ts{font-size:12px;color:var(--faint);padding-top:2px}
 .line .tx{font-size:15px}
-.line[data-tone="bullish"]{border-left-color:var(--bullish)}
-.line[data-tone="bearish"]{border-left-color:var(--bearish)}
-.line[data-tone="hesitant"]{border-left-color:var(--hesitant)}
-.line[data-tone="confident"]{border-left-color:var(--confident)}
-.line[data-tone="neutral"]{border-left-color:var(--neutral)}
 .line.sel{background:var(--accent-soft)}
 .tr-plain{padding:10px 12px;font-size:15px}
 
@@ -228,7 +245,7 @@ button{font:inherit;color:inherit}
 <header class="topbar">
   <div class="brand">
     <span class="name" id="appName">PenguinLaw</span>
-    <span class="sub">Voice mood console</span>
+    <span class="sub">Voice console</span>
   </div>
   <div class="tabs" id="tabs" role="tablist" aria-label="Clips"></div>
 </header>
@@ -257,12 +274,17 @@ button{font:inherit;color:inherit}
       <div class="track" id="track"></div>
       <div class="ticks" id="ticks" aria-hidden="true"></div>
       <div class="legend" id="legend"></div>
-      <div class="hint">Select a block to jump to that moment. The black marker shows the tone-setter.</div>
+      <div class="hint">Select a block to jump to that moment. Each block is the emotion the voice model rates most likely in that short stretch of audio.</div>
     </section>
 
     <section class="card card-pad verdict" aria-label="Verdict">
-      <h2>Tone-setter</h2>
+      <h2>Voice summary</h2>
       <div id="verdict"><p class="verdict-body">Loading analysis.</p></div>
+    </section>
+
+    <section class="card card-pad" aria-label="Analyst read">
+      <h2>Analyst read</h2>
+      <div id="analysis"><p class="verdict-body">No analyst read has been generated for this clip yet.</p></div>
     </section>
 
     <section class="card card-pad" aria-label="Selected segment">
@@ -300,7 +322,7 @@ button{font:inherit;color:inherit}
 
 <script>
 const APP_NAME = "PenguinLaw";
-document.title = APP_NAME + " | Voice mood console";
+document.title = APP_NAME + " | Voice console";
 document.getElementById("appName").textContent = APP_NAME;
 
 const CLIPS = [
@@ -308,26 +330,22 @@ const CLIPS = [
   {id:"clip2", name:"Clip 2", topic:"Fed and leverage risk"},
   {id:"clip3", name:"Clip 3", topic:"Gen Z and retail psychology"}
 ];
-const TONES = ["bullish","bearish","hesitant","confident","neutral"];
-const STEPS = ["Transcribe","Measure tone","Find tone-setter","Report"];
-const liveMode = /[?&]live=1/.test(location.search);
-
+const EMOTIONS = ["angry","disgust","fear","happy","neutral","sad"];
+const STEPS = ["Transcribe","Read voice","Analyse","Report"];
+const STEP_WARN = [
+  "Transcription engine is not recorded in this result.",
+  "This result has no voice analysis.",
+  "This result has no analyst read.",
+  ""
+];
 const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
 const ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1"/><rect x="13.5" y="4" width="4.5" height="16" rx="1"/></svg>';
 
 const audio = document.getElementById("audio");
 const $ = id => document.getElementById(id);
 
-let clipId = null;
-let data = null;
-let segs = [];
-let selected = -1;
-let setterIdx = null;
-let followerIdx = [];
-let segButtons = [];
-let trLines = [];
-let raf = null;
-let loadToken = 0;
+let clipId = null, data = null, segs = [], wins = [], shift = null;
+let selected = -1, winButtons = [], trLines = [], raf = null, loadToken = 0;
 
 function el(tag, cls, text){
   const e = document.createElement(tag);
@@ -335,14 +353,14 @@ function el(tag, cls, text){
   if(text != null) e.textContent = text;
   return e;
 }
-function tone(v){ return TONES.indexOf(v) !== -1 ? v : "neutral"; }
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
 function fmt(t){
   t = Math.max(0, t || 0);
-  const m = Math.floor(t / 60), s = Math.floor(t % 60);
-  return m + ":" + String(s).padStart(2, "0");
+  return Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0");
 }
 function dur(){
   if(data && data.duration_sec) return data.duration_sec;
+  if(wins.length) return wins[wins.length - 1].end;
   if(segs.length) return segs[segs.length - 1].end;
   return audio.duration || 1;
 }
@@ -377,16 +395,15 @@ function markTabs(){
 }
 
 /* Steps */
-function drawSteps(state, fallbackAll){
+function drawSteps(state, missing){
   const box = $("steps");
   box.textContent = "";
   STEPS.forEach((name, idx) => {
-    const warn = state === "done" && fallbackAll && (idx === 1 || idx === 2);
+    const warn = state === "done" && missing && missing[idx];
     const s = el("div", "step " + (warn ? "warn" : (state || "")));
-    const m = el("span", "mark", warn ? "!" : (state === "done" ? "\u2713" : ""));
-    if(warn) s.title = "Not a real result: tone came from the rule-based fallback, not Evon.";
-    s.appendChild(m);
+    s.appendChild(el("span", "mark", warn ? "!" : (state === "done" ? "\u2713" : "")));
     s.appendChild(el("span", "", name));
+    if(warn) s.title = STEP_WARN[idx];
     box.appendChild(s);
   });
 }
@@ -428,72 +445,94 @@ function update(){
     if(i !== -1 && i !== selected) select(i, false);
   }
 }
+function seekTo(t){
+  try{ audio.currentTime = t; }catch(e){}
+  const i = segAt(t);
+  if(i !== -1) select(i, false);
+  update();
+}
 
 /* Data */
+function topOf(probs){
+  let best = null, bp = -1;
+  EMOTIONS.forEach(e => {
+    const p = Number(probs[e]);
+    if(isFinite(p) && p > bp){ bp = p; best = e; }
+  });
+  return {top: best, conf: bp < 0 ? 0 : bp};
+}
+function voiceFor(a, b){
+  const probs = {};
+  let tot = 0;
+  wins.forEach(w => {
+    const ov = Math.min(b, w.end) - Math.max(a, w.start);
+    if(ov > 0){
+      tot += ov;
+      EMOTIONS.forEach(e => { probs[e] = (probs[e] || 0) + ov * (Number(w.probs[e]) || 0); });
+    }
+  });
+  if(!tot) return null;
+  EMOTIONS.forEach(e => { probs[e] = (probs[e] || 0) / tot; });
+  const t = topOf(probs);
+  return {probs: probs, top: t.top, conf: t.conf};
+}
+function findShift(){
+  const w = wins.filter(x => x.conf >= 0.3);
+  if(w.length < 4) return null;
+  const base = w[0].top;
+  for(let i = 1; i < w.length - 2; i++){
+    if(w[i].top !== base && w[i+1].top === w[i].top && w[i+2].top === w[i].top){
+      return {from: base, to: w[i].top, time: w[i].start};
+    }
+  }
+  return null;
+}
 function normalise(d){
   data = d;
-  segs = (d.segments || []).map((s, i) => {
-    const mood = s.mood || {};
-    const rawEngine = String(mood.engine || s.engine || d.tone_engine || "");
-    const reason = mood.one_line_reason || "";
-    const heuristic = /rule-based|lexicon|fallback|keyword|heuristic|\bcues\b/i.test(reason) ||
-      /rule|lexicon|fallback|keyword|heuristic/i.test(rawEngine);
-    let kind = "unknown";
-    if(heuristic) kind = "heuristic";
-    else if(/evon/i.test(rawEngine)) kind = "evon";
-    else if(rawEngine) kind = "llm";
-    const label = kind === "evon" ? "Evon"
-      : kind === "llm" ? rawEngine
-      : kind === "heuristic" ? "Rule-based, not a model"
-      : "Engine not recorded";
-    return Object.assign({}, s, {
-      i: i,
-      mood: mood,
-      tone: tone(mood.sentiment),
-      fb: kind === "heuristic" || kind === "unknown",
-      label: label
-    });
+  wins = (Array.isArray(d.voice_windows) ? d.voice_windows : [])
+    .filter(w => w && w.probs && typeof w.start === "number" && typeof w.end === "number")
+    .map(w => {
+      const t = topOf(w.probs);
+      return Object.assign({}, w, {top: t.top, conf: t.conf});
+    })
+    .filter(w => w.top);
+  segs = (d.segments || []).map((s, i) => Object.assign({}, s, {i: i}));
+  segs.forEach(s => {
+    s.voice = voiceFor(s.start, s.end);
+    s.top = s.voice ? s.voice.top : null;
   });
-  const v = d.tone_setter || {};
-  setterIdx = (v.setter_segment && typeof v.setter_segment.segment_index === "number") ? v.setter_segment.segment_index : null;
-  followerIdx = (v.followers || []).map(f => {
-    if(typeof f === "number") return f;
-    if(f && typeof f.segment_index === "number") return f.segment_index;
-    if(f && typeof f.index === "number") return f.index;
-    return null;
-  }).filter(n => n !== null && n >= 0 && n < segs.length && n !== setterIdx);
-  if(segs.length && segs.every(s => s.fb)){
-    setterIdx = null;
-    followerIdx = [];
-  }
+  shift = findShift();
 }
 
 /* Timeline */
 function drawTimeline(){
   const track = $("track");
   track.textContent = "";
-  segButtons = [];
+  winButtons = [];
   const d = dur();
-
-  segs.forEach(s => {
-    const b = el("button", "seg" + (s.fb ? " fb" : "") + (s.i === setterIdx ? " setter" : ""));
+  if(!wins.length){
+    const m = el("div", "hint", "No voice analysis for this clip yet.");
+    m.style.padding = "18px 14px";
+    track.appendChild(m);
+  }
+  wins.forEach(w => {
+    const b = el("button", "seg");
     b.type = "button";
-    b.dataset.tone = s.tone;
-    b.style.left = (s.start / d * 100) + "%";
-    b.style.width = ((s.end - s.start) / d * 100) + "%";
-    const cert = typeof s.mood.certainty === "number" ? s.mood.certainty : 0.5;
-    b.style.opacity = (0.5 + 0.5 * Math.min(1, Math.max(0, cert))).toFixed(2);
-    b.title = fmt(s.start) + " to " + fmt(s.end) + ": " + s.tone + ", certainty " + Math.round(cert * 100) + "%" + (s.fb ? " (rule-based fallback)" : "");
-    b.setAttribute("aria-label", "Segment " + (s.i + 1) + ", " + s.tone + ", " + fmt(s.start) + " to " + fmt(s.end));
-    b.addEventListener("click", () => select(s.i, true));
+    b.dataset.tone = w.top;
+    b.style.left = (w.start / d * 100) + "%";
+    b.style.width = ((w.end - w.start) / d * 100) + "%";
+    const c = Math.min(1, Math.max(0, (w.conf - 0.17) / 0.5));
+    b.style.opacity = (0.4 + 0.6 * c).toFixed(2);
+    b.title = fmt(w.start) + " to " + fmt(w.end) + ": " + w.top + " (" + Math.round(w.conf * 100) + "%)";
+    b.setAttribute("aria-label", w.top + ", " + fmt(w.start) + " to " + fmt(w.end));
+    b.addEventListener("click", () => seekTo(w.start));
     track.appendChild(b);
-    segButtons.push(b);
+    winButtons.push(b);
   });
   const head = el("div", "playhead");
   head.id = "playhead";
   track.appendChild(head);
 
-  /* Axis ticks */
   const ticks = $("ticks");
   ticks.textContent = "";
   const step = d <= 40 ? 5 : d <= 120 ? 10 : 30;
@@ -503,78 +542,61 @@ function drawTimeline(){
     ticks.appendChild(s);
   }
 
-  /* Lead rail: tone-setter and followers */
   const rail = $("rail");
   rail.textContent = "";
-  if(setterIdx !== null && segs[setterIdx]){
+  if(shift){
     rail.style.display = "block";
-    const centre = i => ((segs[i].start + segs[i].end) / 2) / d * 100;
-    const all = [setterIdx].concat(followerIdx);
-    const xs = all.map(centre);
-    const line = el("div", "line");
-    line.style.left = Math.min.apply(null, xs) + "%";
-    line.style.width = (Math.max.apply(null, xs) - Math.min.apply(null, xs)) + "%";
-    rail.appendChild(line);
-    followerIdx.forEach(i => {
-      const dot = el("div", "dot");
-      dot.style.left = centre(i) + "%";
-      rail.appendChild(dot);
-    });
-    const sd = el("div", "dot setter");
-    sd.style.left = centre(setterIdx) + "%";
-    rail.appendChild(sd);
-    const lbl = el("div", "lbl", "Tone-setter");
-    lbl.style.left = centre(setterIdx) + "%";
+    rail.style.marginTop = "18px";
+    const x = (shift.time / d * 100) + "%";
+    const dot = el("div", "dot setter");
+    dot.style.left = x;
+    rail.appendChild(dot);
+    const lbl = el("div", "lbl", "Voice shift");
+    lbl.style.left = x;
     lbl.style.top = "-16px";
     rail.appendChild(lbl);
-    rail.style.marginTop = "18px";
   } else {
     rail.style.display = "none";
   }
 
-  /* Legend */
   const lg = $("legend");
   lg.textContent = "";
-  TONES.forEach(t => {
+  EMOTIONS.forEach(e => {
     const it = el("div", "it");
     const sw = el("span", "sw");
-    sw.dataset.tone = t;
+    sw.dataset.tone = e;
     it.appendChild(sw);
-    it.appendChild(document.createTextNode(t.charAt(0).toUpperCase() + t.slice(1)));
+    it.appendChild(document.createTextNode(cap(e)));
     lg.appendChild(it);
   });
-  const fbItem = el("div", "it");
-  fbItem.appendChild(el("span", "sw hatch"));
-  fbItem.appendChild(document.createTextNode("Hatched: not a model result"));
-  lg.appendChild(fbItem);
-  const op = el("div", "it", "Fainter block = lower certainty");
-  lg.appendChild(op);
+  lg.appendChild(el("div", "it", "Fainter block = voice model less sure"));
 }
 
-/* Verdict */
-function drawVerdict(){
+/* Voice summary */
+function drawSummary(){
   const box = $("verdict");
   box.textContent = "";
-  const v = data.tone_setter || {};
-  const allFb = segs.length > 0 && segs.every(s => s.fb);
-  if(setterIdx !== null && segs[setterIdx]){
-    const s = segs[setterIdx];
-    box.appendChild(el("p", "verdict-title", "The mood turned " + s.tone + " at about " + Math.round(s.start) + " seconds"));
-    const parts = [];
-    if(s.mood.one_line_reason) parts.push(s.mood.one_line_reason);
-    parts.push(followerIdx.length
-      ? followerIdx.length + " later segment" + (followerIdx.length === 1 ? "" : "s") + " moved the same way."
-      : "No later segment followed it.");
-    box.appendChild(el("p", "verdict-body", parts.join(" ")));
-  } else {
-    box.appendChild(el("p", "verdict-title", "No tone-setter found"));
-    const same = segs.length && segs.every(s => s.tone === segs[0].tone);
-    let msg = same
-      ? "Every segment read as " + segs[0].tone + ", so there was no shift for the rest to follow."
-      : (v.confidence_note || "No mood shift lasted long enough to count as a lead.");
-    if(allFb) msg += " This result comes from the rule-based fallback, so it says little about the clip itself.";
-    box.appendChild(el("p", "verdict-body", msg));
+  if(!wins.length){
+    box.appendChild(el("p", "verdict-title", "No voice analysis yet"));
+    box.appendChild(el("p", "verdict-body", "This clip's result file has no voice windows. Re-run the pipeline to generate them."));
+    return;
   }
+  const tot = {};
+  let total = 0;
+  wins.forEach(w => {
+    const d = w.end - w.start;
+    total += d;
+    tot[w.top] = (tot[w.top] || 0) + d;
+  });
+  const order = Object.keys(tot).sort((a, b) => tot[b] - tot[a]);
+  const lead = order[0];
+  box.appendChild(el("p", "verdict-title", "The voice mostly reads as " + lead + " (" + Math.round(tot[lead] / total * 100) + "% of the clip)"));
+  let body = "Time split: " + order.slice(0, 3).map(e => e + " " + Math.round(tot[e] / total * 100) + "%").join(", ") + ". ";
+  body += shift
+    ? "The voice shifted from " + shift.from + " to " + shift.to + " at about " + Math.round(shift.time) + " seconds and stayed there."
+    : "No sustained change in voice emotion.";
+  body += " This comes from a model that is about 50% accurate on unseen actors, so treat it as a hint.";
+  box.appendChild(el("p", "verdict-body", body));
 }
 
 /* Detail */
@@ -601,38 +623,84 @@ function drawDetail(){
   }
   const head = el("div", "detail-head");
   head.appendChild(el("span", "dt", "Segment " + (s.i + 1) + ", " + fmt(s.start) + " to " + fmt(s.end)));
-  const tn = el("span", "tone");
-  const sw = el("span", "sw");
-  sw.dataset.tone = s.tone;
-  tn.appendChild(sw);
-  tn.appendChild(document.createTextNode(s.tone));
-  head.appendChild(tn);
-  head.appendChild(el("span", "src" + (s.fb ? " fb" : ""), s.label));
-  box.appendChild(head);
-
-  box.appendChild(el("p", "detail-text", s.text || "No speech in this segment."));
-
-  const meters = el("div", "meters");
-  if(typeof s.mood.certainty === "number") meters.appendChild(meter("Certainty", s.mood.certainty));
-  if(typeof s.mood.pressure === "number") meters.appendChild(meter("Pressure", s.mood.pressure));
-  box.appendChild(meters);
-
-  if(s.mood.one_line_reason) box.appendChild(el("p", "reason", s.mood.one_line_reason));
-
-  const pr = s.prosody || s.features || s.audio_features;
-  if(pr && typeof pr === "object"){
-    const keys = Object.keys(pr).filter(k => typeof pr[k] === "number" && isFinite(pr[k])).slice(0, 6);
-    if(keys.length){
-      const row = el("div", "pros");
-      keys.forEach(k => {
-        const it = el("span");
-        it.appendChild(document.createTextNode(k.replace(/_/g, " ") + " "));
-        it.appendChild(el("b", "", pr[k].toFixed(2)));
-        row.appendChild(it);
-      });
-      box.appendChild(row);
-    }
+  if(s.top){
+    const tn = el("span", "tone");
+    const sw = el("span", "sw");
+    sw.dataset.tone = s.top;
+    tn.appendChild(sw);
+    tn.appendChild(document.createTextNode(s.top));
+    head.appendChild(tn);
   }
+  box.appendChild(head);
+  box.appendChild(el("p", "detail-text", s.text || "No speech in this segment."));
+  if(s.voice){
+    box.appendChild(el("div", "asub", "Voice in this segment"));
+    const grid = el("div", "meters");
+    EMOTIONS.slice().sort((a, b) => (s.voice.probs[b] || 0) - (s.voice.probs[a] || 0))
+      .forEach(e => grid.appendChild(meter(cap(e), s.voice.probs[e] || 0)));
+    box.appendChild(grid);
+    box.appendChild(el("p", "reason", "Voice model estimate, about 50% accurate on unseen actors. A hint, not a finding."));
+  } else {
+    box.appendChild(el("p", "reason", "No voice windows cover this segment."));
+  }
+}
+
+/* Analyst read */
+function textBlock(title, text){
+  const w = el("div");
+  w.appendChild(el("div", "asub", title));
+  w.appendChild(el("p", "verdict-body", text));
+  return w;
+}
+function listBlock(title, arr){
+  if(!Array.isArray(arr) || !arr.length) return null;
+  const w = el("div");
+  w.appendChild(el("div", "asub", title));
+  const ul = el("ul", "alist");
+  arr.forEach(x => ul.appendChild(el("li", "", String(x))));
+  w.appendChild(ul);
+  return w;
+}
+function drawAnalysis(){
+  const box = $("analysis");
+  box.textContent = "";
+  const a = data && data.analysis;
+  if(!a || typeof a !== "object"){
+    box.appendChild(el("p", "verdict-body", "No analyst read has been generated for this clip yet."));
+    return;
+  }
+  if(a.situation) box.appendChild(textBlock("Situation", a.situation));
+  if(a.baseline) box.appendChild(textBlock("How they normally speak in this clip", a.baseline));
+  const obs = Array.isArray(a.observations) ? a.observations : [];
+  box.appendChild(el("div", "asub", "Things worth probing (" + obs.length + ")"));
+  if(!obs.length) box.appendChild(el("p", "verdict-body", "Nothing in this clip stood out enough to flag."));
+  obs.forEach(o => {
+    const row = el("div", "obs");
+    const h = el("div", "oh");
+    h.appendChild(el("span", "badge", String(o.type || "observation").replace(/_/g, " ")));
+    if(o.strength) h.appendChild(el("span", "badge " + o.strength, o.strength));
+    if(typeof o.time === "number"){
+      const b = el("button", "badge", "at " + fmt(o.time));
+      b.type = "button";
+      b.addEventListener("click", () => seekTo(o.time));
+      h.appendChild(b);
+    }
+    row.appendChild(h);
+    if(o.evidence) row.appendChild(el("p", "quote", "\u201C" + o.evidence + "\u201D"));
+    if(o.voice) row.appendChild(el("p", "qline", "Voice: " + o.voice));
+    if(o.why_it_matters) row.appendChild(el("p", "qline", o.why_it_matters));
+    box.appendChild(row);
+  });
+  const inn = listBlock("Innocent explanations to rule out", a.innocent_explanations);
+  if(inn) box.appendChild(inn);
+  const ask = listBlock("What to ask next", a.what_to_ask_next);
+  if(ask) box.appendChild(ask);
+  if(a.impact) box.appendChild(textBlock("What this conversation affects", a.impact));
+  if(a.limits) box.appendChild(textBlock("What can\u2019t be known from this clip", a.limits));
+  box.appendChild(el("div", "adisc",
+    "Written by " + (a.engine || "an engine that was not recorded") +
+    ". These are observations to probe, not a verdict on whether anyone is telling the truth. " +
+    "Voice cues are a weak signal (about 50% accuracy on unseen actors). This reading has not been validated."));
 }
 
 /* Voice signal (clip-level prosody) */
@@ -640,15 +708,13 @@ function drawVoice(){
   const box = $("voice");
   box.textContent = "";
   const p = data && data.prosody;
-  if(!p || typeof p !== "object"){
-    box.appendChild(el("p", "verdict-body", "No voice measurements were saved for this clip."));
-    return;
-  }
   const items = [];
-  if(typeof p.pitch_mean === "number") items.push([Math.round(p.pitch_mean) + " Hz", "Average pitch"]);
-  if(typeof p.pitch_std === "number") items.push([Math.round(p.pitch_std) + " Hz", "Pitch variation"]);
-  if(typeof p.energy_mean === "number") items.push([p.energy_mean.toFixed(3), "Average loudness"]);
-  if(typeof p.activity_ratio === "number") items.push([Math.round(p.activity_ratio * 100) + "%", "Time spent speaking"]);
+  if(p && typeof p === "object"){
+    if(typeof p.pitch_mean === "number") items.push([Math.round(p.pitch_mean) + " Hz", "Average pitch"]);
+    if(typeof p.pitch_std === "number") items.push([Math.round(p.pitch_std) + " Hz", "Pitch variation"]);
+    if(typeof p.energy_mean === "number") items.push([p.energy_mean.toFixed(3), "Average loudness"]);
+    if(typeof p.activity_ratio === "number") items.push([Math.round(p.activity_ratio * 100) + "%", "Time spent speaking"]);
+  }
   if(!items.length){
     box.appendChild(el("p", "verdict-body", "No voice measurements were saved for this clip."));
     return;
@@ -661,7 +727,7 @@ function drawVoice(){
     grid.appendChild(s);
   });
   box.appendChild(grid);
-  box.appendChild(el("p", "voice-note", "Measured from the audio. These describe how the clip sounds overall and are not a mood label."));
+  box.appendChild(el("p", "voice-note", "Measured from the audio. These describe how the clip sounds overall and are not an emotion label."));
 }
 
 /* Transcript */
@@ -676,7 +742,7 @@ function drawTranscript(){
   segs.forEach(s => {
     const b = el("button", "line");
     b.type = "button";
-    b.dataset.tone = s.tone;
+    if(s.top) b.dataset.tone = s.top;
     b.appendChild(el("span", "ts", fmt(s.start)));
     b.appendChild(el("span", "tx", s.text || "(no speech)"));
     b.addEventListener("click", () => select(s.i, true));
@@ -689,48 +755,38 @@ function drawTranscript(){
 function select(i, seek){
   if(i < 0 || i >= segs.length) return;
   selected = i;
-  segButtons.forEach((b, k) => b.classList.toggle("sel", k === i));
+  const s = segs[i];
+  winButtons.forEach((b, k) => {
+    const w = wins[k];
+    b.classList.toggle("sel", !!w && w.start < s.end && w.end > s.start);
+  });
   trLines.forEach((b, k) => b.classList.toggle("sel", k === i));
   drawDetail();
-  const line = trLines[i];
-  const list = $("trList");
-  if(line && list){
-    list.scrollTop = Math.max(0, line.offsetTop - list.clientHeight / 3);
-  }
+  const line = trLines[i], list = $("trList");
+  if(line && list) list.scrollTop = Math.max(0, line.offsetTop - list.clientHeight / 3);
   if(seek){
-    try{ audio.currentTime = segs[i].start; }catch(e){}
+    try{ audio.currentTime = s.start; }catch(e){}
     update();
   }
 }
 
-/* Banner and source note */
+/* Notes */
 function drawNotes(){
   const banner = $("banner");
-  const fbCount = segs.filter(s => s.fb).length;
   const note = $("srcNote");
-  const counts = {};
-  segs.forEach(s => { counts[s.label] = (counts[s.label] || 0) + 1; });
-  const summary = Object.keys(counts).map(k => counts[k] + " segments: " + k).join("; ");
-  if(segs.length && fbCount === segs.length){
+  if(!wins.length){
     banner.style.display = "block";
-    banner.textContent = "";
-    const st = el("strong", "", "Not a model result. ");
-    banner.appendChild(st);
-    banner.appendChild(document.createTextNode("Every tone label on this clip comes from keyword or lexicon counting, or has no recorded engine. Do not present it as Evon or any other model output."));
-    note.textContent = "Tone source: " + summary + ".";
-  } else if(fbCount){
-    banner.style.display = "block";
-    banner.textContent = fbCount + " of " + segs.length + " segments are not model results (rule-based or no recorded engine). They are hatched on the timeline.";
-    note.textContent = "Tone source: " + summary + ".";
+    banner.textContent = "This result has no voice analysis, so the timeline is empty until the pipeline is re-run.";
   } else {
     banner.style.display = "none";
-    note.textContent = segs.length ? "Tone source: " + summary + "." : "";
   }
+  let txt = "Transcript: " + (data.stt_engine || "engine not recorded") +
+    ". Voice: " + (data.voice_model || (wins.length ? "model not recorded" : "none")) +
+    ". Analysis: " + ((data.analysis && data.analysis.engine) || "none") + ".";
   const first = segs.length ? segs[0].end - segs[0].start : 0;
   const even = segs.length > 2 && segs.every(s => Math.abs((s.end - s.start) - first) < 0.06);
-  if(even){
-    note.textContent += (note.textContent ? " " : "") + "Segment times are evenly spaced estimates, not measured from the audio, so the highlight may drift from what you hear.";
-  }
+  if(even) txt += " Segment times are evenly spaced estimates, not measured from the audio, so the highlight may drift from what you hear.";
+  note.textContent = txt;
 }
 
 /* Loading */
@@ -749,20 +805,18 @@ async function loadClip(id){
   setPlayIcon();
   $("ptime").textContent = "0:00 / 0:00";
   selected = -1;
-  drawSteps(liveMode ? "running" : "");
+  drawSteps("", null);
   $("verdict").textContent = "";
-  $("verdict").appendChild(el("p", "verdict-body", liveMode ? "Running the live pipeline." : "Loading analysis."));
-  log("load " + id + (liveMode ? " (live)" : " (saved result)"));
-
+  $("verdict").appendChild(el("p", "verdict-body", "Loading analysis."));
+  log("load " + id + " (saved result)");
   const slow = setTimeout(() => {
     if(token === loadToken){
       $("verdict").textContent = "";
       $("verdict").appendChild(el("p", "verdict-body", "Waking up the server. This can take about 30 seconds."));
     }
   }, 4000);
-
   try{
-    const r = await fetch("/analyze/" + id + (liveMode ? "?live=1" : ""));
+    const r = await fetch("/analyze/" + id);
     if(!r.ok){
       let msg = "Request failed (" + r.status + ").";
       try{ const j = await r.json(); if(j && j.error) msg = j.error; }catch(e){}
@@ -772,21 +826,20 @@ async function loadClip(id){
     if(token !== loadToken) return;
     normalise(d);
     drawTimeline();
-    drawVerdict();
+    drawSummary();
     drawTranscript();
     drawVoice();
+    drawAnalysis();
     drawNotes();
-    drawSteps("done", segs.length > 0 && segs.every(s => s.fb));
-    const start = setterIdx !== null ? setterIdx : 0;
-    if(segs.length) select(start, false); else drawDetail();
+    drawSteps("done", [!d.stt_engine, !wins.length, !d.analysis, false]);
+    if(segs.length) select(0, false); else drawDetail();
     update();
-    log("analysis ready (" + segs.length + " segments)");
+    log("analysis ready (" + segs.length + " segments, " + wins.length + " voice windows)");
   }catch(e){
     if(token !== loadToken) return;
     $("verdict").textContent = "";
-    const p = el("p", "verdict-body err", "Could not load this clip. " + e.message + " Try again in a moment.");
-    $("verdict").appendChild(p);
-    drawSteps("");
+    $("verdict").appendChild(el("p", "verdict-body err", "Could not load this clip. " + e.message + " Try again in a moment."));
+    drawSteps("", null);
     log("error: " + e.message, "err");
   }finally{
     clearTimeout(slow);
@@ -794,7 +847,7 @@ async function loadClip(id){
 }
 
 buildTabs();
-drawSteps("");
+drawSteps("", null);
 setPlayIcon();
 loadClip("clip1");
 </script>

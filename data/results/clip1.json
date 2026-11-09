@@ -150,5 +150,22 @@
     "spectral_flux_mean": 2.885655403137207,
     "duration_sec": 30.0
   },
-  "tone_engine": "gemini-3.5-flash-lite"
+  "tone_engine": "gemini-3.5-flash-lite",
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'hesitant' throughout. No clear tone-setter."
+  },
+  "analysis": {
+    "generated_at": "2026-11-09T09:32:03.861873+00:00",
+    "engine": "gemini-3.5-flash-lite",
+    "clip_id": "clip1",
+    "situation": "This is a scripted audio recording of a podcast intro discussing high interest rates, margin trades, and market leverage.",
+    "baseline": "Standard scripted broadcast delivery intended for an engaging podcast intro.",
+    "observations": [],
+    "innocent_explanations": [],
+    "what_to_ask_next": [],
+    "impact": "The clip is a standard, scripted podcast introduction featuring theatrical or energetic reading, which does not provide spontaneous conversational behavior suitable for behavioural analysis.",
+    "limits": "The clip cannot support behavioural observations because it is a pre-scripted media broadcast rather than an investigative or spontaneous conversational interview."
+  }
 }

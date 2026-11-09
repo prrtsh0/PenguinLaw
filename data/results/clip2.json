@@ -117,5 +117,30 @@
     "spectral_flux_mean": 3.1037070751190186,
     "duration_sec": 30.0
   },
-  "tone_engine": "gemini-3.5-flash-lite"
+  "tone_engine": "gemini-3.5-flash-lite",
+  "analysis": {
+    "generated_at": "2026-11-09T09:35:12.890463+00:00",
+    "engine": "gemini-3.5-flash-lite",
+    "clip_id": "clip2",
+    "situation": "A recorded commentary or podcast excerpt discussing Federal Reserve margin debt policies, historical market crashes, and differing expert opinions.",
+    "baseline": "Informational delivery style with elevated pitch variation and occasional sharp fluctuations in tone typical of financial commentary.",
+    "observations": [
+      {
+        "type": "contradiction",
+        "evidence": "margin debt is at a historic level, but Urian says it's not",
+        "time": 22.5,
+        "voice": "Elevated anger/frustration probability",
+        "why_it_matters": "Directly juxtaposes two mutually exclusive premises without resolving the factual disagreement.",
+        "strength": "moderate"
+      }
+    ],
+    "innocent_explanations": [
+      "The speaker is simply summarising a public debate between two opposing financial analysts or presenting two sides of an ongoing economic argument."
+    ],
+    "what_to_ask_next": [
+      "What specific metrics does Urian use to argue that margin debt is not at a historic level?"
+    ],
+    "impact": "Highlights a core discrepancy in the economic data being cited, which an interviewer would probe for clarification.",
+    "limits": ""
+  }
 }

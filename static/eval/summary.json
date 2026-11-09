@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:32:13.302252+00:00",
+  "generated_at": "2026-11-09T09:27:11.843819+00:00",
   "datasets": [
     {
       "name": "CREMA-D",
@@ -168,5 +168,49 @@
     "RAVDESS calm and surprise clips excluded (no CREMA-D counterpart).",
     "Studio-recorded acted speech; real-world settings will score lower.",
     "Acoustic features only; no lexical/semantic information."
-  ]
+  ],
+  "model_cross_check": {
+    "kind": "model_cross_check",
+    "reference_model": "superb/wav2vec2-base-superb-er",
+    "n_clips": 17,
+    "our_model_vs_reference_agreement": 0.5294117647058824,
+    "our_model_vs_reference_macro_f1": 0.4903846153846154,
+    "reference_model_accuracy_vs_filename_gt": 0.4117647058823529,
+    "our_model_accuracy_vs_filename_gt": 0.7058823529411765,
+    "confusion_ours_vs_reference": {
+      "labels": [
+        "ANG",
+        "HAP",
+        "NEU",
+        "SAD"
+      ],
+      "matrix": [
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          5,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          3,
+          1
+        ],
+        [
+          1,
+          0,
+          0,
+          3
+        ]
+      ]
+    },
+    "note": "Automated model-vs-model cross-check; NOT a human check. Limited to the 4 overlapping emotions: ANG/HAP/NEU/SAD."
+  }
 }

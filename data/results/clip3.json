@@ -128,5 +128,31 @@
     "spectral_flux_mean": 2.8602511882781982,
     "duration_sec": 30.0
   },
-  "tone_engine": "gemini-3.5-flash-lite"
+  "tone_engine": "gemini-3.5-flash-lite",
+  "analysis": {
+    "generated_at": "2026-11-09T09:35:29.569354+00:00",
+    "engine": "gemini-3.5-flash-lite",
+    "clip_id": "clip3",
+    "situation": "An expert (Dan Egan) discussing research on Gen Z investing habits and gambling.",
+    "baseline": "Clear, professional commentary style with moderate pacing and structured delivery.",
+    "observations": [
+      {
+        "type": "hedging",
+        "evidence": "I think you know, number 1",
+        "time": 4.0,
+        "voice": "ang=0.56",
+        "why_it_matters": "Softeners and filler phrases can indicate the speaker is transitioning from a general fact to an evaluative personal opinion.",
+        "strength": "weak"
+      }
+    ],
+    "innocent_explanations": [
+      "The speaker is simply collecting their thoughts before delivering a summary judgment on complex data."
+    ],
+    "what_to_ask_next": [
+      "Can you elaborate on the specific differences between investing and gambling observed in your poll?",
+      "What are the main financial risks Gen Z faces compared to older generations?"
+    ],
+    "impact": "Provides a smooth transition into an expert opinion on generational financial behaviors, though marked by minor verbal hesitation.",
+    "limits": ""
+  }
 }
