@@ -5,18 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PenguinLaw — Docs</title>
 <style>
-  :root { --bg:#0e1117; --panel:#161b22; --line:#30363d; --txt:#e6edf3;
-          --mut:#8b949e; --acc:#3fb950; --warn:#d29922; --bad:#f85149; }
+  :root { --bg:#eef1f6; --panel:#ffffff; --line:#d9deea; --txt:#14213d;
+          --mut:#5b6780; --acc:#2f5bea; --accent:#2f5bea; --warn:#d29922;
+          --bad:#f85149; --radius:12px; --accent-soft:#e8edff; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--txt);
          font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  a { color:#58a6ff; text-decoration:none; } a:hover { text-decoration:underline; }
-  .nav { display:flex; gap:18px; align-items:center; padding:12px 20px;
-         background:var(--panel); border-bottom:1px solid var(--line);
-         font-size:14px; position:sticky; top:0; z-index:10; }
-  .nav .brand { font-weight:700; font-size:15px; margin-right:8px; }
-  .nav a { color:var(--txt); }
-  .nav .active { color:var(--acc); }
+  a { color:var(--acc); text-decoration:none; } a:hover { text-decoration:underline; }
+  .nav { display:flex; align-items:center; gap:20px; background:var(--panel);
+         border-bottom:1px solid var(--line); padding:0 20px; min-height:56px;
+         position:sticky; top:0; z-index:10; }
+  .nav .brand { font-weight:700; font-size:17px; letter-spacing:-.01em; color:var(--ink); }
+  .nav a { color:var(--mut); font-size:13px; text-decoration:none; }
+  .nav a:hover { color:var(--ink); }
+  .nav .active { color:var(--acc); font-weight:600; }
   .layout { display:flex; max-width:1180px; margin:0 auto; gap:28px; padding:24px 20px 60px; }
   .side { flex:0 0 220px; }
   .side .doc { display:block; padding:8px 12px; margin:2px 0; border-radius:8px;
@@ -32,14 +34,14 @@
   .doc-body h1 { font-size:23px; border-bottom:1px solid var(--line); padding-bottom:8px; }
   .doc-body h2 { font-size:19px; margin-top:28px; }
   .doc-body h3 { font-size:16px; }
-  .doc-body pre { background:#0d1117; border:1px solid var(--line); border-radius:8px;
+  .doc-body pre { background:var(--bg); border:1px solid var(--line); border-radius:8px;
                   padding:14px 16px; overflow:auto; font-size:13px; line-height:1.5; }
   .doc-body code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
-                   background:#0d1117; padding:1px 6px; border-radius:5px; font-size:13px; }
+                   background:var(--bg); padding:1px 6px; border-radius:5px; font-size:13px; }
   .doc-body pre code { background:transparent; padding:0; }
   .doc-body table { border-collapse:collapse; width:100%; font-size:13px; margin:14px 0; }
   .doc-body th, .doc-body td { border:1px solid var(--line); padding:7px 11px; text-align:left; }
-  .doc-body th { background:#0d1117; color:var(--mut); font-weight:500; }
+  .doc-body th { background:var(--bg); color:var(--mut); font-weight:500; }
   .doc-body blockquote { margin:14px 0; padding:6px 16px; border-left:3px solid var(--acc);
                          color:var(--mut); }
   .doc-body li { margin:2px 0; }
