@@ -29,6 +29,9 @@ from sklearn.ensemble import RandomForestClassifier  # noqa: E402
 
 EMOTIONS = ["ANG", "DIS", "FEA", "HAP", "NEU", "SAD"]
 WINDOW_SEC = 3.0
+EMOTION_NAME = {"ANG": "angry", "DIS": "disgust", "FEA": "fear",
+                "HAP": "happy", "NEU": "neutral", "SAD": "sad"}
+VOICE_MODEL = "crema-randomforest"
 SYSTEM_PROMPT = (
     "You are a senior behavioural analyst reviewing a recorded conversation. "
     "You never decide whether anyone is lying, guilty or truthful, and you never "
@@ -78,7 +81,10 @@ def train_model(crema_csv, seed=42, trees=300):
 
 
 def window_probabilities(audio_path, duration_sec, clf, keys):
-    """Return a list of {start,end,probabilities} per 3-second window."""
+    """Return a list of {start,end,probs} per 3-second window.
+    probs maps lowercase emotion names (angry/disgust/fear/happy/neutral/sad),
+    as expected by the frontend timeline.
+    """
     out = []
     t = 0.0
     while t < duration_sec - 0.01:
@@ -87,9 +93,12 @@ def window_probabilities(audio_path, duration_sec, clf, keys):
         if feats:
             row = np.array([[float(feats[k]) for k in keys]])
             probs = clf.predict_proba(row)[0]
-            prob_map = {c: round(float(p), 4) for c, p in zip(clf.classes_, probs)}
+            prob_map = {}
+            for c, p in zip(clf.classes_, probs):
+                name = EMOTION_NAME.get(c, c).lower()
+                prob_map[name] = round(float(p), 4)
             out.append({"start": round(t, 2), "end": round(end, 2),
-                        "probabilities": prob_map})
+                        "probs": prob_map})
         t = end
     return out
 
@@ -274,7 +283,7 @@ def main():
 
         win_lines = []
         for w in wins:
-            pb = " ".join(f"{k}={w['probabilities'][k]}" for k in sorted(w["probabilities"]))
+            pb = " ".join(f"{k}={w['probs'][k]}" for k in sorted(w["probs"]))
             win_lines.append(f"[{w['start']}-{w['end']}] {pb}")
         windows_txt = "\n".join(win_lines)
         if not windows_txt:
@@ -321,6 +330,7 @@ def main():
             **parsed,
         }
         clip["voice_windows"] = wins
+        clip["voice_model"] = VOICE_MODEL
         clip["analysis"] = analysis
 
         with open(clip_path, "w", encoding="utf-8") as fh:

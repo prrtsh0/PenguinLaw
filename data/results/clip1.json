@@ -156,134 +156,135 @@
     {
       "start": 0.0,
       "end": 3.0,
-      "probabilities": {
-        "ANG": 0.5067,
-        "DIS": 0.1267,
-        "FEA": 0.1267,
-        "HAP": 0.2367,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5067,
+        "disgust": 0.1267,
+        "fear": 0.1267,
+        "happy": 0.2367,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 3.0,
       "end": 6.0,
-      "probabilities": {
-        "ANG": 0.5733,
-        "DIS": 0.0867,
-        "FEA": 0.16,
-        "HAP": 0.1733,
-        "NEU": 0.0067,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5733,
+        "disgust": 0.0867,
+        "fear": 0.16,
+        "happy": 0.1733,
+        "neutral": 0.0067,
+        "sad": 0.0
       }
     },
     {
       "start": 6.0,
       "end": 9.0,
-      "probabilities": {
-        "ANG": 0.5767,
-        "DIS": 0.0833,
-        "FEA": 0.15,
-        "HAP": 0.19,
-        "NEU": 0.0,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5767,
+        "disgust": 0.0833,
+        "fear": 0.15,
+        "happy": 0.19,
+        "neutral": 0.0,
+        "sad": 0.0
       }
     },
     {
       "start": 9.0,
       "end": 12.0,
-      "probabilities": {
-        "ANG": 0.5233,
-        "DIS": 0.1167,
-        "FEA": 0.13,
-        "HAP": 0.2233,
-        "NEU": 0.0067,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5233,
+        "disgust": 0.1167,
+        "fear": 0.13,
+        "happy": 0.2233,
+        "neutral": 0.0067,
+        "sad": 0.0
       }
     },
     {
       "start": 12.0,
       "end": 15.0,
-      "probabilities": {
-        "ANG": 0.5333,
-        "DIS": 0.1533,
-        "FEA": 0.11,
-        "HAP": 0.1967,
-        "NEU": 0.0067,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5333,
+        "disgust": 0.1533,
+        "fear": 0.11,
+        "happy": 0.1967,
+        "neutral": 0.0067,
+        "sad": 0.0
       }
     },
     {
       "start": 15.0,
       "end": 18.0,
-      "probabilities": {
-        "ANG": 0.5,
-        "DIS": 0.1333,
-        "FEA": 0.14,
-        "HAP": 0.21,
-        "NEU": 0.0167,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5,
+        "disgust": 0.1333,
+        "fear": 0.14,
+        "happy": 0.21,
+        "neutral": 0.0167,
+        "sad": 0.0
       }
     },
     {
       "start": 18.0,
       "end": 21.0,
-      "probabilities": {
-        "ANG": 0.61,
-        "DIS": 0.09,
-        "FEA": 0.15,
-        "HAP": 0.1467,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.61,
+        "disgust": 0.09,
+        "fear": 0.15,
+        "happy": 0.1467,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 21.0,
       "end": 24.0,
-      "probabilities": {
-        "ANG": 0.64,
-        "DIS": 0.08,
-        "FEA": 0.1033,
-        "HAP": 0.17,
-        "NEU": 0.0,
-        "SAD": 0.0067
+      "probs": {
+        "angry": 0.64,
+        "disgust": 0.08,
+        "fear": 0.1033,
+        "happy": 0.17,
+        "neutral": 0.0,
+        "sad": 0.0067
       }
     },
     {
       "start": 24.0,
       "end": 27.0,
-      "probabilities": {
-        "ANG": 0.61,
-        "DIS": 0.0867,
-        "FEA": 0.1533,
-        "HAP": 0.1467,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.61,
+        "disgust": 0.0867,
+        "fear": 0.1533,
+        "happy": 0.1467,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 27.0,
       "end": 30.0,
-      "probabilities": {
-        "ANG": 0.64,
-        "DIS": 0.1,
-        "FEA": 0.12,
-        "HAP": 0.1367,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.64,
+        "disgust": 0.1,
+        "fear": 0.12,
+        "happy": 0.1367,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     }
   ],
   "analysis": {
-    "generated_at": "2026-11-09T13:40:24.626780+00:00",
+    "generated_at": "2026-11-09T13:53:15.523235+00:00",
     "engine": "gemini-3.5-flash-lite",
     "clip_id": "clip1",
-    "situation": "A recorded podcast introduction discussing US stock market margin trading and leverage.",
-    "baseline": "Standard journalistic and podcast delivery with dramatic inflection for listener engagement.",
+    "situation": "",
+    "baseline": "",
     "observations": [],
     "innocent_explanations": [],
     "what_to_ask_next": [],
     "impact": "",
-    "limits": "The clip is a scripted podcast introduction and news overview rather than an investigative interview, making standard behavioral analysis markers inapplicable."
-  }
+    "limits": "The clip cannot support observations because it is a produced, scripted podcast intro rather than an investigative interview or interpersonal dialogue."
+  },
+  "voice_model": "crema-randomforest"
 }

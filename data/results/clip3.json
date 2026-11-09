@@ -134,155 +134,157 @@
     {
       "start": 0.0,
       "end": 3.0,
-      "probabilities": {
-        "ANG": 0.61,
-        "DIS": 0.09,
-        "FEA": 0.1467,
-        "HAP": 0.1367,
-        "NEU": 0.01,
-        "SAD": 0.0067
+      "probs": {
+        "angry": 0.61,
+        "disgust": 0.09,
+        "fear": 0.1467,
+        "happy": 0.1367,
+        "neutral": 0.01,
+        "sad": 0.0067
       }
     },
     {
       "start": 3.0,
       "end": 6.0,
-      "probabilities": {
-        "ANG": 0.5633,
-        "DIS": 0.12,
-        "FEA": 0.1433,
-        "HAP": 0.17,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5633,
+        "disgust": 0.12,
+        "fear": 0.1433,
+        "happy": 0.17,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 6.0,
       "end": 9.0,
-      "probabilities": {
-        "ANG": 0.6033,
-        "DIS": 0.12,
-        "FEA": 0.1433,
-        "HAP": 0.13,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.6033,
+        "disgust": 0.12,
+        "fear": 0.1433,
+        "happy": 0.13,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 9.0,
       "end": 12.0,
-      "probabilities": {
-        "ANG": 0.6833,
-        "DIS": 0.0833,
-        "FEA": 0.0633,
-        "HAP": 0.1633,
-        "NEU": 0.0067,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.6833,
+        "disgust": 0.0833,
+        "fear": 0.0633,
+        "happy": 0.1633,
+        "neutral": 0.0067,
+        "sad": 0.0
       }
     },
     {
       "start": 12.0,
       "end": 15.0,
-      "probabilities": {
-        "ANG": 0.5933,
-        "DIS": 0.1033,
-        "FEA": 0.1333,
-        "HAP": 0.1567,
-        "NEU": 0.01,
-        "SAD": 0.0033
+      "probs": {
+        "angry": 0.5933,
+        "disgust": 0.1033,
+        "fear": 0.1333,
+        "happy": 0.1567,
+        "neutral": 0.01,
+        "sad": 0.0033
       }
     },
     {
       "start": 15.0,
       "end": 18.0,
-      "probabilities": {
-        "ANG": 0.5433,
-        "DIS": 0.1733,
-        "FEA": 0.0633,
-        "HAP": 0.2067,
-        "NEU": 0.0133,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5433,
+        "disgust": 0.1733,
+        "fear": 0.0633,
+        "happy": 0.2067,
+        "neutral": 0.0133,
+        "sad": 0.0
       }
     },
     {
       "start": 18.0,
       "end": 21.0,
-      "probabilities": {
-        "ANG": 0.6133,
-        "DIS": 0.13,
-        "FEA": 0.1133,
-        "HAP": 0.1267,
-        "NEU": 0.0167,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.6133,
+        "disgust": 0.13,
+        "fear": 0.1133,
+        "happy": 0.1267,
+        "neutral": 0.0167,
+        "sad": 0.0
       }
     },
     {
       "start": 21.0,
       "end": 24.0,
-      "probabilities": {
-        "ANG": 0.56,
-        "DIS": 0.1433,
-        "FEA": 0.1433,
-        "HAP": 0.14,
-        "NEU": 0.0133,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.56,
+        "disgust": 0.1433,
+        "fear": 0.1433,
+        "happy": 0.14,
+        "neutral": 0.0133,
+        "sad": 0.0
       }
     },
     {
       "start": 24.0,
       "end": 27.0,
-      "probabilities": {
-        "ANG": 0.5767,
-        "DIS": 0.1067,
-        "FEA": 0.1567,
-        "HAP": 0.1567,
-        "NEU": 0.0033,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.5767,
+        "disgust": 0.1067,
+        "fear": 0.1567,
+        "happy": 0.1567,
+        "neutral": 0.0033,
+        "sad": 0.0
       }
     },
     {
       "start": 27.0,
       "end": 30.0,
-      "probabilities": {
-        "ANG": 0.6067,
-        "DIS": 0.0867,
-        "FEA": 0.1267,
-        "HAP": 0.1733,
-        "NEU": 0.0067,
-        "SAD": 0.0
+      "probs": {
+        "angry": 0.6067,
+        "disgust": 0.0867,
+        "fear": 0.1267,
+        "happy": 0.1733,
+        "neutral": 0.0067,
+        "sad": 0.0
       }
     }
   ],
   "analysis": {
-    "generated_at": "2026-11-09T13:40:32.062269+00:00",
+    "generated_at": "2026-11-09T13:53:23.148195+00:00",
     "engine": "gemini-3.5-flash-lite",
     "clip_id": "clip3",
-    "situation": "A media excerpt featuring Dan Egan discussing Gen Z investing habits and gambling.",
-    "baseline": "Professional commentary delivery style with moderate speech rate.",
+    "situation": "A recorded interview or commentary segment discussing generational investing habits and gambling, featuring behavioral scientist Dan Egan.",
+    "baseline": "Conversational, explanatory tone discussing demographic data and financial behavior.",
     "observations": [
       {
         "type": "hedging",
         "evidence": "I think you know, number 1, it's not good.",
-        "time": 5.0,
-        "voice": "Elevated anger probability score",
-        "why_it_matters": "Using qualifiers like 'I think' softens a strong evaluation, which a skilled interviewer would explore to understand the speaker's exact certainty level.",
+        "time": 4.5,
+        "voice": "angry=0.5633",
+        "why_it_matters": "Qualifying statements with epistemic hedging can soften a strong assertion about demographic data.",
         "strength": "weak"
       },
       {
         "type": "hedging",
         "evidence": "I have friends who, like, I don't know, collecting cars",
         "time": 15.0,
-        "voice": "Elevated anger probability score",
-        "why_it_matters": "The filler phrases introduce hesitation while searching for an analogy.",
+        "voice": "angry=0.5433",
+        "why_it_matters": "Filler phrases and hesitation markers indicate the speaker is formulating an anecdotal comparison in real time.",
         "strength": "weak"
       }
     ],
     "innocent_explanations": [
-      "Qualifiers and conversational fillers are common stylistic elements in spoken commentary and media interviews as speakers formulate thoughts in real-time."
+      "The speaker is speaking extemporaneously on a podcast or interview and searching for the right conversational phrasing for an analogy."
     ],
     "what_to_ask_next": [
-      "Can you clarify the specific distinction you draw between productive investing and speculative hobbies?"
+      "Can you elaborate on what specific distinction you draw between investing as a hobby and gambling?",
+      "What specific data points from the poll illustrate this confusion between investing and gambling?"
     ],
-    "impact": "Highlights conversational hesitation and framing during a public commentary clip.",
-    "limits": "The audio clip is very short, heavily edited from a broader discussion, and lacks direct interactive dialogue."
-  }
+    "impact": "The clip provides general commentary with conversational disfluencies typical of unscripted spoken media appearances.",
+    "limits": "The provided transcript is very short, consisting of conversational excerpts and voiceover narration, which limits deeper structural behavioral analysis."
+  },
+  "voice_model": "crema-randomforest"
 }
