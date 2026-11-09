@@ -132,6 +132,21 @@ originals as `_orig_clip*.json`).
 > the 3 demo clips read mostly neutral (29/30 windows) — a truthful
 > reflection that these are calm clips.
 
+
+> **Pretrained real-speech model (recommended):** set `VOICE_MODEL=wav2vec2`
+> to use `superb/wav2vec2-base-superb-er` (HuggingFace, downloads on first use)
+> instead of the CREMA-D RandomForest. It scores real conversational speech far
+> more realistically — e.g. the demo clips read mostly neutral with small
+> happy/angry probabilities. Requires `transformers` + `torch` and network on
+> first use; falls back to the RandomForest if unavailable.
+>
+> **Accuracy honesty:** with the *current* offline feature sets, no sklearn
+> model exceeds ~50% accuracy (speaker-independent emotion ~49%; tone ~49%).
+> Reaching ~80% needs real labeled speech-emotion audio or deep embeddings from
+> raw audio — the pretrained model above is the practical upgrade until such
+> data exists.
+
+
 ## 3. Project structure
 
 ```

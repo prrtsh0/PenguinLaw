@@ -129,6 +129,7 @@ DOC_PATHS = {
     "PLAN.md": "PLAN.md",
     "benchmarks.md": "benchmarks.md",
     "ERRORS.md": os.path.join("docs", "ERRORS.md"),
+    "API_USAGE.md": os.path.join("docs", "API_USAGE.md"),
 }
 
 

@@ -157,105 +157,105 @@
       "start": 0.0,
       "end": 3.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.9235,
+        "happy": 0.0439,
+        "angry": 0.0325,
+        "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 3.0,
       "end": 6.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.8891,
+        "happy": 0.0786,
+        "angry": 0.0322,
+        "sad": 0.0001,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 6.0,
       "end": 9.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.5679,
+        "happy": 0.3841,
+        "angry": 0.048,
+        "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 9.0,
       "end": 12.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.8614,
+        "happy": 0.1045,
+        "angry": 0.0327,
+        "sad": 0.0014,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 12.0,
       "end": 15.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.8636,
+        "angry": 0.0744,
+        "happy": 0.0579,
+        "sad": 0.004,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 15.0,
       "end": 18.0,
       "probs": {
-        "angry": 0.0,
+        "neutral": 0.413,
+        "angry": 0.3867,
+        "happy": 0.1952,
+        "sad": 0.0051,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 18.0,
       "end": 21.0,
       "probs": {
-        "angry": 0.0,
+        "angry": 0.6673,
+        "neutral": 0.316,
+        "happy": 0.0163,
+        "sad": 0.0004,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 21.0,
       "end": 24.0,
       "probs": {
-        "angry": 0.0,
+        "angry": 0.6512,
+        "neutral": 0.1837,
+        "happy": 0.1651,
+        "sad": 0.0001,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     },
     {
       "start": 24.0,
@@ -274,14 +274,14 @@
       "start": 27.0,
       "end": 30.0,
       "probs": {
-        "angry": 0.0,
+        "angry": 0.7603,
+        "neutral": 0.1782,
+        "happy": 0.0578,
+        "sad": 0.0037,
         "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
+        "fear": 0.0
       },
-      "guarded": true
+      "guarded": false
     }
   ],
   "analysis": {
@@ -296,7 +296,7 @@
     "impact": "",
     "limits": "The clip cannot support observations because it is a produced, scripted podcast intro rather than an investigative interview or interpersonal dialogue."
   },
-  "voice_model": "crema-randomforest",
+  "voice_model": "wav2vec2-base-superb-er (pretrained)",
   "tone_setter": {
     "setter_segment": {
       "segment_index": 3,

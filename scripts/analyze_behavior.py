@@ -105,6 +105,32 @@ def train_model(crema_csv, seed=42, trees=300):
     return clf, keys
 
 
+def _emotion_probs(audio_path, start, end, clf, keys, feats):
+    """Emotion probabilities for one window.
+
+    If VOICE_MODEL=wav2vec2, use the pretrained real-speech SER model
+    (superb/wav2vec2-base-superb-er) with graceful fallback to the
+    classic CREMA-D RandomForest (with angry calibration).
+    """
+    if os.environ.get("VOICE_MODEL", "").strip().lower() == "wav2vec2":
+        try:
+            from scripts import ser_pretrained
+            pm = ser_pretrained.classify_audio(audio_path, start, end)
+            if pm is not None and sum(pm.values()) > 0:
+                return pm
+        except Exception:
+            pass
+    row = np.array([[float(feats[k]) for k in keys]])
+    probs = clf.predict_proba(row)[0]
+    prob_map = {}
+    for c, p in zip(clf.classes_, probs):
+        name = EMOTION_NAME.get(c, c).lower()
+        prob_map[name] = float(p)
+    # calibrate: down-weight over-predicted 'angry' on real speech
+    prob_map["angry"] = prob_map.get("angry", 0.0) * ANGRY_SCALE
+    return prob_map
+
+
 def window_probabilities(audio_path, duration_sec, clf, keys,
                          conf_threshold=CONFIDENCE_THRESHOLD):
     """Return a list of {start,end,probs} per 3-second window.
@@ -120,14 +146,7 @@ def window_probabilities(audio_path, duration_sec, clf, keys,
         end = min(t + WINDOW_SEC, duration_sec)
         feats = extract_window_features(audio_path, t, end)
         if feats:
-            row = np.array([[float(feats[k]) for k in keys]])
-            probs = clf.predict_proba(row)[0]
-            prob_map = {}
-            for c, p in zip(clf.classes_, probs):
-                name = EMOTION_NAME.get(c, c).lower()
-                prob_map[name] = float(p)
-            # calibrate: down-weight over-predicted 'angry' on real speech
-            prob_map['angry'] = prob_map.get('angry', 0.0) * ANGRY_SCALE
+            prob_map = _emotion_probs(audio_path, t, end, clf, keys, feats)
             prob_map, kept = _apply_domain_guard(prob_map, conf_threshold)
             prob_map = {k: round(v, 4) for k, v in prob_map.items()}
             out.append({"start": round(t, 2), "end": round(end, 2),
