@@ -92,26 +92,61 @@ fine-tuning. The emotion-trained model is an excellent, honest baseline.
 `GNANI_API_KEY` and re-run `predict.py` + `report.py` — the code is already
 wired for live mode.
 
+
 ---
+
+## 2c. Voice emotion model & honesty
+
+Each clip gets per-3-second-window emotion probabilities from a CREMA-D
+RandomForest (`scripts/analyze_behavior.py`; features in `features/extract.py`,
+model in `models/`). Three honest facts we want on the record:
+
+1. **It is ~48% accurate on unseen actors.** Speaker-independent cross-validation
+   (held-out speakers, 6 classes, chance = 0.167) gives ~0.48:
+   `python eval/baseline_cv.py`.
+2. **Raw argmax labels are noisy.** On real conversational audio the model
+   labeled nearly every window "angry" (domain shift — acted studio clips vs.
+   real speech). So we added a **confidence / domain guard**: a window whose top
+   non-neutral emotion scores below `CONFIDENCE_THRESHOLD` (default **0.7**) is
+   reported as neutral instead of asserting an emotion we cannot support.
+3. **The threshold is a coverage/reliability trade-off.** Sweep it with
+   `python eval/threshold_sweep.py` (on the 3 demo clips, 30 windows):
+
+   | threshold | neutral | angry |
+   |---|---:|---:|
+   | 0.50 | 2 | 28 |
+   | 0.60 | 20 | 10 |
+   | 0.70 | 30 | 0 |
+
+   So 0.6 retains some emotion blocks (20 neutral + 10 angry); 0.7 is stricter
+   and reports all 30 windows neutral. Tune per deployment with the
+   `--voice-conf-threshold` CLI flag (default 0.7).
+
+Utilities: `eval/compare_windows.py` (old argmax vs. guarded labels),
+`eval/apply_guard_to_results.py` (re-guard cached result JSONs; backs up
+originals as `_orig_clip*.json`).
 
 ## 3. Project structure
 
 ```
-voice_prediction/
-├── gnani_client.py          # Gnani Prisma (STT) + Timbre (TTS) API client
-├── features/extract.py      # librosa prosody feature extractor (22 features)
+PenguinLaw/
+├── features/extract.py           # librosa prosody features (22 cols)
 ├── scripts/
-│   ├── download_audio.py    # fetch public podcast-RSS mp3s (safe, no shell)
-│   ├── transcribe.py        # CLI: audio -> transcript (Prisma)
-│   ├── make_synthetic_data.py  # offline training data generator
-│   ├── train_tone.py        # train + version tone classifier
-│   ├── predict.py           # full pipeline (audio -> tone -> report)
-│   └── report.py            # Evon reasoning (offline fallback)
-├── data/                    # audio, transcripts, labeled data (gitignored)
-├── models/                  # versioned models + metrics CSV
-├── PLAN.md                  # detailed design & drift strategy
-└── (keys via environment variables — no .env file)
+│   ├── analyze_behavior.py       # CREMA-D RF + per-window probs + guard + Gemini
+│   ├── web_app.py                # Flask demo app (serves static/ + cached results)
+│   └── (transcribe/report/train_tone/predict/...)
+├── eval/
+│   ├── baseline_cv.py            # speaker-independent CV (~0.48)
+│   ├── threshold_sweep.py        # guard-threshold trade-off
+│   ├── compare_windows.py        # old vs guarded labels
+│   └── apply_guard_to_results.py # re-guard result JSONs
+├── data/                         # crema_subset.csv, demo_clips, results/*.json
+├── models/                       # versioned tone models + metrics CSV
+├── static/                       # index.html, docs.html, benchmarks.html
+├── PLAN.md · JOURNEY.md · README.md
+└── keys via environment variables (no .env file)
 ```
+
 
 ---
 

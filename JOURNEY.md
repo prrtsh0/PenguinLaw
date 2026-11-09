@@ -37,6 +37,18 @@ explicitly *not* claiming prediction; tone is a signal, not a prediction.
 
 ## 3. What we discovered (the important part)
 
+### 3.x The voice emotion model is ~48% accurate, so we added a confidence guard
+
+The per-window emotion labels come from a CREMA-D RandomForest. Speaker-independent
+cross-validation (held-out actors, `eval/baseline_cv.py`) gives only ~0.48
+accuracy, and on real conversational audio the raw argmax model labeled nearly
+every window "angry" — a classic domain shift from acted studio clips to real
+speech. Instead of pretending the model is reliable, we added a **confidence /
+domain guard**: a window whose top non-neutral emotion is below a threshold is
+reported as neutral. Default is 0.7 (strict: the demo clips read all-neutral);
+0.6 is the middle ground (20 neutral + 10 angry on the demo). The trade-off is
+explorable via `eval/threshold_sweep.py`.
+
 ### 3.1 The frozen Gnani client pointed at a dead endpoint
 
 The original `gnani_client.py` used:
