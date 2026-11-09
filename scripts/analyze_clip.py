@@ -520,6 +520,11 @@ def analyze(clip_id, force_live=False, use_cache=True):
 
     transcript = tr.get('transcript', '')
     prisma_segments = tr.get('segments') or []
+    # Record stt_engine ONLY if Prisma actually produced non-empty text (the
+    # only STT path here is Gnani Prisma; this analyze() raises on Prisma
+    # failure, so any saved transcript was produced by Prisma). Leave it unset
+    # otherwise so the UI shows "not recorded".
+    stt_engine = 'prisma-v3.0' if transcript.strip() else None
 
     # Real duration from the audio file (REST returns no duration)
     try:
@@ -584,6 +589,8 @@ def analyze(clip_id, force_live=False, use_cache=True):
         'prosody': feats,
         'tone_engine': gemini.model,
     }
+    if stt_engine:
+        result['stt_engine'] = stt_engine
     with open(result_path, 'w', encoding='utf-8') as fh:
         json.dump(result, fh, ensure_ascii=False, indent=2)
     return result

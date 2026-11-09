@@ -320,6 +320,7 @@ def main():
             "clip_id": clip_id,
             **parsed,
         }
+        clip["voice_windows"] = wins
         clip["analysis"] = analysis
 
         with open(clip_path, "w", encoding="utf-8") as fh:

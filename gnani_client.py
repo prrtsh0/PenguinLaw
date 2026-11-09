@@ -8,12 +8,32 @@ from urllib.parse import urljoin
 import requests
 
 
+def _load_dotenv():
+    """Populate os.environ from a local .env (never overrides set vars)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for base in (os.path.dirname(here), here):
+        dotenv = os.path.join(base, '.env')
+        if os.path.exists(dotenv):
+            with open(dotenv, encoding='utf-8') as fh:
+                for raw in fh:
+                    line = raw.strip()
+                    if not line or line.startswith('#') or '=' not in line:
+                        continue
+                    k, v = line.split('=', 1)
+                    k = k.strip()
+                    v = v.strip().strip('"').strip("'")
+                    if k and k not in os.environ:
+                        os.environ[k] = v
+            return
+
+
 class GnaniError(RuntimeError):
     pass
 
 
 class GnaniClient:
     def __init__(self, api_key=None, base_url=None, timeout=120):
+        _load_dotenv()
         self.api_key = api_key or os.environ.get('GNANI_API_KEY')
         self.base_url = (base_url or os.environ.get(
             'GNANI_BASE_URL', 'https://api.gnani.ai')).rstrip('/')
