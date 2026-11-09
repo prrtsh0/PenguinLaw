@@ -107,7 +107,7 @@ model in `models/`). Three honest facts we want on the record:
 2. **Raw argmax labels are noisy.** On real conversational audio the model
    labeled nearly every window "angry" (domain shift — acted studio clips vs.
    real speech). So we added a **confidence / domain guard**: a window whose top
-   non-neutral emotion scores below `CONFIDENCE_THRESHOLD` (default **0.7**) is
+   non-neutral emotion scores below `CONFIDENCE_THRESHOLD` (default **0.6**) is
    reported as neutral instead of asserting an emotion we cannot support.
 3. **The threshold is a coverage/reliability trade-off.** Sweep it with
    `python eval/threshold_sweep.py` (on the 3 demo clips, 30 windows):
@@ -120,7 +120,7 @@ model in `models/`). Three honest facts we want on the record:
 
    So 0.6 retains some emotion blocks (20 neutral + 10 angry); 0.7 is stricter
    and reports all 30 windows neutral. Tune per deployment with the
-   `--voice-conf-threshold` CLI flag (default 0.7).
+   `--voice-conf-threshold` CLI flag (default 0.6).
 
 Utilities: `eval/compare_windows.py` (old argmax vs. guarded labels),
 `eval/apply_guard_to_results.py` (re-guard cached result JSONs; backs up

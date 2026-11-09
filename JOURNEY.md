@@ -45,8 +45,8 @@ accuracy, and on real conversational audio the raw argmax model labeled nearly
 every window "angry" — a classic domain shift from acted studio clips to real
 speech. Instead of pretending the model is reliable, we added a **confidence /
 domain guard**: a window whose top non-neutral emotion is below a threshold is
-reported as neutral. Default is 0.7 (strict: the demo clips read all-neutral);
-0.6 is the middle ground (20 neutral + 10 angry on the demo). The trade-off is
+reported as neutral. Default is 0.6 (middle ground: the demo clips show 20 neutral + 10 angry);
+raise it (e.g. 0.7) for a stricter all-neutral read. The trade-off is
 explorable via `eval/threshold_sweep.py`.
 
 ### 3.1 The frozen Gnani client pointed at a dead endpoint
