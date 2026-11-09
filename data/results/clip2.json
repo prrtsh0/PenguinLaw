@@ -176,14 +176,14 @@
       "start": 12.0,
       "end": 15.0,
       "probs": {
-        "angry": 0.6133,
-        "disgust": 0.08,
-        "fear": 0.16,
-        "happy": 0.1367,
-        "neutral": 0.0033,
-        "sad": 0.0067
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
+        "sad": 0.0
       },
-      "guarded": false
+      "guarded": true
     },
     {
       "start": 15.0,
@@ -276,5 +276,10 @@
     "impact": "The excerpt represents a standard commentary segment with limited conversational interaction, restricting the depth of behavioural indicators.",
     "limits": "The clip is a monologues-style broadcast recording rather than an interactive investigative interview, providing no subject-interviewer dynamics to evaluate."
   },
-  "voice_model": "crema-randomforest"
+  "voice_model": "crema-randomforest",
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'hesitant' throughout. No clear tone-setter."
+  }
 }

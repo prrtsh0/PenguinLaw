@@ -38,7 +38,7 @@ VOICE_MODEL = "crema-randomforest"
 # and falls back to "neutral" instead of forcing the argmax emotion. This fixes
 # the "everything is angry" domain-shift symptom (CREMA-D acted model applied to
 # real conversational speech).
-CONFIDENCE_THRESHOLD = 0.6
+CONFIDENCE_THRESHOLD = 0.7
 
 
 def _apply_domain_guard(prob_map, threshold=CONFIDENCE_THRESHOLD):
