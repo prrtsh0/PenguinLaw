@@ -141,19 +141,21 @@
         "happy": 0.1367,
         "neutral": 0.01,
         "sad": 0.0067
-      }
+      },
+      "guarded": false
     },
     {
       "start": 3.0,
       "end": 6.0,
       "probs": {
-        "angry": 0.5633,
-        "disgust": 0.12,
-        "fear": 0.1433,
-        "happy": 0.17,
-        "neutral": 0.0033,
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
         "sad": 0.0
-      }
+      },
+      "guarded": true
     },
     {
       "start": 6.0,
@@ -165,7 +167,8 @@
         "happy": 0.13,
         "neutral": 0.0033,
         "sad": 0.0
-      }
+      },
+      "guarded": false
     },
     {
       "start": 9.0,
@@ -177,31 +180,34 @@
         "happy": 0.1633,
         "neutral": 0.0067,
         "sad": 0.0
-      }
+      },
+      "guarded": false
     },
     {
       "start": 12.0,
       "end": 15.0,
       "probs": {
-        "angry": 0.5933,
-        "disgust": 0.1033,
-        "fear": 0.1333,
-        "happy": 0.1567,
-        "neutral": 0.01,
-        "sad": 0.0033
-      }
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
+        "sad": 0.0
+      },
+      "guarded": true
     },
     {
       "start": 15.0,
       "end": 18.0,
       "probs": {
-        "angry": 0.5433,
-        "disgust": 0.1733,
-        "fear": 0.0633,
-        "happy": 0.2067,
-        "neutral": 0.0133,
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
         "sad": 0.0
-      }
+      },
+      "guarded": true
     },
     {
       "start": 18.0,
@@ -213,31 +219,34 @@
         "happy": 0.1267,
         "neutral": 0.0167,
         "sad": 0.0
-      }
+      },
+      "guarded": false
     },
     {
       "start": 21.0,
       "end": 24.0,
       "probs": {
-        "angry": 0.56,
-        "disgust": 0.1433,
-        "fear": 0.1433,
-        "happy": 0.14,
-        "neutral": 0.0133,
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
         "sad": 0.0
-      }
+      },
+      "guarded": true
     },
     {
       "start": 24.0,
       "end": 27.0,
       "probs": {
-        "angry": 0.5767,
-        "disgust": 0.1067,
-        "fear": 0.1567,
-        "happy": 0.1567,
-        "neutral": 0.0033,
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 1.0,
         "sad": 0.0
-      }
+      },
+      "guarded": true
     },
     {
       "start": 27.0,
@@ -249,7 +258,8 @@
         "happy": 0.1733,
         "neutral": 0.0067,
         "sad": 0.0
-      }
+      },
+      "guarded": false
     }
   ],
   "analysis": {

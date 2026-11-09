@@ -32,6 +32,29 @@ WINDOW_SEC = 3.0
 EMOTION_NAME = {"ANG": "angry", "DIS": "disgust", "FEA": "fear",
                 "HAP": "happy", "NEU": "neutral", "SAD": "sad"}
 VOICE_MODEL = "crema-randomforest"
+
+# Confidence / domain guard: a window whose top-scored emotion is not neutral but
+# scores below CONFIDENCE_THRESHOLD is treated as out-of-domain / not-enough-signal
+# and falls back to "neutral" instead of forcing the argmax emotion. This fixes
+# the "everything is angry" domain-shift symptom (CREMA-D acted model applied to
+# real conversational speech).
+CONFIDENCE_THRESHOLD = 0.6
+
+
+def _apply_domain_guard(prob_map, threshold=CONFIDENCE_THRESHOLD):
+    """Return (prob_map, kept).
+
+    If the top-scored emotion is not "neutral" but its probability is below
+    `threshold`, the window is low-confidence / out-of-domain: map every emotion
+    to 0.0 except neutral -> 1.0 so the pipeline does not assert an emotion it
+    cannot support. Otherwise the probabilities are returned unchanged.
+    """
+    top_label, top_p = max(prob_map.items(), key=lambda kv: kv[1])
+    if top_label == "neutral" or top_p >= threshold:
+        return prob_map, True
+    guarded = {k: 0.0 for k in prob_map}
+    guarded["neutral"] = 1.0
+    return guarded, False
 SYSTEM_PROMPT = (
     "You are a senior behavioural analyst reviewing a recorded conversation. "
     "You never decide whether anyone is lying, guilty or truthful, and you never "
@@ -80,10 +103,14 @@ def train_model(crema_csv, seed=42, trees=300):
     return clf, keys
 
 
-def window_probabilities(audio_path, duration_sec, clf, keys):
+def window_probabilities(audio_path, duration_sec, clf, keys,
+                         conf_threshold=CONFIDENCE_THRESHOLD):
     """Return a list of {start,end,probs} per 3-second window.
+
     probs maps lowercase emotion names (angry/disgust/fear/happy/neutral/sad),
-    as expected by the frontend timeline.
+    as expected by the frontend timeline. Low-confidence / out-of-domain windows
+    are guarded to "neutral" (see _apply_domain_guard). Each window also records
+    a "guarded" flag for transparency.
     """
     out = []
     t = 0.0
@@ -96,9 +123,11 @@ def window_probabilities(audio_path, duration_sec, clf, keys):
             prob_map = {}
             for c, p in zip(clf.classes_, probs):
                 name = EMOTION_NAME.get(c, c).lower()
-                prob_map[name] = round(float(p), 4)
+                prob_map[name] = float(p)
+            prob_map, kept = _apply_domain_guard(prob_map, conf_threshold)
+            prob_map = {k: round(v, 4) for k, v in prob_map.items()}
             out.append({"start": round(t, 2), "end": round(end, 2),
-                        "probs": prob_map})
+                        "probs": prob_map, "guarded": not kept})
         t = end
     return out
 
@@ -227,6 +256,9 @@ def main():
     ap.add_argument("--results_dir", default="data/results")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--trees", type=int, default=300)
+    ap.add_argument("--voice-conf-threshold", type=float, default=CONFIDENCE_THRESHOLD,
+                    help="min probability for a non-neutral emotion to be kept; "
+                         "below this the window falls back to neutral")
     ap.add_argument("--no-retrain", action="store_true",
                     help="skip model training if model already cached")
     args = ap.parse_args()
@@ -267,7 +299,8 @@ def main():
             raise RuntimeError(f"audio not found: {audio_path}")
 
         duration = float(clip.get("duration_sec", 0))
-        wins = window_probabilities(audio_path, duration, clf, keys)
+        wins = window_probabilities(audio_path, duration, clf, keys,
+                                    conf_threshold=args.voice_conf_threshold)
         print(f"  windows: {len(wins)}", flush=True)
 
         # clip-level prosody summary
@@ -294,7 +327,8 @@ def main():
             "TRANSCRIPT WITH SEGMENT TIMES:\n" + transcript_txt + "\n\n"
             "PER-3-SECOND-WINDOW VOICE EMOTION PROBABILITIES "
             "(from our trained CREMA-D model; weak signal, about 50% accuracy "
-            "on unseen actors):\n" + windows_txt + "\n\n"
+            "on unseen actors; low-confidence windows are reported as neutral):\n"
+            + windows_txt + "\n\n"
             "CLIP-LEVEL PROSODY SUMMARY:\n" + prosody_txt + "\n"
         )
 
