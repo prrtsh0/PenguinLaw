@@ -11,3 +11,6 @@ __pycache__/
 data/*.parquet
 data/crema_tree.json
 data/crema_audio/
+
+# backup of pre-guard result JSONs (kept locally for compare/sweep utilities)
+data/results/_orig_*.json
