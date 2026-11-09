@@ -28,7 +28,30 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE, 'static')
 RESULTS_DIR = os.path.join(BASE, 'data', 'results')
 
-ALLOWED_CLIPS = {'clip1', 'clip2', 'clip3'}
+def available_clips():
+    """Clip ids for which a cached result JSON exists (dynamic)."""
+    import re
+    ids = []
+    for f in sorted(os.listdir(RESULTS_DIR)):
+        m = re.fullmatch(r'(clip\d+)\.json', f)
+        if m:
+            ids.append(m.group(1))
+    return ids
+
+
+SPECIAL_CLIP_NAME = {
+    'clip1': ('Clip 1', 'Margin and day-trading'),
+    'clip2': ('Clip 2', 'Fed and leverage risk'),
+    'clip3': ('Clip 3', 'Gen Z and retail psychology'),
+}
+
+
+def clip_meta(clip_id):
+    if clip_id in SPECIAL_CLIP_NAME:
+        name, topic = SPECIAL_CLIP_NAME[clip_id]
+    else:
+        name, topic = 'Clip ' + clip_id[len('clip'):], 'Market mood'
+    return {'id': clip_id, 'name': name, 'topic': topic}
 LIVE_CAP = 50          # hard cap on total live pipeline calls (process lifetime)
 LIVE_WINDOW_SEC = 60   # rate-limit window
 LIVE_MAX_PER_WINDOW = 5
@@ -47,15 +70,16 @@ def index():
 
 @app.route('/demo_clips/<path:filename>')
 def demo_clip(filename):
-    # serve a demo audio clip (whitelisted basenames only)
-    if filename not in ('clip1.wav', 'clip2.wav', 'clip3.wav'):
+    # serve a demo audio clip (clip must exist in results)
+    clip_id = filename[:-4] if filename.endswith('.wav') else filename
+    if clip_id not in available_clips():
         abort(404)
     return send_from_directory(os.path.join(BASE, 'data', 'demo_clips'), filename)
 
 
 @app.route('/analyze/<clip_id>')
 def analyze_clip(clip_id):
-    if clip_id not in ALLOWED_CLIPS:
+    if clip_id not in available_clips():
         abort(404, description='Unknown clip')
 
     live = request.args.get('live') == '1'
@@ -117,6 +141,11 @@ def repo_doc(name):
     if not os.path.exists(doc_path):
         abort(404, description="Doc not found")
     return send_file(doc_path, mimetype="text/markdown; charset=utf-8")
+
+
+@app.route('/api/clips')
+def api_clips():
+    return jsonify([clip_meta(c) for c in available_clips()])
 
 
 if __name__ == '__main__':

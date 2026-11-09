@@ -39,6 +39,7 @@ VOICE_MODEL = "crema-randomforest"
 # the "everything is angry" domain-shift symptom (CREMA-D acted model applied to
 # real conversational speech).
 CONFIDENCE_THRESHOLD = 0.6
+NEUTRAL_MARGIN = 0.12
 
 
 def _apply_domain_guard(prob_map, threshold=CONFIDENCE_THRESHOLD):
@@ -50,7 +51,7 @@ def _apply_domain_guard(prob_map, threshold=CONFIDENCE_THRESHOLD):
     cannot support. Otherwise the probabilities are returned unchanged.
     """
     top_label, top_p = max(prob_map.items(), key=lambda kv: kv[1])
-    if top_label == "neutral" or top_p >= threshold:
+    if top_label == "neutral" or (top_p >= threshold and (top_p - prob_map.get("neutral", 0.0)) >= NEUTRAL_MARGIN):
         return prob_map, True
     guarded = {k: 0.0 for k in prob_map}
     guarded["neutral"] = 1.0

@@ -249,6 +249,11 @@ button.badge:hover{background:var(--bg)}
     <span class="sub">Voice console</span>
   </div>
   <div class="tabs" id="tabs" role="tablist" aria-label="Clips"></div>
+  <div class="rotate" style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-left:auto;">
+    <button type="button" id="prevClipBtn" style="background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;">&#8592; Prev</button>
+    <span id="clipPos">&ndash;</span>
+    <button type="button" id="nextClipBtn" style="background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;">Next &#8594;</button>
+  </div>
   <nav style="display:flex;gap:16px;align-items:center;font-size:13px;margin-left:auto;">
     <a href="/docs.html" style="color:var(--muted);text-decoration:none;">Docs</a>
     <a href="/benchmarks.html" style="color:var(--muted);text-decoration:none;">Benchmarks</a>
@@ -331,7 +336,8 @@ const APP_NAME = "PenguinLaw";
 document.title = APP_NAME + " | Voice console";
 document.getElementById("appName").textContent = APP_NAME;
 
-const CLIPS = [
+let CLIPS = [];
+const DEFAULT_CLIPS = [
   {id:"clip1", name:"Clip 1", topic:"Margin and day-trading"},
   {id:"clip2", name:"Clip 2", topic:"Fed and leverage risk"},
   {id:"clip3", name:"Clip 3", topic:"Gen Z and retail psychology"}
@@ -395,6 +401,7 @@ function buildTabs(){
   });
 }
 function markTabs(){
+  setClipPos();
   document.querySelectorAll(".tab").forEach(b => {
     b.setAttribute("aria-selected", b.dataset.clip === clipId ? "true" : "false");
   });
@@ -852,10 +859,28 @@ async function loadClip(id){
   }
 }
 
-buildTabs();
-drawSteps("", null);
-setPlayIcon();
-loadClip("clip1");
+function clipIndex(){ return Math.max(0, CLIPS.findIndex(c => c.id === clipId)); }
+function setClipPos(){
+  const p = document.getElementById("clipPos");
+  if(p && CLIPS.length) p.textContent = (clipIndex()+1) + " / " + CLIPS.length;
+}
+function prevClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()-1+CLIPS.length)%CLIPS.length].id); }
+function nextClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()+1)%CLIPS.length].id); }
+document.getElementById("prevClipBtn").addEventListener("click", prevClip);
+document.getElementById("nextClipBtn").addEventListener("click", nextClip);
+
+(async function init(){
+  try{
+    const r = await fetch("/api/clips");
+    if(r.ok){ const list = await r.json(); if(list && list.length) CLIPS = list; }
+  }catch(e){}
+  if(!CLIPS.length) CLIPS = DEFAULT_CLIPS;
+  buildTabs();
+  drawSteps("", null);
+  setPlayIcon();
+  setClipPos();
+  if(CLIPS.length) loadClip(CLIPS[0].id);
+})();
 </script>
 </body>
 </html>
