@@ -14,3 +14,7 @@ data/crema_audio/
 
 # backup of pre-guard result JSONs (kept locally for compare/sweep utilities)
 data/results/_orig_*.json
+
+# generated deep-embedding artifacts (regenerable via scripts/train_real_ser.py)
+data/crema_embeds.npy
+data/crema_embeds_meta.csv

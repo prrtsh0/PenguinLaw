@@ -207,3 +207,28 @@ PenguinLaw/
   Tier-2/3 towns, best 60s demo, crowd favourite.
 - Selection = verified engagement on your nominated posts + shortlisting +
   individual interviews + written offer.
+
+
+## Improved voice model (deep embeddings)
+
+`VOICE_MODEL=wav2vec2-emb` uses a **logistic regression trained on deep
+wav2vec2 embeddings** (mean-pooled, 768-d) from the local CREMA-D corpus,
+replacing the shallow 22-feature RandomForest. Speaker-independent 5-fold CV
+(held-out actors):
+
+| Model | Accuracy | Macro F1 |
+|---|---|---|
+| Prosody-feature RandomForest (old) | ~48.4% | ~46.8% |
+| wav2vec2-emb Logistic Regression (new) | ~55.6% | ~55.3% |
+
+Train / reproduce with `scripts/train_real_ser.py` (extracts cached embeddings,
+trains, evaluates, saves `models/real_ser_embeds.joblib`).
+
+### Why it is still ~56%, not ~80%
+The available labeled speech-emotion corpora are **acted** (CREMA-D, RAVDESS,
+etc.). Anonymous access to *real* (spontaneous) speech-emotion datasets — MELD,
+IEMOCAP, MSP-Podcast — is **gated/licensed** (HuggingFace 401, Zenodo 403), so
+they could not be downloaded here. Acted data tops out around 55–60% even with
+deep features; reaching ~80% on real speech requires a licensed real-speech
+emotion corpus (or a HuggingFace token to fetch MELD) and fine-tuning the
+pretrained model on it.

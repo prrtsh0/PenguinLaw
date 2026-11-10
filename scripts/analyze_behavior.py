@@ -112,7 +112,16 @@ def _emotion_probs(audio_path, start, end, clf, keys, feats):
     (superb/wav2vec2-base-superb-er) with graceful fallback to the
     classic CREMA-D RandomForest (with angry calibration).
     """
-    if os.environ.get("VOICE_MODEL", "").strip().lower() == "wav2vec2":
+    _mode = os.environ.get("VOICE_MODEL", "").strip().lower()
+    if _mode == "wav2vec2-emb":
+        try:
+            from scripts import ser_pretrained
+            pm = ser_pretrained.classify_audio_emb(audio_path, start, end)
+            if pm is not None and sum(pm.values()) > 0:
+                return pm
+        except Exception:
+            pass
+    if _mode == "wav2vec2":
         try:
             from scripts import ser_pretrained
             pm = ser_pretrained.classify_audio(audio_path, start, end)
