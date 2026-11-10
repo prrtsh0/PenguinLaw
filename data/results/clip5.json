@@ -1,0 +1,239 @@
+{
+  "clip_id": "clip5",
+  "audio_path": "data\\demo_clips\\clip5.wav",
+  "duration_sec": 30.0,
+  "transcript": "The hope of a skinny kid with a funny name, who believes that America has a place for him too. Hope, hope in the face of difficulty; hope in the face of uncertainty. The audacity of hope, his appearance at that convention. Which was the best speech of the convention, better than John Kerry's, was Electrifying? And without it, he wouldn't be president.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.0,
+      "text": "The hope of a skinny kid with a funny name, who believes that America has a place for him too.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.0,
+        "pressure": 0.0,
+        "one_line_reason": "This segment is a political quote unrelated to financial markets."
+      }
+    },
+    {
+      "start": 6.0,
+      "end": 12.0,
+      "text": "Hope, hope in the face of difficulty; hope in the face of uncertainty.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.0,
+        "pressure": 0.0,
+        "one_line_reason": "This segment discusses general political rhetoric and hope, lacking market context."
+      }
+    },
+    {
+      "start": 12.0,
+      "end": 18.0,
+      "text": "The audacity of hope, his appearance at that convention.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.0,
+        "pressure": 0.0,
+        "one_line_reason": "This segment refers to a political speech and book title without financial relevance."
+      }
+    },
+    {
+      "start": 18.0,
+      "end": 24.0,
+      "text": "Which was the best speech of the convention, better than John Kerry's, was Electrifying?",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.0,
+        "pressure": 0.0,
+        "one_line_reason": "This segment evaluates a political speech from a convention with no connection to trading."
+      }
+    },
+    {
+      "start": 24.0,
+      "end": 30.0,
+      "text": "And without it, he wouldn't be president.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.0,
+        "pressure": 0.0,
+        "one_line_reason": "This segment refers to a political election outcome rather than economic or market factors."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 323.4768676935572,
+    "pitch_std": 297.8082525430228,
+    "pitch_range": 907.1844254607528,
+    "energy_mean": 0.05777844414114952,
+    "energy_std": 0.032829318195581436,
+    "activity_ratio": 0.6993603411513859,
+    "speech_rate_seg_per_sec": 1.5666666666666667,
+    "mfcc_0": -173.22714233398438,
+    "mfcc_1": 84.76942443847656,
+    "mfcc_2": -31.14754295349121,
+    "mfcc_3": 2.6442549228668213,
+    "mfcc_4": -15.73281478881836,
+    "mfcc_5": -6.25074577331543,
+    "mfcc_6": -10.451313018798828,
+    "mfcc_7": 0.9807873368263245,
+    "mfcc_8": -8.82865047454834,
+    "mfcc_9": 0.04270391911268234,
+    "mfcc_10": -7.380378246307373,
+    "mfcc_11": 0.23908771574497223,
+    "mfcc_12": -2.9252917766571045,
+    "spectral_flux_mean": 1.4130676984786987,
+    "duration_sec": 30.0
+  },
+  "tone_engine": "gemini-3.5-flash-lite",
+  "stt_engine": "prisma-v3.0",
+  "voice_windows": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "probs": {
+        "angry": 0.9984,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0016
+      },
+      "guarded": false
+    },
+    {
+      "start": 3.0,
+      "end": 6.0,
+      "probs": {
+        "angry": 0.0004,
+        "disgust": 0.0002,
+        "fear": 0.0212,
+        "happy": 0.0002,
+        "neutral": 0.0001,
+        "sad": 0.9778
+      },
+      "guarded": false
+    },
+    {
+      "start": 6.0,
+      "end": 9.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 1.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0
+      },
+      "guarded": false
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0026,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.9974
+      },
+      "guarded": false
+    },
+    {
+      "start": 12.0,
+      "end": 15.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 0.0001,
+        "fear": 0.2591,
+        "happy": 0.001,
+        "neutral": 0.0125,
+        "sad": 0.7272
+      },
+      "guarded": false
+    },
+    {
+      "start": 15.0,
+      "end": 18.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.9997,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0003
+      },
+      "guarded": false
+    },
+    {
+      "start": 18.0,
+      "end": 21.0,
+      "probs": {
+        "angry": 0.0035,
+        "disgust": 0.0316,
+        "fear": 0.9529,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.012
+      },
+      "guarded": false
+    },
+    {
+      "start": 21.0,
+      "end": 24.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0058,
+        "happy": 0.0,
+        "neutral": 0.0089,
+        "sad": 0.9854
+      },
+      "guarded": false
+    },
+    {
+      "start": 24.0,
+      "end": 27.0,
+      "probs": {
+        "angry": 0.0005,
+        "disgust": 0.0001,
+        "fear": 0.0001,
+        "happy": 0.0,
+        "neutral": 0.0015,
+        "sad": 0.9977
+      },
+      "guarded": false
+    },
+    {
+      "start": 27.0,
+      "end": 30.0,
+      "probs": {
+        "angry": 0.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0015,
+        "sad": 0.9984
+      },
+      "guarded": false
+    }
+  ],
+  "voice_model": "wav2vec2-emb",
+  "analysis": {
+    "generated_at": "2026-11-10T14:40:05.313746+00:00",
+    "engine": "gemini-3.5-flash-lite",
+    "clip_id": "clip5",
+    "situation": "",
+    "baseline": "",
+    "observations": [],
+    "innocent_explanations": [],
+    "what_to_ask_next": [],
+    "impact": "",
+    "limits": "The analyst read could not be produced for this clip (model returned invalid JSON). Voice timeline is still shown."
+  },
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  }
+}

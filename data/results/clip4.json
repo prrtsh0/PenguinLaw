@@ -1,0 +1,286 @@
+{
+  "clip_id": "clip4",
+  "audio_path": "data\\demo_clips\\clip4.wav",
+  "duration_sec": 30.0,
+  "transcript": "It is not about Congress's oversight role. The Fed, through testimony and other public disclosures, made every effort to keep Congress informed about the renovation project. Those are pretexts. The threat of criminal charges is a consequence of the Federal Reserve setting interest rates. Based on our best assessment of what will serve the public, rather than following the preferences of the president. This is about whether the Fed will be able to continue to set interest.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.0,
+      "text": "It is not about Congress's oversight role.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.9,
+        "pressure": 0.2,
+        "one_line_reason": "Discussing congressional oversight rather than market conditions."
+      }
+    },
+    {
+      "start": 5.0,
+      "end": 10.0,
+      "text": "The Fed, through testimony and other public disclosures, made every effort to keep Congress informed about the renovation project.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.9,
+        "pressure": 0.1,
+        "one_line_reason": "Referring to Fed communications with Congress regarding a renovation project."
+      }
+    },
+    {
+      "start": 10.0,
+      "end": 15.0,
+      "text": "Those are pretexts.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.8,
+        "pressure": 0.3,
+        "one_line_reason": "Dismissing arguments as pretexts in a political dispute."
+      }
+    },
+    {
+      "start": 15.0,
+      "end": 20.0,
+      "text": "The threat of criminal charges is a consequence of the Federal Reserve setting interest rates.",
+      "mood": {
+        "sentiment": "hesitant",
+        "certainty": 0.7,
+        "pressure": 0.8,
+        "one_line_reason": "Connecting legal threats directly to Federal Reserve monetary policy and interest rate decisions."
+      }
+    },
+    {
+      "start": 20.0,
+      "end": 25.0,
+      "text": "Based on our best assessment of what will serve the public, rather than following the preferences of the president.",
+      "mood": {
+        "sentiment": "hesitant",
+        "certainty": 0.6,
+        "pressure": 0.5,
+        "one_line_reason": "Refers to independent central bank decision-making for the public interest."
+      }
+    },
+    {
+      "start": 25.0,
+      "end": 30.0,
+      "text": "This is about whether the Fed will be able to continue to set interest.",
+      "mood": {
+        "sentiment": "hesitant",
+        "certainty": 0.8,
+        "pressure": 0.7,
+        "one_line_reason": "Focuses on the core ability of the Federal Reserve to independently set interest rates."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 107.7090208722517,
+    "pitch_std": 18.27225233066813,
+    "pitch_range": 53.679779249151025,
+    "energy_mean": 0.02014242671430111,
+    "energy_std": 0.01701461896300316,
+    "activity_ratio": 0.6993603411513859,
+    "speech_rate_seg_per_sec": 1.1666666666666667,
+    "mfcc_0": -333.6972351074219,
+    "mfcc_1": 62.66162872314453,
+    "mfcc_2": -20.97733497619629,
+    "mfcc_3": 14.552511215209961,
+    "mfcc_4": -15.714629173278809,
+    "mfcc_5": -7.9185566902160645,
+    "mfcc_6": -15.386625289916992,
+    "mfcc_7": -17.51620101928711,
+    "mfcc_8": -10.751355171203613,
+    "mfcc_9": -11.340001106262207,
+    "mfcc_10": -11.446273803710938,
+    "mfcc_11": -2.912248134613037,
+    "mfcc_12": -11.358285903930664,
+    "spectral_flux_mean": 2.577519655227661,
+    "duration_sec": 30.0
+  },
+  "tone_engine": "gemini-3.5-flash-lite",
+  "stt_engine": "prisma-v3.0",
+  "voice_windows": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "probs": {
+        "angry": 0.9998,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0002
+      },
+      "guarded": false
+    },
+    {
+      "start": 3.0,
+      "end": 6.0,
+      "probs": {
+        "angry": 0.9973,
+        "disgust": 0.0022,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0005
+      },
+      "guarded": false
+    },
+    {
+      "start": 6.0,
+      "end": 9.0,
+      "probs": {
+        "angry": 0.0339,
+        "disgust": 0.0013,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.9648
+      },
+      "guarded": false
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "probs": {
+        "angry": 0.9996,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0004
+      },
+      "guarded": false
+    },
+    {
+      "start": 12.0,
+      "end": 15.0,
+      "probs": {
+        "angry": 1.0,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0
+      },
+      "guarded": false
+    },
+    {
+      "start": 15.0,
+      "end": 18.0,
+      "probs": {
+        "angry": 0.0008,
+        "disgust": 0.0113,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0001,
+        "sad": 0.9878
+      },
+      "guarded": false
+    },
+    {
+      "start": 18.0,
+      "end": 21.0,
+      "probs": {
+        "angry": 0.9999,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0
+      },
+      "guarded": false
+    },
+    {
+      "start": 21.0,
+      "end": 24.0,
+      "probs": {
+        "angry": 0.9755,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0245
+      },
+      "guarded": false
+    },
+    {
+      "start": 24.0,
+      "end": 27.0,
+      "probs": {
+        "angry": 0.9998,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.0002
+      },
+      "guarded": false
+    },
+    {
+      "start": 27.0,
+      "end": 30.0,
+      "probs": {
+        "angry": 0.0078,
+        "disgust": 0.0,
+        "fear": 0.0,
+        "happy": 0.0,
+        "neutral": 0.0,
+        "sad": 0.9921
+      },
+      "guarded": false
+    }
+  ],
+  "voice_model": "wav2vec2-emb",
+  "analysis": {
+    "generated_at": "2026-11-10T14:39:53.321300+00:00",
+    "engine": "gemini-3.5-flash-lite",
+    "clip_id": "clip4",
+    "situation": "",
+    "baseline": "",
+    "observations": [],
+    "innocent_explanations": [],
+    "what_to_ask_next": [],
+    "impact": "",
+    "limits": "The analyst read could not be produced for this clip (model returned invalid JSON). Voice timeline is still shown."
+  },
+  "tone_setter": {
+    "setter_segment": {
+      "segment_index": 3,
+      "segment": {
+        "start": 15.0,
+        "end": 20.0,
+        "text": "The threat of criminal charges is a consequence of the Federal Reserve setting interest rates.",
+        "mood": {
+          "sentiment": "hesitant",
+          "certainty": 0.7,
+          "pressure": 0.8,
+          "one_line_reason": "Connecting legal threats directly to Federal Reserve monetary policy and interest rate decisions."
+        }
+      }
+    },
+    "followers": [
+      {
+        "start": 20.0,
+        "end": 25.0,
+        "text": "Based on our best assessment of what will serve the public, rather than following the preferences of the president.",
+        "mood": {
+          "sentiment": "hesitant",
+          "certainty": 0.6,
+          "pressure": 0.5,
+          "one_line_reason": "Refers to independent central bank decision-making for the public interest."
+        }
+      },
+      {
+        "start": 25.0,
+        "end": 30.0,
+        "text": "This is about whether the Fed will be able to continue to set interest.",
+        "mood": {
+          "sentiment": "hesitant",
+          "certainty": 0.8,
+          "pressure": 0.7,
+          "one_line_reason": "Focuses on the core ability of the Federal Reserve to independently set interest rates."
+        }
+      }
+    ],
+    "confidence_note": "Tone shifts from 'neutral' at segment 4 ('hesitant') and holds for the next 2+ segments, making it the tone-setter. 2 later segment(s) follow the same direction."
+  }
+}

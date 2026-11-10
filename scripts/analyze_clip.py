@@ -24,6 +24,8 @@ CLIPS = {
     'clip1': os.path.join(BASE, 'data', 'demo_clips', 'clip1.wav'),
     'clip2': os.path.join(BASE, 'data', 'demo_clips', 'clip2.wav'),
     'clip3': os.path.join(BASE, 'data', 'demo_clips', 'clip3.wav'),
+    'clip4': os.path.join(BASE, 'data', 'demo_clips', 'clip4.wav'),
+    'clip5': os.path.join(BASE, 'data', 'demo_clips', 'clip5.wav'),
 }
 RESULTS_DIR = os.path.join(BASE, 'data', 'results')
 SEGMENT_SECONDS = 10.0

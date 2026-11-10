@@ -43,6 +43,8 @@ SPECIAL_CLIP_NAME = {
     'clip1': ('Clip 1', 'Margin and day-trading'),
     'clip2': ('Clip 2', 'Fed and leverage risk'),
     'clip3': ('Clip 3', 'Gen Z and retail psychology'),
+    'clip4': ('Jerome Powell', 'FOMC press conference'),
+    'clip5': ('Barack Obama', 'Presidential address'),
 }
 
 
