@@ -117,6 +117,11 @@ def _emotion_probs(audio_path, start, end, clf, keys, feats):
             from scripts import ser_pretrained
             pm = ser_pretrained.classify_audio(audio_path, start, end)
             if pm is not None and sum(pm.values()) > 0:
+                # Real conversational speech: the model's "angry" channel
+                # really tracks raised vocal energy / emphasis, not anger.
+                # Relabel it so the timeline does not imply anger.
+                if pm.get("angry", 0.0) > 0:
+                    pm["emphatic"] = pm.pop("angry")
                 return pm
         except Exception:
             pass

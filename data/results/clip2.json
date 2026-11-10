@@ -126,10 +126,10 @@
       "probs": {
         "neutral": 0.5421,
         "happy": 0.3271,
-        "angry": 0.1288,
         "sad": 0.002,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.1288
       },
       "guarded": false
     },
@@ -139,10 +139,10 @@
       "probs": {
         "neutral": 0.4714,
         "happy": 0.3203,
-        "angry": 0.2082,
         "sad": 0.0002,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.2082
       },
       "guarded": false
     },
@@ -150,12 +150,12 @@
       "start": 6.0,
       "end": 9.0,
       "probs": {
-        "angry": 0.8771,
         "neutral": 0.1195,
         "happy": 0.0033,
         "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.8771
       },
       "guarded": false
     },
@@ -164,11 +164,11 @@
       "end": 12.0,
       "probs": {
         "neutral": 0.7779,
-        "angry": 0.1801,
         "happy": 0.042,
         "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.1801
       },
       "guarded": false
     },
@@ -178,10 +178,10 @@
       "probs": {
         "neutral": 0.6593,
         "happy": 0.3239,
-        "angry": 0.0167,
         "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.0167
       },
       "guarded": false
     },
@@ -190,11 +190,11 @@
       "end": 18.0,
       "probs": {
         "neutral": 0.9629,
-        "angry": 0.0218,
         "happy": 0.0152,
         "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.0218
       },
       "guarded": false
     },
@@ -203,11 +203,11 @@
       "end": 21.0,
       "probs": {
         "neutral": 0.6038,
-        "angry": 0.3894,
         "happy": 0.0064,
         "sad": 0.0004,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.3894
       },
       "guarded": false
     },
@@ -215,12 +215,12 @@
       "start": 21.0,
       "end": 24.0,
       "probs": {
-        "angry": 0.7118,
         "neutral": 0.2602,
         "happy": 0.028,
         "sad": 0.0,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.7118
       },
       "guarded": false
     },
@@ -229,11 +229,11 @@
       "end": 27.0,
       "probs": {
         "neutral": 0.5054,
-        "angry": 0.4063,
         "happy": 0.0881,
         "sad": 0.0001,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.4063
       },
       "guarded": false
     },
@@ -241,12 +241,12 @@
       "start": 27.0,
       "end": 30.0,
       "probs": {
-        "angry": 0.7757,
         "neutral": 0.2106,
         "happy": 0.0136,
         "sad": 0.0001,
         "disgust": 0.0,
-        "fear": 0.0
+        "fear": 0.0,
+        "emphatic": 0.7757
       },
       "guarded": false
     }

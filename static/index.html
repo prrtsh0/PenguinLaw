@@ -119,6 +119,9 @@ button{font:inherit;color:inherit}
   min-width:3px;border-right:1px solid var(--panel);
 }
 .seg:first-child{border-radius:4px 0 0 4px}
+.seg[data-tone="emphatic"]{background:#c98a12}
+.sw[data-tone="emphatic"]{background:#c98a12}
+.line[data-tone="emphatic"]{border-left-color:#c98a12}
 .seg[data-tone="angry"]{background:#d6453d}
 .sw[data-tone="angry"]{background:#d6453d}
 .line[data-tone="angry"]{border-left-color:#d6453d}
@@ -342,7 +345,7 @@ const DEFAULT_CLIPS = [
   {id:"clip2", name:"Clip 2", topic:"Fed and leverage risk"},
   {id:"clip3", name:"Clip 3", topic:"Gen Z and retail psychology"}
 ];
-const EMOTIONS = ["angry","disgust","fear","happy","neutral","sad"];
+const EMOTIONS = ["emphatic","angry","disgust","fear","happy","neutral","sad"];
 const STEPS = ["Transcribe","Read voice","Analyse","Report"];
 const STEP_WARN = [
   "Transcription engine is not recorded in this result.",
