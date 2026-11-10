@@ -438,17 +438,14 @@ function setPlayIcon(){
 $("playBtn").addEventListener("click", () => {
   if(audio.paused){ audio.play().catch(() => {}); } else { audio.pause(); }
 });
-audio.addEventListener("play", () => { setPlayIcon(); loop(); });
+audio.addEventListener("play", setPlayIcon);
 audio.addEventListener("pause", setPlayIcon);
 audio.addEventListener("ended", () => { setPlayIcon(); update(); });
 audio.addEventListener("seeked", update);
+audio.addEventListener("timeupdate", update);
 audio.addEventListener("loadedmetadata", update);
 audio.addEventListener("error", () => { $("audioNote").style.display = "block"; });
 
-function loop(){
-  update();
-  if(!audio.paused) raf = requestAnimationFrame(loop);
-}
 function segAt(t){
   for(let i = 0; i < segs.length; i++){
     if(t >= segs[i].start && t < segs[i].end) return i;
@@ -461,10 +458,21 @@ function update(){
   const head = $("playhead");
   if(head) head.style.left = Math.min(100, (t / d) * 100) + "%";
   $("ptime").textContent = fmt(t) + " / " + fmt(audio.duration && isFinite(audio.duration) ? audio.duration : d);
-  if(!audio.paused){
-    const i = segAt(t);
-    if(i !== -1 && i !== selected) select(i, false);
-  }
+  const i = segAt(t);
+  if(i !== -1 && i !== selected) select(i, false);
+  updateWinHighlight(t);
+}
+
+/* Single clock: highlight the emotion window containing the current audio time. */
+function updateWinHighlight(t){
+  winButtons.forEach((b, k) => {
+    const w = wins[k];
+    const active = !!w && t >= w.start && t < w.end;
+    b.classList.toggle("active", active);
+    b.style.outline = active ? "2px solid #222" : "";
+    b.style.outlineOffset = active ? "-1px" : "";
+    b.style.zIndex = active ? "3" : "";
+  });
 }
 function seekTo(t){
   try{ audio.currentTime = t; }catch(e){}
@@ -814,6 +822,15 @@ function drawNotes(){
   const first = segs.length ? segs[0].end - segs[0].start : 0;
   const even = segs.length > 2 && segs.every(s => Math.abs((s.end - s.start) - first) < 0.06);
   if(even) txt += " Segment times are evenly spaced estimates, not measured from the audio, so the highlight may drift from what you hear.";
+  const gt = data.ground_truth || null;
+  if(gt){
+    const counts = {};
+    wins.forEach(w => { const e = w.top; counts[e] = (counts[e]||0)+1; });
+    const pred = Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0] || "?";
+    txt += " · True label: " + gt + " — Predicted: " + pred + (pred === gt ? " (correct)" : " (wrong)");
+  } else {
+    txt += " · Voice labels are model output, unverified (no ground truth for this clip).";
+  }
   note.textContent = txt;
 }
 
