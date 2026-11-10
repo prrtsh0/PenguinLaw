@@ -43,19 +43,6 @@ SPECIAL_CLIP_NAME = {
     'clip1': ('Clip 1', 'Margin and day-trading'),
     'clip2': ('Clip 2', 'Fed and leverage risk'),
     'clip3': ('Clip 3', 'Gen Z and retail psychology'),
-    # real acted emotion samples (CREMA-D)
-    'clip4': ('Clip 4', 'Angry (acted)'),
-    'clip5': ('Clip 5', 'Angry low (acted)'),
-    'clip6': ('Clip 6', 'Disgust (acted)'),
-    'clip7': ('Clip 7', 'Disgust low (acted)'),
-    'clip8': ('Clip 8', 'Fear (acted)'),
-    'clip9': ('Clip 9', 'Fear medium (acted)'),
-    'clip10': ('Clip 10', 'Happy (acted)'),
-    'clip11': ('Clip 11', 'Happy (acted)'),
-    'clip12': ('Clip 12', 'Neutral (acted)'),
-    'clip13': ('Clip 13', 'Neutral (acted)'),
-    'clip14': ('Clip 14', 'Sad (acted)'),
-    'clip15': ('Clip 15', 'Sad (acted)'),
 }
 
 

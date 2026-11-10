@@ -20,30 +20,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from features.extract import extract_features, extract_window_features  # noqa: E402
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CREMA_SAMPLES = {
-    # emotion -> (filename, friendly label)
-    'angry':   ('1001_TAI_ANG_XX.wav', 'Angry (acted)'),
-    'angry2':  ('1001_IEO_ANG_LO.wav', 'Angry low (acted)'),
-    'disgust': ('1001_DFA_DIS_XX.wav', 'Disgust (acted)'),
-    'disgust2':('1001_IEO_DIS_LO.wav', 'Disgust low (acted)'),
-    'fear':    ('1001_TIE_FEA_XX.wav', 'Fear (acted)'),
-    'fear2':   ('1001_IEO_FEA_MD.wav', 'Fear medium (acted)'),
-    'happy':   ('1001_TIE_HAP_XX.wav', 'Happy (acted)'),
-    'happy2':  ('1001_TAI_HAP_XX.wav', 'Happy (acted)'),
-    'neutral': ('1001_TAI_NEU_XX.wav', 'Neutral (acted)'),
-    'neutral2':('1001_IOM_NEU_XX.wav', 'Neutral (acted)'),
-    'sad':     ('1001_IOM_SAD_XX.wav', 'Sad (acted)'),
-    'sad2':    ('1001_MTI_SAD_XX.wav', 'Sad (acted)'),
-}
-
 CLIPS = {
     'clip1': os.path.join(BASE, 'data', 'demo_clips', 'clip1.wav'),
     'clip2': os.path.join(BASE, 'data', 'demo_clips', 'clip2.wav'),
     'clip3': os.path.join(BASE, 'data', 'demo_clips', 'clip3.wav'),
 }
-for _i, (_key, (_fn, _label)) in enumerate(CREMA_SAMPLES.items(), start=4):
-    CLIPS[f'clip{_i}'] = os.path.join(BASE, 'data', 'demo_clips', f'clip{_i}.wav')
-
 RESULTS_DIR = os.path.join(BASE, 'data', 'results')
 SEGMENT_SECONDS = 10.0
 
