@@ -210,6 +210,16 @@ PenguinLaw/
 
 
 ## Improved voice model (deep embeddings)
+### Demo library: 15 clips
+The web console now ships **15 clips**: the 3 original podcast conversations plus
+12 real acted emotion samples from the CREMA-D corpus (2 per emotion: angry,
+disgust, fear, happy, neutral, sad). The UI shows a window of 3 clips at a time
+with Prev/Next paging and Shuffle. The acted samples are clearly labeled so the
+calm podcasts are not confused with the emotion samples.
+
+> Note: the acted samples are single utterances, not conversations, so they carry
+> no behavioural-analyst read (the voice emotion timeline is real and shown).
+
 ### Real-speech retraining (MELD) — evaluated, negative result
 We downloaded MELD (public mirror `declare-lab/MELD`, no token) and trained a
 classifier on its pre-extracted per-utterance audio embeddings (1611-d,

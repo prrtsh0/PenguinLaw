@@ -1,0 +1,78 @@
+{
+  "clip_id": "clip8",
+  "audio_path": "data\\demo_clips\\clip8.wav",
+  "duration_sec": 2.2,
+  "transcript": "That is exactly what happened.",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.2,
+      "text": "That is exactly what happened.",
+      "mood": {
+        "sentiment": "neutral",
+        "certainty": 0.1,
+        "pressure": 0.0,
+        "one_line_reason": "General agreement on a past event with no financial or market context."
+      }
+    }
+  ],
+  "prosody": {
+    "pitch_mean": 151.1720304280627,
+    "pitch_std": 14.869805101184342,
+    "pitch_range": 39.06673633435619,
+    "energy_mean": 0.027498677372932434,
+    "energy_std": 0.028103407472372055,
+    "activity_ratio": 0.7,
+    "speech_rate_seg_per_sec": 1.341944141575107,
+    "mfcc_0": -306.0855407714844,
+    "mfcc_1": 95.13748931884766,
+    "mfcc_2": 1.806057095527649,
+    "mfcc_3": 23.86244010925293,
+    "mfcc_4": 14.347609519958496,
+    "mfcc_5": -7.836470127105713,
+    "mfcc_6": -10.047389030456543,
+    "mfcc_7": -5.6052680015563965,
+    "mfcc_8": -1.8349409103393555,
+    "mfcc_9": -13.271940231323242,
+    "mfcc_10": 0.49187996983528137,
+    "mfcc_11": -11.481867790222168,
+    "mfcc_12": -5.497310638427734,
+    "spectral_flux_mean": 1.7477110624313354,
+    "duration_sec": 2.2355625
+  },
+  "tone_engine": "gemini-3.5-flash-lite",
+  "stt_engine": "prisma-v3.0",
+  "voice_windows": [
+    {
+      "start": 0.0,
+      "end": 2.2,
+      "probs": {
+        "angry": 0.0003,
+        "disgust": 0.0267,
+        "fear": 0.8973,
+        "happy": 0.0613,
+        "neutral": 0.0139,
+        "sad": 0.0005
+      },
+      "guarded": false
+    }
+  ],
+  "voice_model": "wav2vec2-base-superb-er (pretrained) deep-embedding logistic regression",
+  "analysis": {
+    "generated_at": "2026-11-10T11:19:12.472854+00:00",
+    "engine": "offline (no LLM)",
+    "clip_id": "clip8",
+    "situation": "Acted single-emotion utterance from the CREMA-D corpus.",
+    "baseline": "A short, isolated acted line (not a conversation).",
+    "observations": [],
+    "innocent_explanations": [],
+    "what_to_ask_next": [],
+    "impact": "",
+    "limits": "Acted CREMA-D sample; no conversational/interview context, so no behavioural analyst read is meaningful. Voice model top emotion: fear."
+  },
+  "tone_setter": {
+    "setter_segment": null,
+    "followers": [],
+    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  }
+}

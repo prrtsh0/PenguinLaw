@@ -218,6 +218,10 @@ def call_gemini(api_key, model, system_prompt, user_text, timeout=120):
 def extract_json(text):
     """Robustly pull a JSON object out of a model reply."""
     t = text.strip()
+    # strip markdown code fences (```json ... ```) if present
+    m = re.search(r"```(?:json)?\s*(.*?)\s*```", t, re.S)
+    if m:
+        t = m.group(1).strip()
     # if it is already (or wrapped) valid json, try directly
     try:
         return json.loads(t)
@@ -227,8 +231,10 @@ def extract_json(text):
     start = t.find("{")
     end = t.rfind("}")
     if start != -1 and end != -1 and end > start:
-        obj = json.loads(t[start:end + 1])
-        return obj
+        try:
+            return json.loads(t[start:end + 1])
+        except Exception:
+            pass
     raise ValueError("no JSON object found")
 
 
@@ -380,7 +386,18 @@ def main():
                 if attempt == 0:
                     print(f"  retry once (invalid JSON): {str(e)[:120]}", flush=True)
                     continue
-                raise RuntimeError(str(e)) from e
+                # fall back: keep the voice ( + a note instead of aborting
+                parsed = {
+                    "situation": "",
+                    "baseline": "",
+                    "observations": [],
+                    "innocent_explanations": [],
+                    "what_to_ask_next": [],
+                    "impact": "",
+                    "limits": "The analyst read could not be produced for this clip "
+                               "(model returned invalid JSON). Voice timeline is still shown.",
+                }
+                break
 
         parsed = filter_evidence(parsed, transcript)
 
