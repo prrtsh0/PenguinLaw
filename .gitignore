@@ -20,3 +20,4 @@ data/crema_embeds.npy
 data/crema_embeds_meta.csv
 
 data/dl/
+models/meld_ser_embeds.joblib

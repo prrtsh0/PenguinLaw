@@ -210,22 +210,23 @@ PenguinLaw/
 
 
 ## Improved voice model (deep embeddings)
-### Real-speech retraining (MELD) — in progress
-The acted-only ceiling is why we are adding **MELD** (emotional *dialogue* from
-a TV show — real conversational speech, 7 emotions) to the training mix:
+### Real-speech retraining (MELD) — evaluated, negative result
+We downloaded MELD (public mirror `declare-lab/MELD`, no token) and trained a
+classifier on its pre-extracted per-utterance audio embeddings (1611-d,
+~12k utterances, 6-emotion schema, unseen-dialogue split):
 
-- Source: public mirror `declare-lab/MELD` on HuggingFace (no token required;
-  the canonical `MELD/MELD` dataset is gated).
-- We are downloading `MELD.Features.Models.tar.gz` (~880 MB, pre-extracted
-  acoustic features + reference models). The raw archive (~10.9 GB, includes
-  video) is intentionally avoided.
-- Next steps: extract per-utterance features, align to the 7 MELD emotion
-  labels, train/evaluate a speaker-independent model, and expose it as
-  `VOICE_MODEL=wav2vec2-meld` once it beats the current ~56% acted model.
+| Data | Accuracy | Macro F1 |
+|---|---|---|
+| CREMA-D acted | ~56% (deep wav2vec2 embeddings) | ~55% |
+| MELD real dialogue | ~34% | ~22% |
 
-> Expect this to be a long job (large download + training). Progress is logged
-> under `data/dl/`. If it stalls on the network, we fall back to a HuggingFace
-> token for the smaller gated `MELD/MELD` corpus.
+The MELD result is **worse**, not better. Real conversational emotion is subtle
+and MELD's shipped audio embeddings are a weak baseline, so this path does not
+beat the acted model. The downloaded archive (`data/dl/`) and trained model
+(`models/meld_ser_embeds.joblib`) are kept for reference but are **not** wired
+into the pipeline. Reaching high accuracy on real speech would require
+fine-tuning a wav2vec2 model on raw MELD audio (~10.9 GB raw archive) with GPU
+compute — beyond what this environment can deliver.
 
 
 `VOICE_MODEL=wav2vec2-emb` uses a **logistic regression trained on deep
