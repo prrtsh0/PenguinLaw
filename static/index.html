@@ -612,8 +612,15 @@ function drawSummary(){
   body += shift
     ? "The voice shifted from " + shift.from + " to " + shift.to + " at about " + Math.round(shift.time) + " seconds and stayed there."
     : "No sustained change in voice emotion.";
-  body += " This comes from a model that is about 50% accurate on unseen actors, so treat it as a hint.";
+  const accHint = data && data.voice_model && String(data.voice_model).indexOf("emb") !== -1
+    ? "This comes from a model that scores ~56% on unseen actors, so treat it as a hint."
+    : "This comes from a model that is about 50% accurate on unseen actors, so treat it as a hint.";
+  body += " " + accHint;
   box.appendChild(el("p", "verdict-body", body));
+  if(data && data.voice_model){
+    const m = el("p", "hint", "Voice model: " + data.voice_model);
+    box.appendChild(m);
+  }
 }
 
 /* Detail */

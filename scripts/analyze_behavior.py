@@ -31,7 +31,7 @@ EMOTIONS = ["ANG", "DIS", "FEA", "HAP", "NEU", "SAD"]
 WINDOW_SEC = 3.0
 EMOTION_NAME = {"ANG": "angry", "DIS": "disgust", "FEA": "fear",
                 "HAP": "happy", "NEU": "neutral", "SAD": "sad"}
-VOICE_MODEL = "crema-randomforest"
+VOICE_MODEL = "wav2vec2-emb"
 
 # Confidence / domain guard: a window whose top-scored emotion is not neutral but
 # scores below CONFIDENCE_THRESHOLD is treated as out-of-domain / not-enough-signal
