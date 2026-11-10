@@ -6,7 +6,7 @@
  "segments": [
   {
    "start": 0.0,
-   "end": 5.0,
+   "end": 3.09,
    "text": "It is not about Congress's oversight role.",
    "mood": {
     "sentiment": "neutral",
@@ -16,8 +16,8 @@
    }
   },
   {
-   "start": 5.0,
-   "end": 10.0,
+   "start": 3.09,
+   "end": 12.09,
    "text": "The Fed, through testimony and other public disclosures, made every effort to keep Congress informed about the renovation project.",
    "mood": {
     "sentiment": "neutral",
@@ -27,8 +27,8 @@
    }
   },
   {
-   "start": 10.0,
-   "end": 15.0,
+   "start": 12.09,
+   "end": 14.82,
    "text": "Those are pretexts.",
    "mood": {
     "sentiment": "neutral",
@@ -38,8 +38,8 @@
    }
   },
   {
-   "start": 15.0,
-   "end": 20.0,
+   "start": 14.82,
+   "end": 19.9,
    "text": "The threat of criminal charges is a consequence of the Federal Reserve setting interest rates.",
    "mood": {
     "sentiment": "hesitant",
@@ -49,8 +49,8 @@
    }
   },
   {
-   "start": 20.0,
-   "end": 25.0,
+   "start": 19.9,
+   "end": 27.32,
    "text": "Based on our best assessment of what will serve the public, rather than following the preferences of the president.",
    "mood": {
     "sentiment": "hesitant",
@@ -60,7 +60,7 @@
    }
   },
   {
-   "start": 25.0,
+   "start": 27.32,
    "end": 30.0,
    "text": "This is about whether the Fed will be able to continue to set interest.",
    "mood": {
