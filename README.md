@@ -210,6 +210,23 @@ PenguinLaw/
 
 
 ## Improved voice model (deep embeddings)
+### Real-speech retraining (MELD) — in progress
+The acted-only ceiling is why we are adding **MELD** (emotional *dialogue* from
+a TV show — real conversational speech, 7 emotions) to the training mix:
+
+- Source: public mirror `declare-lab/MELD` on HuggingFace (no token required;
+  the canonical `MELD/MELD` dataset is gated).
+- We are downloading `MELD.Features.Models.tar.gz` (~880 MB, pre-extracted
+  acoustic features + reference models). The raw archive (~10.9 GB, includes
+  video) is intentionally avoided.
+- Next steps: extract per-utterance features, align to the 7 MELD emotion
+  labels, train/evaluate a speaker-independent model, and expose it as
+  `VOICE_MODEL=wav2vec2-meld` once it beats the current ~56% acted model.
+
+> Expect this to be a long job (large download + training). Progress is logged
+> under `data/dl/`. If it stalls on the network, we fall back to a HuggingFace
+> token for the smaller gated `MELD/MELD` corpus.
+
 
 `VOICE_MODEL=wav2vec2-emb` uses a **logistic regression trained on deep
 wav2vec2 embeddings** (mean-pooled, 768-d) from the local CREMA-D corpus,
