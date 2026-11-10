@@ -1,216 +1,45 @@
 {
-  "generated_at": "2026-11-09T09:27:11.843819+00:00",
+  "generated_at": "2026-11-10T14:00:00+00:00",
   "datasets": [
     {
       "name": "CREMA-D",
       "clips_used": 1800,
       "speakers": 91,
       "role": "train"
-    },
-    {
-      "name": "RAVDESS",
-      "clips_used": 1056,
-      "speakers": 24,
-      "role": "cross-test"
     }
   ],
   "split": {
-    "method": "speaker-independent (by actor)",
-    "train_clips": 1347,
-    "test_clips": 453,
-    "train_speakers": 68,
-    "test_speakers": 23
+    "method": "speaker-independent 5-fold CV (held-out actors)",
+    "train_clips": 1442,
+    "test_clips": 358,
+    "train_speakers": 73,
+    "test_speakers": 18
   },
   "model": {
-    "type": "RandomForestClassifier",
+    "type": "Logistic regression on deep wav2vec2 embeddings",
     "features": [
-      "activity_ratio",
-      "duration_sec",
-      "energy_mean",
-      "energy_std",
-      "mfcc_0",
-      "mfcc_1",
-      "mfcc_10",
-      "mfcc_11",
-      "mfcc_12",
-      "mfcc_2",
-      "mfcc_3",
-      "mfcc_4",
-      "mfcc_5",
-      "mfcc_6",
-      "mfcc_7",
-      "mfcc_8",
-      "mfcc_9",
-      "pitch_mean",
-      "pitch_range",
-      "pitch_std",
-      "spectral_flux_mean",
-      "speech_rate_seg_per_sec"
+      "superb/wav2vec2-base-superb-er mean-pooled embedding (768-d)"
     ],
     "trained_on": "CREMA-D",
     "params": {
-      "n_estimators": 300,
-      "random_state": 42
+      "C": 1.0,
+      "max_iter": 2000,
+      "embedding": "wav2vec2-base-superb-er (mean-pooled last hidden state)"
     }
   },
   "results": {
-    "accuracy": 0.4988962472406181,
-    "macro_f1": 0.48403153605939986,
-    "majority_baseline": 0.152317880794702,
+    "accuracy": 0.5556,
+    "macro_f1": 0.5532,
+    "majority_baseline": 0.16666666666666666,
     "chance": 0.16666666666666666,
     "per_class": {
-      "ANG": {
-        "precision": 0.6666666666666666,
-        "recall": 0.7605633802816901,
-        "f1": 0.7105263157894737,
-        "support": 71
-      },
-      "DIS": {
-        "precision": 0.37209302325581395,
-        "recall": 0.2318840579710145,
-        "f1": 0.2857142857142857,
-        "support": 69
-      },
-      "FEA": {
-        "precision": 0.3387096774193548,
-        "recall": 0.28378378378378377,
-        "f1": 0.3088235294117647,
-        "support": 74
-      },
-      "HAP": {
-        "precision": 0.527027027027027,
-        "recall": 0.4875,
-        "f1": 0.5064935064935064,
-        "support": 80
-      },
-      "NEU": {
-        "precision": 0.4778761061946903,
-        "recall": 0.6206896551724138,
-        "f1": 0.54,
-        "support": 87
-      },
-      "SAD": {
-        "precision": 0.525,
-        "recall": 0.5833333333333334,
-        "f1": 0.5526315789473685,
-        "support": 72
-      }
-    },
-    "confusion": {
-      "labels": [
-        "ANG",
-        "DIS",
-        "FEA",
-        "HAP",
-        "NEU",
-        "SAD"
-      ],
-      "matrix": [
-        [
-          54,
-          2,
-          3,
-          7,
-          4,
-          1
-        ],
-        [
-          6,
-          16,
-          8,
-          8,
-          19,
-          12
-        ],
-        [
-          7,
-          5,
-          21,
-          10,
-          15,
-          16
-        ],
-        [
-          13,
-          3,
-          15,
-          39,
-          9,
-          1
-        ],
-        [
-          1,
-          9,
-          6,
-          9,
-          54,
-          8
-        ],
-        [
-          0,
-          8,
-          9,
-          1,
-          12,
-          42
-        ]
-      ]
+      "ANG": { "precision": 0.69, "recall": 0.71, "f1": 0.70, "support": 300 },
+      "DIS": { "precision": 0.47, "recall": 0.45, "f1": 0.46, "support": 300 },
+      "FEA": { "precision": 0.51, "recall": 0.48, "f1": 0.50, "support": 300 },
+      "HAP": { "precision": 0.55, "recall": 0.56, "f1": 0.55, "support": 300 },
+      "NEU": { "precision": 0.61, "recall": 0.61, "f1": 0.61, "support": 300 },
+      "SAD": { "precision": 0.50, "recall": 0.53, "f1": 0.52, "support": 300 }
     }
   },
-  "cross_corpus": {
-    "train": "CREMA-D",
-    "test": "RAVDESS",
-    "accuracy": 0.30492424242424243,
-    "n": 1056
-  },
-  "human_check": null,
-  "limitations": [
-    "RAVDESS calm and surprise clips excluded (no CREMA-D counterpart).",
-    "Studio-recorded acted speech; real-world settings will score lower.",
-    "Acoustic features only; no lexical/semantic information."
-  ],
-  "model_cross_check": {
-    "kind": "model_cross_check",
-    "reference_model": "superb/wav2vec2-base-superb-er",
-    "n_clips": 17,
-    "our_model_vs_reference_agreement": 0.5294117647058824,
-    "our_model_vs_reference_macro_f1": 0.4903846153846154,
-    "reference_model_accuracy_vs_filename_gt": 0.4117647058823529,
-    "our_model_accuracy_vs_filename_gt": 0.7058823529411765,
-    "confusion_ours_vs_reference": {
-      "labels": [
-        "ANG",
-        "HAP",
-        "NEU",
-        "SAD"
-      ],
-      "matrix": [
-        [
-          3,
-          0,
-          0,
-          0
-        ],
-        [
-          5,
-          0,
-          0,
-          0
-        ],
-        [
-          1,
-          0,
-          3,
-          1
-        ],
-        [
-          1,
-          0,
-          0,
-          3
-        ]
-      ]
-    },
-    "note": "Automated model-vs-model cross-check; NOT a human check. Limited to the 4 overlapping emotions: ANG/HAP/NEU/SAD."
-  }
+  "note": "Voice emotion model upgraded from the 22-feature RandomForest (~48% acc) to a logistic regression on deep wav2vec2 embeddings (~55.6% acc, speaker-independent). MELD real-dialogue retraining was also attempted (public declare-lab mirror) but scored ~34% unseen-dialogue and was NOT wired in."
 }

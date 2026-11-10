@@ -391,9 +391,13 @@ function log(msg, cls){
 }
 
 /* Tabs */
+const LIB_WINDOW = 3;          // tabs shown at once
+let libStart = 0;              // index of first visible tab
+function visibleClips(){ return CLIPS.slice(libStart, libStart + LIB_WINDOW); }
 function buildTabs(){
   const box = $("tabs");
-  CLIPS.forEach(c => {
+  box.textContent = "";
+  visibleClips().forEach(c => {
     const b = el("button", "tab");
     b.type = "button";
     b.setAttribute("role", "tab");
@@ -873,10 +877,25 @@ async function loadClip(id){
 function clipIndex(){ return Math.max(0, CLIPS.findIndex(c => c.id === clipId)); }
 function setClipPos(){
   const p = document.getElementById("clipPos");
-  if(p && CLIPS.length) p.textContent = (clipIndex()+1) + " / " + CLIPS.length;
+  if(p && CLIPS.length){
+    const total = Math.ceil(CLIPS.length / LIB_WINDOW);
+    const win = Math.floor(clipIndex() / LIB_WINDOW) + 1;
+    p.textContent = "window " + win + " / " + total;
+  }
 }
-function prevClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()-1+CLIPS.length)%CLIPS.length].id); }
-function nextClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()+1)%CLIPS.length].id); }
+function prevClip(){
+  if(!CLIPS.length) return;
+  libStart = Math.max(0, libStart - LIB_WINDOW);
+  buildTabs();
+  loadClip(CLIPS[Math.min(libStart, CLIPS.length - 1)].id);
+}
+function nextClip(){
+  if(!CLIPS.length) return;
+  libStart = Math.min(CLIPS.length - 1, libStart + LIB_WINDOW);
+  buildTabs();
+  loadClip(CLIPS[libStart].id);
+}
+
 function shuffleClip(){
   if(CLIPS.length < 2) return;
   let i;
