@@ -256,6 +256,7 @@ button.badge:hover{background:var(--bg)}
     <button type="button" id="prevClipBtn" style="background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;">&#8592; Prev</button>
     <span id="clipPos">&ndash;</span>
     <button type="button" id="nextClipBtn" style="background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;">Next &#8594;</button>
+    <button type="button" id="shuffleClipBtn" title="Load a random clip" style="background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px;">&#8644; Shuffle</button>
   </div>
   <nav style="display:flex;gap:16px;align-items:center;font-size:13px;margin-left:auto;">
     <a href="/docs.html" style="color:var(--muted);text-decoration:none;">Docs</a>
@@ -869,8 +870,15 @@ function setClipPos(){
 }
 function prevClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()-1+CLIPS.length)%CLIPS.length].id); }
 function nextClip(){ if(CLIPS.length) loadClip(CLIPS[(clipIndex()+1)%CLIPS.length].id); }
+function shuffleClip(){
+  if(CLIPS.length < 2) return;
+  let i;
+  do { i = Math.floor(Math.random() * CLIPS.length); } while(CLIPS[i].id === clipId);
+  loadClip(CLIPS[i].id);
+}
 document.getElementById("prevClipBtn").addEventListener("click", prevClip);
 document.getElementById("nextClipBtn").addEventListener("click", nextClip);
+document.getElementById("shuffleClipBtn").addEventListener("click", shuffleClip);
 
 (async function init(){
   try{
