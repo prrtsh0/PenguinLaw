@@ -1,0 +1,61 @@
+{
+  "audio": "C:/Users/Pritesh/Documents/PenguinLaw/data/demo_clips/_obama_src.mp3",
+  "duration_sec": 372.715125,
+  "win_sec": 30.0,
+  "step_sec": 3.0,
+  "best": {
+    "start": 303.0,
+    "end": 333.0,
+    "charge": 9.975422395786012
+  },
+  "candidates": [
+    {
+      "start": 303.0,
+      "end": 333.0,
+      "charge": 9.975422395786012,
+      "voiced": 10
+    },
+    {
+      "start": 306.0,
+      "end": 336.0,
+      "charge": 9.975287163560331,
+      "voiced": 10
+    },
+    {
+      "start": 309.0,
+      "end": 339.0,
+      "charge": 9.974415141388407,
+      "voiced": 10
+    },
+    {
+      "start": 312.0,
+      "end": 342.0,
+      "charge": 9.973503019313926,
+      "voiced": 10
+    },
+    {
+      "start": 315.0,
+      "end": 345.0,
+      "charge": 9.942852357815163,
+      "voiced": 10
+    },
+    {
+      "start": 0.0,
+      "end": 30.0,
+      "charge": 9.887932966674832,
+      "voiced": 10
+    },
+    {
+      "start": 294.0,
+      "end": 324.0,
+      "charge": 9.57102717175106,
+      "voiced": 10
+    },
+    {
+      "start": 297.0,
+      "end": 327.0,
+      "charge": 9.56360884224313,
+      "voiced": 10
+    }
+  ]
+}

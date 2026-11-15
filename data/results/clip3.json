@@ -1,305 +1,440 @@
 {
-  "clip_id": "clip3",
-  "audio_path": "data\\demo_clips\\clip3.wav",
-  "duration_sec": 30.0,
-  "transcript": "Gen Z is anyone aged around 18 to 29. I think you know, number 1, it's not good. That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment. They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll. I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car... They're not making money on it. It's a hobby; they enjoy it. They enjoy looking at the car. I think the dangerous aspect is when we start confusing our hobby.",
-  "segments": [
-    {
-      "start": 0.0,
-      "end": 3.3,
-      "text": "Gen Z is anyone aged around 18 to 29.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 1.0,
-        "pressure": 0.0,
-        "one_line_reason": "Defining demographic age brackets."
-      }
-    },
-    {
-      "start": 3.3,
-      "end": 6.7,
-      "text": "I think you know, number 1, it's not good.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.5,
-        "pressure": 0.2,
-        "one_line_reason": "Vague negative assessment of a situation."
-      }
-    },
-    {
-      "start": 6.7,
-      "end": 10.0,
-      "text": "That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 1.0,
-        "pressure": 0.0,
-        "one_line_reason": "Identifying a speaker and their professional role."
-      }
-    },
-    {
-      "start": 10.0,
-      "end": 13.3,
-      "text": "They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.6,
-        "pressure": 0.1,
-        "one_line_reason": "Mentioning a study on generational investing and gambling."
-      }
-    },
-    {
-      "start": 13.3,
-      "end": 16.7,
-      "text": "I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car...",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.4,
-        "pressure": 0.1,
-        "one_line_reason": "Discussing alternative assets like collecting cars."
-      }
-    },
-    {
-      "start": 16.7,
-      "end": 20.0,
-      "text": "They're not making money on it.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.5,
-        "pressure": 0.2,
-        "one_line_reason": "Clarifying that certain assets are not investments for profit."
-      }
-    },
-    {
-      "start": 20.0,
-      "end": 23.3,
-      "text": "It's a hobby; they enjoy it.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.5,
-        "pressure": 0.1,
-        "one_line_reason": "Categorizing car collection as a non-financial hobby."
-      }
-    },
-    {
-      "start": 23.3,
-      "end": 26.7,
-      "text": "They enjoy looking at the car.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.5,
-        "pressure": 0.1,
-        "one_line_reason": "Describing the enjoyment derived from a non-financial asset."
-      }
-    },
-    {
-      "start": 26.7,
-      "end": 30.0,
-      "text": "I think the dangerous aspect is when we start confusing our hobby.",
-      "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.7,
-        "pressure": 0.4,
-        "one_line_reason": "Warning about the dangers of confusing speculation with hobbies."
-      }
-    }
-  ],
-  "prosody": {
-    "pitch_mean": 128.302148326516,
-    "pitch_std": 29.465969907402716,
-    "pitch_range": 95.20586336866637,
-    "energy_mean": 0.0852779895067215,
-    "energy_std": 0.058552201837301254,
-    "activity_ratio": 0.6993603411513859,
-    "speech_rate_seg_per_sec": 1.5,
-    "mfcc_0": -221.55076599121094,
-    "mfcc_1": 89.69113159179688,
-    "mfcc_2": -16.62588119506836,
-    "mfcc_3": 19.013486862182617,
-    "mfcc_4": -8.506711959838867,
-    "mfcc_5": -14.947071075439453,
-    "mfcc_6": -20.88762092590332,
-    "mfcc_7": -18.77739906311035,
-    "mfcc_8": -18.0557918548584,
-    "mfcc_9": -6.163432598114014,
-    "mfcc_10": -12.10230541229248,
-    "mfcc_11": -4.429267406463623,
-    "mfcc_12": -8.434858322143555,
-    "spectral_flux_mean": 2.8602511882781982,
-    "duration_sec": 30.0
+ "clip_id": "clip3",
+ "audio_path": "data\\demo_clips\\clip3.wav",
+ "duration_sec": 30.0,
+ "transcript": "Gen Z is anyone aged around 18 to 29. I think you know, number 1, it's not good. That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment. They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll. I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car... They're not making money on it. It's a hobby; they enjoy it. They enjoy looking at the car. I think the dangerous aspect is when we start confusing our hobby.",
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 3.3,
+   "text": "Gen Z is anyone aged around 18 to 29.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 1.0,
+    "pressure": 0.0,
+    "one_line_reason": "Defining demographic age brackets."
+   }
   },
-  "tone_engine": "gemini-3.5-flash-lite",
-  "stt_engine": "prisma-v3.0",
-  "voice_windows": [
-    {
-      "start": 0.0,
-      "end": 3.0,
-      "probs": {
-        "neutral": 0.74,
-        "happy": 0.1296,
-        "sad": 0.0066,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.1238
-      },
-      "guarded": false
-    },
-    {
-      "start": 3.0,
-      "end": 6.0,
-      "probs": {
-        "happy": 0.0789,
-        "neutral": 0.005,
-        "sad": 0.0001,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.9161
-      },
-      "guarded": false
-    },
-    {
-      "start": 6.0,
-      "end": 9.0,
-      "probs": {
-        "neutral": 0.1034,
-        "happy": 0.0528,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.8438
-      },
-      "guarded": false
-    },
-    {
-      "start": 9.0,
-      "end": 12.0,
-      "probs": {
-        "neutral": 0.6883,
-        "happy": 0.2764,
-        "sad": 0.0044,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0309
-      },
-      "guarded": false
-    },
-    {
-      "start": 12.0,
-      "end": 15.0,
-      "probs": {
-        "neutral": 0.889,
-        "happy": 0.1107,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0003
-      },
-      "guarded": false
-    },
-    {
-      "start": 15.0,
-      "end": 18.0,
-      "probs": {
-        "neutral": 0.9432,
-        "happy": 0.0481,
-        "sad": 0.0037,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.005
-      },
-      "guarded": false
-    },
-    {
-      "start": 18.0,
-      "end": 21.0,
-      "probs": {
-        "neutral": 0.7075,
-        "happy": 0.202,
-        "sad": 0.0286,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0618
-      },
-      "guarded": false
-    },
-    {
-      "start": 21.0,
-      "end": 24.0,
-      "probs": {
-        "neutral": 0.1954,
-        "happy": 0.0427,
-        "sad": 0.0002,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.7617
-      },
-      "guarded": false
-    },
-    {
-      "start": 24.0,
-      "end": 27.0,
-      "probs": {
-        "neutral": 0.7776,
-        "happy": 0.196,
-        "sad": 0.0008,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0256
-      },
-      "guarded": false
-    },
-    {
-      "start": 27.0,
-      "end": 30.0,
-      "probs": {
-        "neutral": 0.951,
-        "happy": 0.0343,
-        "sad": 0.0004,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0143
-      },
-      "guarded": false
-    }
-  ],
-  "analysis": {
-    "generated_at": "2026-11-09T13:53:23.148195+00:00",
-    "engine": "gemini-3.5-flash-lite",
-    "clip_id": "clip3",
-    "situation": "A recorded interview or commentary segment discussing generational investing habits and gambling, featuring behavioral scientist Dan Egan.",
-    "baseline": "Conversational, explanatory tone discussing demographic data and financial behavior.",
-    "observations": [
-      {
-        "type": "hedging",
-        "evidence": "I think you know, number 1, it's not good.",
-        "time": 4.5,
-        "voice": "angry=0.5633",
-        "why_it_matters": "Qualifying statements with epistemic hedging can soften a strong assertion about demographic data.",
-        "strength": "weak"
-      },
-      {
-        "type": "hedging",
-        "evidence": "I have friends who, like, I don't know, collecting cars",
-        "time": 15.0,
-        "voice": "angry=0.5433",
-        "why_it_matters": "Filler phrases and hesitation markers indicate the speaker is formulating an anecdotal comparison in real time.",
-        "strength": "weak"
-      }
-    ],
-    "innocent_explanations": [
-      "The speaker is speaking extemporaneously on a podcast or interview and searching for the right conversational phrasing for an analogy."
-    ],
-    "what_to_ask_next": [
-      "Can you elaborate on what specific distinction you draw between investing as a hobby and gambling?",
-      "What specific data points from the poll illustrate this confusion between investing and gambling?"
-    ],
-    "impact": "The clip provides general commentary with conversational disfluencies typical of unscripted spoken media appearances.",
-    "limits": "The provided transcript is very short, consisting of conversational excerpts and voiceover narration, which limits deeper structural behavioral analysis."
+  {
+   "start": 3.3,
+   "end": 6.7,
+   "text": "I think you know, number 1, it's not good.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.5,
+    "pressure": 0.2,
+    "one_line_reason": "Vague negative assessment of a situation."
+   }
   },
-  "voice_model": "wav2vec2-base-superb-er (pretrained)",
-  "tone_setter": {
-    "setter_segment": null,
-    "followers": [],
-    "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+  {
+   "start": 6.7,
+   "end": 10.0,
+   "text": "That's Dan Egan, Vice President of Behavioral Science and Investing at Betterment.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 1.0,
+    "pressure": 0.0,
+    "one_line_reason": "Identifying a speaker and their professional role."
+   }
+  },
+  {
+   "start": 10.0,
+   "end": 13.3,
+   "text": "They studied the relationship different generations have with investing and gambling, and we got some of the numbers you heard from their recent poll.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.6,
+    "pressure": 0.1,
+    "one_line_reason": "Mentioning a study on generational investing and gambling."
+   }
+  },
+  {
+   "start": 13.3,
+   "end": 16.7,
+   "text": "I have friends who, like, I don't know, collecting cars, but they're honest about the fact that that car...",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.4,
+    "pressure": 0.1,
+    "one_line_reason": "Discussing alternative assets like collecting cars."
+   }
+  },
+  {
+   "start": 16.7,
+   "end": 20.0,
+   "text": "They're not making money on it.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.5,
+    "pressure": 0.2,
+    "one_line_reason": "Clarifying that certain assets are not investments for profit."
+   }
+  },
+  {
+   "start": 20.0,
+   "end": 23.3,
+   "text": "It's a hobby; they enjoy it.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.5,
+    "pressure": 0.1,
+    "one_line_reason": "Categorizing car collection as a non-financial hobby."
+   }
+  },
+  {
+   "start": 23.3,
+   "end": 26.7,
+   "text": "They enjoy looking at the car.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.5,
+    "pressure": 0.1,
+    "one_line_reason": "Describing the enjoyment derived from a non-financial asset."
+   }
+  },
+  {
+   "start": 26.7,
+   "end": 30.0,
+   "text": "I think the dangerous aspect is when we start confusing our hobby.",
+   "mood": {
+    "sentiment": "bearish",
+    "certainty": 0.7,
+    "pressure": 0.4,
+    "one_line_reason": "Warning about the dangers of confusing speculation with hobbies."
+   }
   }
+ ],
+ "prosody": {
+  "pitch_mean": 128.302148326516,
+  "pitch_std": 29.465969907402716,
+  "pitch_range": 95.20586336866637,
+  "energy_mean": 0.0852779895067215,
+  "energy_std": 0.058552201837301254,
+  "activity_ratio": 0.6993603411513859,
+  "speech_rate_seg_per_sec": 1.5,
+  "mfcc_0": -221.55076599121094,
+  "mfcc_1": 89.69113159179688,
+  "mfcc_2": -16.62588119506836,
+  "mfcc_3": 19.013486862182617,
+  "mfcc_4": -8.506711959838867,
+  "mfcc_5": -14.947071075439453,
+  "mfcc_6": -20.88762092590332,
+  "mfcc_7": -18.77739906311035,
+  "mfcc_8": -18.0557918548584,
+  "mfcc_9": -6.163432598114014,
+  "mfcc_10": -12.10230541229248,
+  "mfcc_11": -4.429267406463623,
+  "mfcc_12": -8.434858322143555,
+  "spectral_flux_mean": 2.8602511882781982,
+  "duration_sec": 30.0
+ },
+ "tone_engine": "gemini-3.5-flash-lite",
+ "stt_engine": "prisma-v3.0",
+ "voice_windows": [
+  {
+   "start": 0.0,
+   "end": 3.0,
+   "probs": {
+    "angry": 0.9024,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0079,
+    "sad": 0.0897,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9085,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0012,
+    "sad": 0.0903
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 3.0,
+   "end": 6.0,
+   "probs": {
+    "angry": 0.616,
+    "disgust": 0.0033,
+    "fear": 0.0,
+    "happy": 0.3799,
+    "neutral": 0.0,
+    "sad": 0.0008,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.6161,
+    "disgust": 0.0033,
+    "fear": 0.0,
+    "happy": 0.3799,
+    "neutral": 0.0,
+    "sad": 0.0008
+   },
+   "lexical_probs": {
+    "happy": 0.0002,
+    "neutral": 0.9998
+   }
+  },
+  {
+   "start": 6.0,
+   "end": 9.0,
+   "probs": {
+    "angry": 0.9999,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0001,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9998,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0001
+   },
+   "lexical_probs": {
+    "happy": 0.0759,
+    "neutral": 0.9241
+   }
+  },
+  {
+   "start": 9.0,
+   "end": 12.0,
+   "probs": {
+    "angry": 0.0019,
+    "disgust": 0.0003,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0261,
+    "sad": 0.9718,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0019,
+    "disgust": 0.0003,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.004,
+    "sad": 0.9938
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 12.0,
+   "end": 15.0,
+   "probs": {
+    "angry": 0.0001,
+    "disgust": 0.0063,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9936,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0001,
+    "disgust": 0.0063,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9935
+   },
+   "lexical_probs": {
+    "happy": 0.989,
+    "neutral": 0.011
+   }
+  },
+  {
+   "start": 15.0,
+   "end": 18.0,
+   "probs": {
+    "angry": 0.1129,
+    "disgust": 0.2892,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0036,
+    "sad": 0.5943,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.1129,
+    "disgust": 0.2892,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0036,
+    "sad": 0.5943
+   },
+   "lexical_probs": {
+    "happy": 0.989,
+    "neutral": 0.011
+   }
+  },
+  {
+   "start": 18.0,
+   "end": 21.0,
+   "probs": {
+    "angry": 0.3994,
+    "disgust": 0.5687,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0112,
+    "sad": 0.0207,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.4032,
+    "disgust": 0.5742,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0017,
+    "sad": 0.0209
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 21.0,
+   "end": 24.0,
+   "probs": {
+    "angry": 0.0308,
+    "disgust": 0.9624,
+    "fear": 0.0,
+    "happy": 0.0001,
+    "neutral": 0.0066,
+    "sad": 0.0,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.031,
+    "disgust": 0.9679,
+    "fear": 0.0,
+    "happy": 0.0001,
+    "neutral": 0.001,
+    "sad": 0.0
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 24.0,
+   "end": 27.0,
+   "probs": {
+    "angry": 0.0031,
+    "disgust": 0.0163,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0541,
+    "sad": 0.9266,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0032,
+    "disgust": 0.0171,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0085,
+    "sad": 0.9712
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 27.0,
+   "end": 30.0,
+   "probs": {
+    "angry": 0.0082,
+    "disgust": 0.0199,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.004,
+    "sad": 0.9679,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0082,
+    "disgust": 0.02,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0006,
+    "sad": 0.9712
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  }
+ ],
+ "analysis": {
+  "generated_at": "2026-11-09T13:53:23.148195+00:00",
+  "engine": "gemini-3.5-flash-lite",
+  "clip_id": "clip3",
+  "situation": "A recorded interview or commentary segment discussing generational investing habits and gambling, featuring behavioral scientist Dan Egan.",
+  "baseline": "Conversational, explanatory tone discussing demographic data and financial behavior.",
+  "observations": [
+   {
+    "type": "hedging",
+    "evidence": "I think you know, number 1, it's not good.",
+    "time": 4.5,
+    "voice": "angry=0.5633",
+    "why_it_matters": "Qualifying statements with epistemic hedging can soften a strong assertion about demographic data.",
+    "strength": "weak"
+   },
+   {
+    "type": "hedging",
+    "evidence": "I have friends who, like, I don't know, collecting cars",
+    "time": 15.0,
+    "voice": "angry=0.5433",
+    "why_it_matters": "Filler phrases and hesitation markers indicate the speaker is formulating an anecdotal comparison in real time.",
+    "strength": "weak"
+   }
+  ],
+  "innocent_explanations": [
+   "The speaker is speaking extemporaneously on a podcast or interview and searching for the right conversational phrasing for an analogy."
+  ],
+  "what_to_ask_next": [
+   "Can you elaborate on what specific distinction you draw between investing as a hobby and gambling?",
+   "What specific data points from the poll illustrate this confusion between investing and gambling?"
+  ],
+  "impact": "The clip provides general commentary with conversational disfluencies typical of unscripted spoken media appearances.",
+  "limits": "The provided transcript is very short, consisting of conversational excerpts and voiceover narration, which limits deeper structural behavioral analysis."
+ },
+ "voice_model": "wav2vec2-emb",
+ "tone_setter": {
+  "setter_segment": null,
+  "followers": [],
+  "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
+ },
+ "emotion_method": "voice+lexicon boost (w=1.0)"
 }

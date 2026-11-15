@@ -91,134 +91,266 @@
    "start": 0.0,
    "end": 3.0,
    "probs": {
-    "sad": 0.0421,
-    "happy": 0.0263,
-    "neutral": 0.0009,
+    "angry": 0.9984,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.9307
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0016,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9984,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0016
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 3.0,
    "end": 6.0,
    "probs": {
-    "sad": 0.2008,
-    "happy": 0.01,
-    "neutral": 0.0043,
-    "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.7848
+    "angry": 0.0004,
+    "disgust": 0.0002,
+    "fear": 0.0212,
+    "happy": 0.0002,
+    "neutral": 0.0007,
+    "sad": 0.9773,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0004,
+    "disgust": 0.0002,
+    "fear": 0.0212,
+    "happy": 0.0002,
+    "neutral": 0.0001,
+    "sad": 0.9778
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 6.0,
    "end": 9.0,
    "probs": {
-    "neutral": 0.7328,
-    "happy": 0.2442,
-    "sad": 0.011,
-    "disgust": 0.0,
+    "angry": 0.0,
+    "disgust": 1.0,
     "fear": 0.0,
-    "emphatic": 0.012
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 1.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0
+   },
+   "lexical_probs": {
+    "fear": 0.9985,
+    "neutral": 0.0015
+   }
   },
   {
    "start": 9.0,
    "end": 12.0,
    "probs": {
-    "happy": 0.835,
-    "sad": 0.0856,
-    "neutral": 0.0503,
+    "angry": 0.0,
     "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.0291
+    "fear": 0.0158,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9842,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 0.0,
+    "fear": 0.0026,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9974
+   },
+   "lexical_probs": {
+    "fear": 0.9241,
+    "neutral": 0.0759
+   }
   },
   {
    "start": 12.0,
    "end": 15.0,
    "probs": {
-    "happy": 0.4702,
-    "sad": 0.0803,
-    "neutral": 0.0415,
-    "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.4081
+    "angry": 0.0,
+    "disgust": 0.0001,
+    "fear": 0.242,
+    "happy": 0.0009,
+    "neutral": 0.0778,
+    "sad": 0.6792,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 0.0001,
+    "fear": 0.2591,
+    "happy": 0.001,
+    "neutral": 0.0125,
+    "sad": 0.7272
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 15.0,
    "end": 18.0,
    "probs": {
-    "neutral": 0.4527,
-    "happy": 0.1213,
-    "sad": 0.0042,
+    "angry": 0.0,
     "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.4219
+    "fear": 0.9997,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0003,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 0.0,
+    "fear": 0.9997,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0003
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 18.0,
    "end": 21.0,
    "probs": {
-    "neutral": 0.6057,
-    "happy": 0.3785,
-    "sad": 0.0016,
-    "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.0142
+    "angry": 0.0035,
+    "disgust": 0.0316,
+    "fear": 0.9529,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.012,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0035,
+    "disgust": 0.0316,
+    "fear": 0.9529,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.012
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 21.0,
    "end": 24.0,
    "probs": {
-    "neutral": 0.6927,
-    "happy": 0.1958,
-    "sad": 0.1077,
+    "angry": 0.0,
     "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.0038
+    "fear": 0.0055,
+    "happy": 0.0,
+    "neutral": 0.0565,
+    "sad": 0.938,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 0.0,
+    "fear": 0.0058,
+    "happy": 0.0,
+    "neutral": 0.0089,
+    "sad": 0.9854
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 24.0,
    "end": 27.0,
    "probs": {
-    "neutral": 0.7934,
-    "sad": 0.195,
-    "happy": 0.0106,
-    "disgust": 0.0,
-    "fear": 0.0,
-    "emphatic": 0.001
+    "angry": 0.0005,
+    "disgust": 0.0001,
+    "fear": 0.0001,
+    "happy": 0.0,
+    "neutral": 0.0099,
+    "sad": 0.9894,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0005,
+    "disgust": 0.0001,
+    "fear": 0.0001,
+    "happy": 0.0,
+    "neutral": 0.0015,
+    "sad": 0.9977
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 27.0,
    "end": 30.0,
    "probs": {
-    "neutral": 0.9539,
-    "sad": 0.0136,
-    "happy": 0.011,
+    "angry": 0.0,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.0215
+    "happy": 0.0,
+    "neutral": 0.0099,
+    "sad": 0.9901,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0015,
+    "sad": 0.9984
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   }
  ],
- "voice_model": "wav2vec2-base-superb-er (pretrained)",
+ "voice_model": "wav2vec2-emb",
  "analysis": {
   "generated_at": "2026-11-10T15:19:21.578633+00:00",
   "engine": "gemini-3.5-flash-lite",
@@ -235,5 +367,6 @@
   "setter_segment": null,
   "followers": [],
   "confidence_note": "No persistent sentiment shift found; tone stays near 'neutral' throughout. No clear tone-setter."
- }
+ },
+ "emotion_method": "voice+lexicon boost (w=1.0)"
 }

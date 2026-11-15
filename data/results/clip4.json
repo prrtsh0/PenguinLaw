@@ -102,134 +102,269 @@
    "start": 0.0,
    "end": 3.0,
    "probs": {
-    "neutral": 0.7587,
-    "happy": 0.0765,
-    "sad": 0.0034,
+    "angry": 0.9998,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.1614
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0002,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9998,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0002
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 3.0,
    "end": 6.0,
    "probs": {
-    "neutral": 0.4761,
-    "happy": 0.4611,
-    "sad": 0.0078,
-    "disgust": 0.0,
+    "angry": 0.9973,
+    "disgust": 0.0022,
     "fear": 0.0,
-    "emphatic": 0.055
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0005,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9973,
+    "disgust": 0.0022,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0005
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 6.0,
    "end": 9.0,
    "probs": {
-    "neutral": 0.9323,
-    "happy": 0.0362,
-    "sad": 0.0001,
-    "disgust": 0.0,
+    "angry": 0.0339,
+    "disgust": 0.0013,
     "fear": 0.0,
-    "emphatic": 0.0314
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9648,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0339,
+    "disgust": 0.0013,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9648
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 9.0,
    "end": 12.0,
    "probs": {
-    "happy": 0.934,
-    "neutral": 0.0215,
-    "sad": 0.0011,
+    "angry": 0.9996,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.0434
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0004,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9996,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0004
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 12.0,
    "end": 15.0,
    "probs": {
-    "happy": 0.5674,
-    "neutral": 0.0458,
-    "sad": 0.0068,
+    "angry": 1.0,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.38
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 1.0,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   },
   {
    "start": 15.0,
    "end": 18.0,
    "probs": {
-    "neutral": 0.9292,
-    "happy": 0.0677,
-    "sad": 0.0001,
-    "disgust": 0.0,
+    "angry": 0.0008,
+    "disgust": 0.0113,
     "fear": 0.0,
-    "emphatic": 0.003
+    "happy": 0.0,
+    "neutral": 0.0001,
+    "sad": 0.9878,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0008,
+    "disgust": 0.0113,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0001,
+    "sad": 0.9878
+   },
+   "lexical_probs": {
+    "fear": 0.9959,
+    "neutral": 0.0041
+   }
   },
   {
    "start": 18.0,
    "end": 21.0,
    "probs": {
-    "neutral": 0.7865,
-    "happy": 0.0332,
-    "sad": 0.0004,
+    "angry": 1.0,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.1799
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9999,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0
+   },
+   "lexical_probs": {
+    "fear": 0.9259,
+    "emphatic": 0.0461,
+    "neutral": 0.028
+   }
   },
   {
    "start": 21.0,
    "end": 24.0,
    "probs": {
-    "neutral": 0.7586,
-    "happy": 0.2218,
-    "sad": 0.0015,
+    "angry": 0.9755,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.0181
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0245,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9755,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0245
+   },
+   "lexical_probs": {
+    "emphatic": 0.9707,
+    "neutral": 0.0293
+   }
   },
   {
    "start": 24.0,
    "end": 27.0,
    "probs": {
-    "neutral": 0.5204,
-    "happy": 0.3241,
-    "sad": 0.0056,
+    "angry": 0.9998,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.15
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0002,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9998,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0002
+   },
+   "lexical_probs": {
+    "emphatic": 0.9707,
+    "neutral": 0.0293
+   }
   },
   {
    "start": 27.0,
    "end": 30.0,
    "probs": {
-    "neutral": 0.9877,
-    "happy": 0.0011,
-    "sad": 0.0001,
+    "angry": 0.0078,
     "disgust": 0.0,
     "fear": 0.0,
-    "emphatic": 0.0111
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9922,
+    "emphatic": 0.0
    },
-   "guarded": false
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0078,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9921
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
   }
  ],
- "voice_model": "wav2vec2-base-superb-er (pretrained)",
+ "voice_model": "wav2vec2-emb",
  "analysis": {
   "generated_at": "2026-11-10T15:19:07.426403+00:00",
   "engine": "gemini-3.5-flash-lite",
@@ -282,5 +417,6 @@
    }
   ],
   "confidence_note": "Tone shifts from 'neutral' at segment 4 ('hesitant') and holds for the next 2+ segments, making it the tone-setter. 2 later segment(s) follow the same direction."
- }
+ },
+ "emotion_method": "voice+lexicon boost (w=1.0)"
 }

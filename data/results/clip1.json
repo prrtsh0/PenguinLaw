@@ -1,353 +1,486 @@
 {
-  "clip_id": "clip1",
-  "audio_path": "data\\demo_clips\\clip1.wav",
-  "duration_sec": 30.0,
-  "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Woof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
-  "segments": [
-    {
-      "start": 0.0,
-      "end": 2.7,
-      "text": "At a very high interest rate, and then I could buy that stock.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.7,
-        "pressure": 0.4,
-        "one_line_reason": "Discusses buying stocks under a specific interest rate condition."
-      }
-    },
-    {
-      "start": 2.7,
-      "end": 5.5,
-      "text": "Let's rip some day trades.",
-      "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.9,
-        "pressure": 0.8,
-        "one_line_reason": "Enthusiastic expression about aggressive short-term day trading."
-      }
-    },
-    {
-      "start": 5.5,
-      "end": 8.2,
-      "text": "Absolutely right.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.5,
-        "pressure": 0.1,
-        "one_line_reason": "Conversational agreement without specific market context."
-      }
-    },
-    {
-      "start": 8.2,
-      "end": 10.9,
-      "text": "Investors in the US stock market are making a lot of these margin trades these days.",
-      "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.8,
-        "pressure": 0.7,
-        "one_line_reason": "Notes high participation in US stock market margin trading."
-      }
-    },
-    {
-      "start": 10.9,
-      "end": 13.6,
-      "text": "The total amount of borrowing is at an all-time.",
-      "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.9,
-        "pressure": 0.8,
-        "one_line_reason": "Highlights extreme levels of market borrowing."
-      }
-    },
-    {
-      "start": 13.6,
-      "end": 16.4,
-      "text": "Record level, over 1.5 trillion dollars.",
-      "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.9,
-        "pressure": 0.85,
-        "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
-      }
-    },
-    {
-      "start": 16.4,
-      "end": 19.1,
-      "text": "That's up by 50% from a year ago.",
-      "mood": {
-        "sentiment": "bullish",
-        "certainty": 0.9,
-        "pressure": 0.85,
-        "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
-      }
-    },
-    {
-      "start": 19.1,
-      "end": 21.8,
-      "text": "Woof, that is a lot of leverage.",
-      "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.7,
-        "pressure": 0.6,
-        "one_line_reason": "Expresses concern over dangerously high levels of leverage in the market."
-      }
-    },
-    {
-      "start": 21.8,
-      "end": 24.5,
-      "text": "Hello and welcome to Planet Money.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 1.0,
-        "pressure": 0.0,
-        "one_line_reason": "Podcast introduction."
-      }
-    },
-    {
-      "start": 24.5,
-      "end": 27.3,
-      "text": "I'm Waylon Wang and I'm Ricky Molfi.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 1.0,
-        "pressure": 0.0,
-        "one_line_reason": "Host introductions for the podcast."
-      }
-    },
-    {
-      "start": 27.3,
-      "end": 30.0,
-      "text": "Investing behavior is changed.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.8,
-        "pressure": 0.5,
-        "one_line_reason": "General observation that overall investing behavior has shifted."
-      }
-    }
-  ],
-  "prosody": {
-    "pitch_mean": 175.35907645096722,
-    "pitch_std": 93.5207899395501,
-    "pitch_range": 220.61468573512968,
-    "energy_mean": 0.08169352263212204,
-    "energy_std": 0.0569382943212986,
-    "activity_ratio": 0.6993603411513859,
-    "speech_rate_seg_per_sec": 1.7,
-    "mfcc_0": -227.75509643554688,
-    "mfcc_1": 85.61793518066406,
-    "mfcc_2": -28.30292510986328,
-    "mfcc_3": 22.168996810913086,
-    "mfcc_4": -24.427122116088867,
-    "mfcc_5": -12.315752029418945,
-    "mfcc_6": -17.446718215942383,
-    "mfcc_7": -23.311559677124023,
-    "mfcc_8": -8.671326637268066,
-    "mfcc_9": -11.366023063659668,
-    "mfcc_10": -15.870868682861328,
-    "mfcc_11": -8.825386047363281,
-    "mfcc_12": -11.172411918640137,
-    "spectral_flux_mean": 2.885655403137207,
-    "duration_sec": 30.0
+ "clip_id": "clip1",
+ "audio_path": "data\\demo_clips\\clip1.wav",
+ "duration_sec": 30.0,
+ "transcript": "At a very high interest rate, and then I could buy that stock. Let's rip some day trades. Absolutely right. Investors in the US stock market are making a lot of these margin trades these days. The total amount of borrowing is at an all-time. Record level, over 1.5 trillion dollars. That's up by 50% from a year ago. Woof, that is a lot of leverage. Hello and welcome to Planet Money. I'm Waylon Wang and I'm Ricky Molfi. Investing behavior is changed.",
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 2.7,
+   "text": "At a very high interest rate, and then I could buy that stock.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.7,
+    "pressure": 0.4,
+    "one_line_reason": "Discusses buying stocks under a specific interest rate condition."
+   }
   },
-  "tone_engine": "gemini-3.5-flash-lite",
-  "stt_engine": "prisma-v3.0",
-  "voice_windows": [
-    {
-      "start": 0.0,
-      "end": 3.0,
-      "probs": {
-        "neutral": 0.9235,
-        "happy": 0.0439,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0325
-      },
-      "guarded": false
-    },
-    {
-      "start": 3.0,
-      "end": 6.0,
-      "probs": {
-        "neutral": 0.8891,
-        "happy": 0.0786,
-        "sad": 0.0001,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0322
-      },
-      "guarded": false
-    },
-    {
-      "start": 6.0,
-      "end": 9.0,
-      "probs": {
-        "neutral": 0.5679,
-        "happy": 0.3841,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.048
-      },
-      "guarded": false
-    },
-    {
-      "start": 9.0,
-      "end": 12.0,
-      "probs": {
-        "neutral": 0.8614,
-        "happy": 0.1045,
-        "sad": 0.0014,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0327
-      },
-      "guarded": false
-    },
-    {
-      "start": 12.0,
-      "end": 15.0,
-      "probs": {
-        "neutral": 0.8636,
-        "happy": 0.0579,
-        "sad": 0.004,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0744
-      },
-      "guarded": false
-    },
-    {
-      "start": 15.0,
-      "end": 18.0,
-      "probs": {
-        "neutral": 0.413,
-        "happy": 0.1952,
-        "sad": 0.0051,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.3867
-      },
-      "guarded": false
-    },
-    {
-      "start": 18.0,
-      "end": 21.0,
-      "probs": {
-        "neutral": 0.316,
-        "happy": 0.0163,
-        "sad": 0.0004,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.6673
-      },
-      "guarded": false
-    },
-    {
-      "start": 21.0,
-      "end": 24.0,
-      "probs": {
-        "neutral": 0.1837,
-        "happy": 0.1651,
-        "sad": 0.0001,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.6512
-      },
-      "guarded": false
-    },
-    {
-      "start": 24.0,
-      "end": 27.0,
-      "probs": {
-        "emphatic": 0.0,
-        "angry": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "happy": 0.0,
-        "neutral": 1.0,
-        "sad": 0.0
-      },
-      "guarded": true
-    },
-    {
-      "start": 27.0,
-      "end": 30.0,
-      "probs": {
-        "neutral": 0.1782,
-        "happy": 0.0578,
-        "sad": 0.0037,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.7603
-      },
-      "guarded": false
-    }
-  ],
-  "analysis": {
-    "generated_at": "2026-11-09T13:53:15.523235+00:00",
-    "engine": "gemini-3.5-flash-lite",
-    "clip_id": "clip1",
-    "situation": "",
-    "baseline": "",
-    "observations": [],
-    "innocent_explanations": [],
-    "what_to_ask_next": [],
-    "impact": "",
-    "limits": "The clip cannot support observations because it is a produced, scripted podcast intro rather than an investigative interview or interpersonal dialogue."
+  {
+   "start": 2.7,
+   "end": 5.5,
+   "text": "Let's rip some day trades.",
+   "mood": {
+    "sentiment": "bullish",
+    "certainty": 0.9,
+    "pressure": 0.8,
+    "one_line_reason": "Enthusiastic expression about aggressive short-term day trading."
+   }
   },
-  "voice_model": "wav2vec2-base-superb-er (pretrained)",
-  "tone_setter": {
-    "setter_segment": {
-      "segment_index": 3,
-      "segment": {
-        "start": 8.2,
-        "end": 10.9,
-        "text": "Investors in the US stock market are making a lot of these margin trades these days.",
-        "mood": {
-          "sentiment": "bullish",
-          "certainty": 0.8,
-          "pressure": 0.7,
-          "one_line_reason": "Notes high participation in US stock market margin trading."
-        }
-      }
-    },
-    "followers": [
-      {
-        "start": 10.9,
-        "end": 13.6,
-        "text": "The total amount of borrowing is at an all-time.",
-        "mood": {
-          "sentiment": "bullish",
-          "certainty": 0.9,
-          "pressure": 0.8,
-          "one_line_reason": "Highlights extreme levels of market borrowing."
-        }
-      },
-      {
-        "start": 13.6,
-        "end": 16.4,
-        "text": "Record level, over 1.5 trillion dollars.",
-        "mood": {
-          "sentiment": "bullish",
-          "certainty": 0.9,
-          "pressure": 0.85,
-          "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
-        }
-      },
-      {
-        "start": 16.4,
-        "end": 19.1,
-        "text": "That's up by 50% from a year ago.",
-        "mood": {
-          "sentiment": "bullish",
-          "certainty": 0.9,
-          "pressure": 0.85,
-          "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
-        }
-      }
-    ],
-    "confidence_note": "Tone shifts from 'hesitant' at segment 4 ('bullish') and holds for the next 2+ segments, making it the tone-setter. 3 later segment(s) follow the same direction."
+  {
+   "start": 5.5,
+   "end": 8.2,
+   "text": "Absolutely right.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.5,
+    "pressure": 0.1,
+    "one_line_reason": "Conversational agreement without specific market context."
+   }
+  },
+  {
+   "start": 8.2,
+   "end": 10.9,
+   "text": "Investors in the US stock market are making a lot of these margin trades these days.",
+   "mood": {
+    "sentiment": "bullish",
+    "certainty": 0.8,
+    "pressure": 0.7,
+    "one_line_reason": "Notes high participation in US stock market margin trading."
+   }
+  },
+  {
+   "start": 10.9,
+   "end": 13.6,
+   "text": "The total amount of borrowing is at an all-time.",
+   "mood": {
+    "sentiment": "bullish",
+    "certainty": 0.9,
+    "pressure": 0.8,
+    "one_line_reason": "Highlights extreme levels of market borrowing."
+   }
+  },
+  {
+   "start": 13.6,
+   "end": 16.4,
+   "text": "Record level, over 1.5 trillion dollars.",
+   "mood": {
+    "sentiment": "bullish",
+    "certainty": 0.9,
+    "pressure": 0.85,
+    "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
+   }
+  },
+  {
+   "start": 16.4,
+   "end": 19.1,
+   "text": "That's up by 50% from a year ago.",
+   "mood": {
+    "sentiment": "bullish",
+    "certainty": 0.9,
+    "pressure": 0.85,
+    "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
+   }
+  },
+  {
+   "start": 19.1,
+   "end": 21.8,
+   "text": "Woof, that is a lot of leverage.",
+   "mood": {
+    "sentiment": "bearish",
+    "certainty": 0.7,
+    "pressure": 0.6,
+    "one_line_reason": "Expresses concern over dangerously high levels of leverage in the market."
+   }
+  },
+  {
+   "start": 21.8,
+   "end": 24.5,
+   "text": "Hello and welcome to Planet Money.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 1.0,
+    "pressure": 0.0,
+    "one_line_reason": "Podcast introduction."
+   }
+  },
+  {
+   "start": 24.5,
+   "end": 27.3,
+   "text": "I'm Waylon Wang and I'm Ricky Molfi.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 1.0,
+    "pressure": 0.0,
+    "one_line_reason": "Host introductions for the podcast."
+   }
+  },
+  {
+   "start": 27.3,
+   "end": 30.0,
+   "text": "Investing behavior is changed.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.8,
+    "pressure": 0.5,
+    "one_line_reason": "General observation that overall investing behavior has shifted."
+   }
   }
+ ],
+ "prosody": {
+  "pitch_mean": 175.35907645096722,
+  "pitch_std": 93.5207899395501,
+  "pitch_range": 220.61468573512968,
+  "energy_mean": 0.08169352263212204,
+  "energy_std": 0.0569382943212986,
+  "activity_ratio": 0.6993603411513859,
+  "speech_rate_seg_per_sec": 1.7,
+  "mfcc_0": -227.75509643554688,
+  "mfcc_1": 85.61793518066406,
+  "mfcc_2": -28.30292510986328,
+  "mfcc_3": 22.168996810913086,
+  "mfcc_4": -24.427122116088867,
+  "mfcc_5": -12.315752029418945,
+  "mfcc_6": -17.446718215942383,
+  "mfcc_7": -23.311559677124023,
+  "mfcc_8": -8.671326637268066,
+  "mfcc_9": -11.366023063659668,
+  "mfcc_10": -15.870868682861328,
+  "mfcc_11": -8.825386047363281,
+  "mfcc_12": -11.172411918640137,
+  "spectral_flux_mean": 2.885655403137207,
+  "duration_sec": 30.0
+ },
+ "tone_engine": "gemini-3.5-flash-lite",
+ "stt_engine": "prisma-v3.0",
+ "voice_windows": [
+  {
+   "start": 0.0,
+   "end": 3.0,
+   "probs": {
+    "angry": 0.0001,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9999,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0001,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9999
+   },
+   "lexical_probs": {
+    "emphatic": 0.9999,
+    "neutral": 0.0001
+   }
+  },
+  {
+   "start": 3.0,
+   "end": 6.0,
+   "probs": {
+    "angry": 0.998,
+    "disgust": 0.0017,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0003,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.998,
+    "disgust": 0.0017,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0003
+   },
+   "lexical_probs": {
+    "emphatic": 0.8176,
+    "neutral": 0.1824
+   }
+  },
+  {
+   "start": 6.0,
+   "end": 9.0,
+   "probs": {
+    "angry": 0.3284,
+    "disgust": 0.0004,
+    "fear": 0.0,
+    "happy": 0.0111,
+    "neutral": 0.0043,
+    "sad": 0.6558,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.3284,
+    "disgust": 0.0004,
+    "fear": 0.0,
+    "happy": 0.0111,
+    "neutral": 0.0043,
+    "sad": 0.6559
+   },
+   "lexical_probs": {
+    "emphatic": 0.9994,
+    "neutral": 0.0006
+   }
+  },
+  {
+   "start": 9.0,
+   "end": 12.0,
+   "probs": {
+    "angry": 0.0003,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0001,
+    "neutral": 0.1011,
+    "sad": 0.8985,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0003,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0001,
+    "neutral": 0.0166,
+    "sad": 0.9831
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 12.0,
+   "end": 15.0,
+   "probs": {
+    "angry": 0.9841,
+    "disgust": 0.0027,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0112,
+    "sad": 0.002,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9936,
+    "disgust": 0.0027,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0017,
+    "sad": 0.002
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 15.0,
+   "end": 18.0,
+   "probs": {
+    "angry": 1.0,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 1.0,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 18.0,
+   "end": 21.0,
+   "probs": {
+    "angry": 0.9395,
+    "disgust": 0.0001,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0007,
+    "sad": 0.0598,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.94,
+    "disgust": 0.0001,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0001,
+    "sad": 0.0598
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 21.0,
+   "end": 24.0,
+   "probs": {
+    "angry": 0.0054,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9946,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0054,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.9946
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 24.0,
+   "end": 27.0,
+   "probs": {
+    "angry": 0.2616,
+    "disgust": 0.5853,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.1531,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.2616,
+    "disgust": 0.5853,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.1531
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 27.0,
+   "end": 30.0,
+   "probs": {
+    "angry": 0.0005,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.9941,
+    "sad": 0.0053,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.0035,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.962,
+    "sad": 0.0345
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  }
+ ],
+ "analysis": {
+  "generated_at": "2026-11-09T13:53:15.523235+00:00",
+  "engine": "gemini-3.5-flash-lite",
+  "clip_id": "clip1",
+  "situation": "",
+  "baseline": "",
+  "observations": [],
+  "innocent_explanations": [],
+  "what_to_ask_next": [],
+  "impact": "",
+  "limits": "The clip cannot support observations because it is a produced, scripted podcast intro rather than an investigative interview or interpersonal dialogue."
+ },
+ "voice_model": "wav2vec2-emb",
+ "tone_setter": {
+  "setter_segment": {
+   "segment_index": 3,
+   "segment": {
+    "start": 8.2,
+    "end": 10.9,
+    "text": "Investors in the US stock market are making a lot of these margin trades these days.",
+    "mood": {
+     "sentiment": "bullish",
+     "certainty": 0.8,
+     "pressure": 0.7,
+     "one_line_reason": "Notes high participation in US stock market margin trading."
+    }
+   }
+  },
+  "followers": [
+   {
+    "start": 10.9,
+    "end": 13.6,
+    "text": "The total amount of borrowing is at an all-time.",
+    "mood": {
+     "sentiment": "bullish",
+     "certainty": 0.9,
+     "pressure": 0.8,
+     "one_line_reason": "Highlights extreme levels of market borrowing."
+    }
+   },
+   {
+    "start": 13.6,
+    "end": 16.4,
+    "text": "Record level, over 1.5 trillion dollars.",
+    "mood": {
+     "sentiment": "bullish",
+     "certainty": 0.9,
+     "pressure": 0.85,
+     "one_line_reason": "Quantifies record borrowing levels exceeding 1.5 trillion dollars."
+    }
+   },
+   {
+    "start": 16.4,
+    "end": 19.1,
+    "text": "That's up by 50% from a year ago.",
+    "mood": {
+     "sentiment": "bullish",
+     "certainty": 0.9,
+     "pressure": 0.85,
+     "one_line_reason": "Emphasizes a 50% year-over-year increase in leverage."
+    }
+   }
+  ],
+  "confidence_note": "Tone shifts from 'hesitant' at segment 4 ('bullish') and holds for the next 2+ segments, making it the tone-setter. 3 later segment(s) follow the same direction."
+ },
+ "emotion_method": "voice+lexicon boost (w=1.0)"
 }

@@ -1,285 +1,418 @@
 {
-  "clip_id": "clip2",
-  "audio_path": "data\\demo_clips\\clip2.wav",
-  "duration_sec": 30.0,
-  "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course 2000",
-  "segments": [
-    {
-      "start": 0.0,
-      "end": 3.8,
-      "text": "The Fed could say, \"Okay, we should be more cautious.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.6,
-        "pressure": 0.3,
-        "one_line_reason": "Discusses potential cautious Fed monetary policy stance."
-      }
-    },
-    {
-      "start": 3.8,
-      "end": 7.5,
-      "text": "Your brokerage firm can loan you,\" say.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.2,
-        "pressure": 0.1,
-        "one_line_reason": "Explains a basic brokerage lending mechanic without market direction."
-      }
-    },
-    {
-      "start": 7.5,
-      "end": 11.2,
-      "text": "The Federal Reserve played around with this requirement in the years after the Great Depression.",
-      "mood": {
-        "sentiment": "neutral",
-        "certainty": 0.5,
-        "pressure": 0.2,
-        "one_line_reason": "Historical reference to past Federal Reserve regulatory actions."
-      }
-    },
-    {
-      "start": 11.2,
-      "end": 15.0,
-      "text": "Interestingly, that crash came after soaring margin debt fueled a bubble.",
-      "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.8,
-        "pressure": 0.6,
-        "one_line_reason": "Refers to a historical market crash caused by margin debt bubbles."
-      }
-    },
-    {
-      "start": 15.0,
-      "end": 18.8,
-      "text": "Should the Fed get involved today?",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.5,
-        "pressure": 0.4,
-        "one_line_reason": "Questions potential regulatory intervention by the Fed."
-      }
-    },
-    {
-      "start": 18.8,
-      "end": 22.5,
-      "text": "This is more complicated.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.4,
-        "pressure": 0.3,
-        "one_line_reason": "Highlights the complexity of the current financial situation."
-      }
-    },
-    {
-      "start": 22.5,
-      "end": 26.2,
-      "text": "Yes, margin debt is at a historic level, but Urian says it's not.",
-      "mood": {
-        "sentiment": "hesitant",
-        "certainty": 0.5,
-        "pressure": 0.4,
-        "one_line_reason": "Presents conflicting views on historic margin debt levels."
-      }
-    },
-    {
-      "start": 26.2,
-      "end": 30.0,
-      "text": "Of course 2000",
-      "mood": {
-        "sentiment": "bearish",
-        "certainty": 0.6,
-        "pressure": 0.5,
-        "one_line_reason": "Briefly references the market peak and crash of the year 2000."
-      }
-    }
-  ],
-  "prosody": {
-    "pitch_mean": 215.61364731352882,
-    "pitch_std": 96.39482350913951,
-    "pitch_range": 322.44106335991046,
-    "energy_mean": 0.07011108100414276,
-    "energy_std": 0.0498344749212265,
-    "activity_ratio": 0.6993603411513859,
-    "speech_rate_seg_per_sec": 1.7666666666666666,
-    "mfcc_0": -246.9248809814453,
-    "mfcc_1": 62.5589599609375,
-    "mfcc_2": -27.355533599853516,
-    "mfcc_3": 23.65130615234375,
-    "mfcc_4": -28.162687301635742,
-    "mfcc_5": -10.163844108581543,
-    "mfcc_6": -25.9020938873291,
-    "mfcc_7": -20.10828971862793,
-    "mfcc_8": -10.742650032043457,
-    "mfcc_9": -14.790387153625488,
-    "mfcc_10": -14.38848876953125,
-    "mfcc_11": -9.865609169006348,
-    "mfcc_12": -11.204934120178223,
-    "spectral_flux_mean": 3.1037070751190186,
-    "duration_sec": 30.0
+ "clip_id": "clip2",
+ "audio_path": "data\\demo_clips\\clip2.wav",
+ "duration_sec": 30.0,
+ "transcript": "The Fed could say, \"Okay, we should be more cautious. Your brokerage firm can loan you,\" say. The Federal Reserve played around with this requirement in the years after the Great Depression. Interestingly, that crash came after soaring margin debt fueled a bubble. Should the Fed get involved today? This is more complicated. Yes, margin debt is at a historic level, but Urian says it's not. Of course 2000",
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 3.8,
+   "text": "The Fed could say, \"Okay, we should be more cautious.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.6,
+    "pressure": 0.3,
+    "one_line_reason": "Discusses potential cautious Fed monetary policy stance."
+   }
   },
-  "tone_engine": "gemini-3.5-flash-lite",
-  "stt_engine": "prisma-v3.0",
-  "voice_windows": [
-    {
-      "start": 0.0,
-      "end": 3.0,
-      "probs": {
-        "neutral": 0.5421,
-        "happy": 0.3271,
-        "sad": 0.002,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.1288
-      },
-      "guarded": false
-    },
-    {
-      "start": 3.0,
-      "end": 6.0,
-      "probs": {
-        "neutral": 0.4714,
-        "happy": 0.3203,
-        "sad": 0.0002,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.2082
-      },
-      "guarded": false
-    },
-    {
-      "start": 6.0,
-      "end": 9.0,
-      "probs": {
-        "neutral": 0.1195,
-        "happy": 0.0033,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.8771
-      },
-      "guarded": false
-    },
-    {
-      "start": 9.0,
-      "end": 12.0,
-      "probs": {
-        "neutral": 0.7779,
-        "happy": 0.042,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.1801
-      },
-      "guarded": false
-    },
-    {
-      "start": 12.0,
-      "end": 15.0,
-      "probs": {
-        "neutral": 0.6593,
-        "happy": 0.3239,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0167
-      },
-      "guarded": false
-    },
-    {
-      "start": 15.0,
-      "end": 18.0,
-      "probs": {
-        "neutral": 0.9629,
-        "happy": 0.0152,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.0218
-      },
-      "guarded": false
-    },
-    {
-      "start": 18.0,
-      "end": 21.0,
-      "probs": {
-        "neutral": 0.6038,
-        "happy": 0.0064,
-        "sad": 0.0004,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.3894
-      },
-      "guarded": false
-    },
-    {
-      "start": 21.0,
-      "end": 24.0,
-      "probs": {
-        "neutral": 0.2602,
-        "happy": 0.028,
-        "sad": 0.0,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.7118
-      },
-      "guarded": false
-    },
-    {
-      "start": 24.0,
-      "end": 27.0,
-      "probs": {
-        "neutral": 0.5054,
-        "happy": 0.0881,
-        "sad": 0.0001,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.4063
-      },
-      "guarded": false
-    },
-    {
-      "start": 27.0,
-      "end": 30.0,
-      "probs": {
-        "neutral": 0.2106,
-        "happy": 0.0136,
-        "sad": 0.0001,
-        "disgust": 0.0,
-        "fear": 0.0,
-        "emphatic": 0.7757
-      },
-      "guarded": false
-    }
-  ],
-  "analysis": {
-    "generated_at": "2026-11-09T13:53:19.342814+00:00",
-    "engine": "gemini-3.5-flash-lite",
-    "clip_id": "clip2",
-    "situation": "A recorded commentary or broadcast discussing Federal Reserve margin debt regulations and historical market crashes.",
-    "baseline": "Standard broadcast or analytical commentary style discussing financial history and current market conditions.",
-    "observations": [
-      {
-        "type": "hedging",
-        "evidence": "This is more complicated.",
-        "time": 20,
-        "voice": "angry=0.45, happy=0.27",
-        "why_it_matters": "Qualifying the complexity of a direct question introduces nuance that an interviewer should explore for specific policy mechanisms.",
-        "strength": "weak"
-      }
-    ],
-    "innocent_explanations": [
-      "The speaker is legitimately introducing analytical nuance to a multifaceted financial policy question."
-    ],
-    "what_to_ask_next": [
-      "What specific regulatory mechanisms do you believe the Fed should consider utilising today?"
-    ],
-    "impact": "The excerpt represents a standard commentary segment with limited conversational interaction, restricting the depth of behavioural indicators.",
-    "limits": "The clip is a monologues-style broadcast recording rather than an interactive investigative interview, providing no subject-interviewer dynamics to evaluate."
+  {
+   "start": 3.8,
+   "end": 7.5,
+   "text": "Your brokerage firm can loan you,\" say.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.2,
+    "pressure": 0.1,
+    "one_line_reason": "Explains a basic brokerage lending mechanic without market direction."
+   }
   },
-  "voice_model": "wav2vec2-base-superb-er (pretrained)",
-  "tone_setter": {
-    "setter_segment": null,
-    "followers": [],
-    "confidence_note": "No persistent sentiment shift found; tone stays near 'hesitant' throughout. No clear tone-setter."
+  {
+   "start": 7.5,
+   "end": 11.2,
+   "text": "The Federal Reserve played around with this requirement in the years after the Great Depression.",
+   "mood": {
+    "sentiment": "neutral",
+    "certainty": 0.5,
+    "pressure": 0.2,
+    "one_line_reason": "Historical reference to past Federal Reserve regulatory actions."
+   }
+  },
+  {
+   "start": 11.2,
+   "end": 15.0,
+   "text": "Interestingly, that crash came after soaring margin debt fueled a bubble.",
+   "mood": {
+    "sentiment": "bearish",
+    "certainty": 0.8,
+    "pressure": 0.6,
+    "one_line_reason": "Refers to a historical market crash caused by margin debt bubbles."
+   }
+  },
+  {
+   "start": 15.0,
+   "end": 18.8,
+   "text": "Should the Fed get involved today?",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.5,
+    "pressure": 0.4,
+    "one_line_reason": "Questions potential regulatory intervention by the Fed."
+   }
+  },
+  {
+   "start": 18.8,
+   "end": 22.5,
+   "text": "This is more complicated.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.4,
+    "pressure": 0.3,
+    "one_line_reason": "Highlights the complexity of the current financial situation."
+   }
+  },
+  {
+   "start": 22.5,
+   "end": 26.2,
+   "text": "Yes, margin debt is at a historic level, but Urian says it's not.",
+   "mood": {
+    "sentiment": "hesitant",
+    "certainty": 0.5,
+    "pressure": 0.4,
+    "one_line_reason": "Presents conflicting views on historic margin debt levels."
+   }
+  },
+  {
+   "start": 26.2,
+   "end": 30.0,
+   "text": "Of course 2000",
+   "mood": {
+    "sentiment": "bearish",
+    "certainty": 0.6,
+    "pressure": 0.5,
+    "one_line_reason": "Briefly references the market peak and crash of the year 2000."
+   }
   }
+ ],
+ "prosody": {
+  "pitch_mean": 215.61364731352882,
+  "pitch_std": 96.39482350913951,
+  "pitch_range": 322.44106335991046,
+  "energy_mean": 0.07011108100414276,
+  "energy_std": 0.0498344749212265,
+  "activity_ratio": 0.6993603411513859,
+  "speech_rate_seg_per_sec": 1.7666666666666666,
+  "mfcc_0": -246.9248809814453,
+  "mfcc_1": 62.5589599609375,
+  "mfcc_2": -27.355533599853516,
+  "mfcc_3": 23.65130615234375,
+  "mfcc_4": -28.162687301635742,
+  "mfcc_5": -10.163844108581543,
+  "mfcc_6": -25.9020938873291,
+  "mfcc_7": -20.10828971862793,
+  "mfcc_8": -10.742650032043457,
+  "mfcc_9": -14.790387153625488,
+  "mfcc_10": -14.38848876953125,
+  "mfcc_11": -9.865609169006348,
+  "mfcc_12": -11.204934120178223,
+  "spectral_flux_mean": 3.1037070751190186,
+  "duration_sec": 30.0
+ },
+ "tone_engine": "gemini-3.5-flash-lite",
+ "stt_engine": "prisma-v3.0",
+ "voice_windows": [
+  {
+   "start": 0.0,
+   "end": 3.0,
+   "probs": {
+    "angry": 0.9742,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0258,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9742,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0258
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 3.0,
+   "end": 6.0,
+   "probs": {
+    "angry": 0.2203,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.7797,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.2203,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.7797
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 6.0,
+   "end": 9.0,
+   "probs": {
+    "angry": 0.6997,
+    "disgust": 0.0004,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.2999,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.6997,
+    "disgust": 0.0004,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.2999
+   },
+   "lexical_probs": {
+    "happy": 0.9707,
+    "neutral": 0.0293
+   }
+  },
+  {
+   "start": 9.0,
+   "end": 12.0,
+   "probs": {
+    "angry": 0.033,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.967,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.033,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.967
+   },
+   "lexical_probs": {
+    "happy": 0.9959,
+    "neutral": 0.0041
+   }
+  },
+  {
+   "start": 12.0,
+   "end": 15.0,
+   "probs": {
+    "angry": 0.9996,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0004,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9996,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0004
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 15.0,
+   "end": 18.0,
+   "probs": {
+    "angry": 0.9994,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0006,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9994,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0006
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 18.0,
+   "end": 21.0,
+   "probs": {
+    "angry": 0.5772,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.4228,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.5771,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.4228
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 21.0,
+   "end": 24.0,
+   "probs": {
+    "angry": 0.9857,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0143,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9857,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0143
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 24.0,
+   "end": 27.0,
+   "probs": {
+    "angry": 0.9926,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0074,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.9926,
+    "disgust": 0.0,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0074
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  },
+  {
+   "start": 27.0,
+   "end": 30.0,
+   "probs": {
+    "angry": 0.994,
+    "disgust": 0.0002,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0058,
+    "emphatic": 0.0
+   },
+   "guarded": false,
+   "fused": true,
+   "acoustic_probs": {
+    "angry": 0.994,
+    "disgust": 0.0002,
+    "fear": 0.0,
+    "happy": 0.0,
+    "neutral": 0.0,
+    "sad": 0.0058
+   },
+   "lexical_probs": {
+    "neutral": 1.0
+   }
+  }
+ ],
+ "analysis": {
+  "generated_at": "2026-11-09T13:53:19.342814+00:00",
+  "engine": "gemini-3.5-flash-lite",
+  "clip_id": "clip2",
+  "situation": "A recorded commentary or broadcast discussing Federal Reserve margin debt regulations and historical market crashes.",
+  "baseline": "Standard broadcast or analytical commentary style discussing financial history and current market conditions.",
+  "observations": [
+   {
+    "type": "hedging",
+    "evidence": "This is more complicated.",
+    "time": 20,
+    "voice": "angry=0.45, happy=0.27",
+    "why_it_matters": "Qualifying the complexity of a direct question introduces nuance that an interviewer should explore for specific policy mechanisms.",
+    "strength": "weak"
+   }
+  ],
+  "innocent_explanations": [
+   "The speaker is legitimately introducing analytical nuance to a multifaceted financial policy question."
+  ],
+  "what_to_ask_next": [
+   "What specific regulatory mechanisms do you believe the Fed should consider utilising today?"
+  ],
+  "impact": "The excerpt represents a standard commentary segment with limited conversational interaction, restricting the depth of behavioural indicators.",
+  "limits": "The clip is a monologues-style broadcast recording rather than an interactive investigative interview, providing no subject-interviewer dynamics to evaluate."
+ },
+ "voice_model": "wav2vec2-emb",
+ "tone_setter": {
+  "setter_segment": null,
+  "followers": [],
+  "confidence_note": "No persistent sentiment shift found; tone stays near 'hesitant' throughout. No clear tone-setter."
+ },
+ "emotion_method": "voice+lexicon boost (w=1.0)"
 }
