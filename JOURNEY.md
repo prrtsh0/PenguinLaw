@@ -142,5 +142,37 @@ We therefore:
 
 ---
 
+## 7. Voice + wording emotion fusion
+
+The original emotion timeline was *voice-only*: a pretrained speech-emotion
+model (wav2vec2-base-superb-er) scored each 3s window purely from acoustics —
+volume, pitch, frequency, emphasis. That ignores *what is said*, which is half
+the signal.
+
+We added a second, lexical channel. For every window, the words that fall
+inside it are scored against a lightweight affective lexicon (anger, fear, sad,
+happy, disgust, and emphatic markers, with simple negation). The acoustic
+probabilities are then **boosted** by the wording — speech can strengthen an
+emotion the voice already hints at, but it never washes a confident voice read
+down to neutral. Low-confidence windows still fall back to neutral via the
+existing guard.
+
+- Method: `scripts/fuse_emotion.py` (writes `voice_windows` with `fused: true`,
+  `acoustic_probs`, and `lexical_probs` per window; originals backed up to
+  `data/results/_orig_fuse_*.json`).
+- Result: the timeline now reflects both how a speaker sounds and what they
+  say. On these clips the voice signal is strong, so wording *refines* the read
+  rather than flipping it — an honest outcome, and the two channels are visible
+  in the saved data for anyone to inspect.
+- Accuracy: model-level figures are ~0.484 (CREMA-D RF, speaker-independent CV)
+  and ~0.55 (deep wav2vec2-emb embeddings) — measured on *acted* data. We do
+  not claim a verified per-clip accuracy: there is no human ground-truth for
+  clips 1–5 yet, so a per-clip number would require labeling and comparing. The
+  guard exists precisely because real speech reads differently than acted data.
+- This is a fusion of the two modalities, not a retrained model; no new
+  training is involved and the offline pipeline stays fast.
+
+---
+
 *This log is maintained as the build progresses. Last updated: build session
 that added the web app, tone-setter, .env launcher, and the API-discovery notes.*

@@ -32,17 +32,24 @@ def available_clips():
     """Clip ids for which a cached result JSON exists (dynamic)."""
     import re
     ids = []
-    for f in sorted(os.listdir(RESULTS_DIR)):
+    for f in os.listdir(RESULTS_DIR):
         m = re.fullmatch(r'(clip\d+)\.json', f)
         if m:
             ids.append(m.group(1))
+    # Feature order: the public-figure clips (most emotionally charged) first.
+    order = CLIP_ORDER
+    ix = {cid: i for i, cid in enumerate(order)}
+    ids.sort(key=lambda c: (ix.get(c, 10**9), c))
     return ids
+
+# Preferred display order for the library carousel.
+CLIP_ORDER = ['clip4', 'clip5', 'clip1', 'clip2', 'clip3']
 
 
 SPECIAL_CLIP_NAME = {
-    'clip1': ('Clip 1', 'Margin and day-trading'),
-    'clip2': ('Clip 2', 'Fed and leverage risk'),
-    'clip3': ('Clip 3', 'Gen Z and retail psychology'),
+    'clip1': ('Planet Money — Margin & Day-Trading', 'The margin-debt boom'),
+    'clip2': ('Planet Money — The Fed & Leverage', 'Did the Fed feed the bubble?'),
+    'clip3': ('Gen Z Investors — Behavioural Finance', 'Why young traders buy in'),
     'clip4': ('Jerome Powell', 'FOMC press conference'),
     'clip5': ('Barack Obama', 'Presidential address'),
 }

@@ -126,6 +126,12 @@ Utilities: `eval/compare_windows.py` (old argmax vs. guarded labels),
 `eval/apply_guard_to_results.py` (re-guard cached result JSONs; backs up
 originals as `_orig_clip*.json`).
 
+Voice + wording fusion: `scripts/fuse_emotion.py` combines the acoustic
+emotion probabilities with a lightweight affective lexicon over the words in
+each window (boost, not blend), so the timeline reflects both how a speaker
+sounds and what they say. Originals backed up as `_orig_fuse_*.json`; per-
+window acoustic and lexical probabilities are kept in `voice_windows`.
+
 > Calibration: because the CREMA-D model systematically over-predicts
 > `angry` on real conversational speech, `scripts/analyze_behavior.py`
 > scales that class by **×0.62** before the guard. With these defaults
@@ -145,6 +151,15 @@ originals as `_orig_clip*.json`).
 > Reaching ~80% needs real labeled speech-emotion audio or deep embeddings from
 > raw audio — the pretrained model above is the practical upgrade until such
 > data exists.
+>
+> **Accuracy — what we can and cannot claim.** The model-level numbers are
+> measured on *acted* training data (CREMA-D), not on these public clips:
+> speaker-independent CV ≈ 0.484 (RandomForest), ≈ 0.55 (deep wav2vec2-emb
+> embeddings). We do **not** claim a verified per-clip accuracy figure,
+> because no human ground-truth labels exist for clips 1–5. A per-clip number
+> would require labeling the windows and comparing (see the labeling sheet).
+> Real natural speech reads lower than acted data, which is why the confidence
+> guard exists.
 
 
 ## 3. Project structure
@@ -154,6 +169,7 @@ PenguinLaw/
 ├── features/extract.py           # librosa prosody features (22 cols)
 ├── scripts/
 │   ├── analyze_behavior.py       # CREMA-D RF + per-window probs + guard + Gemini
+│   ├── fuse_emotion.py          # voice + wording emotion fusion (boost)
 │   ├── web_app.py                # Flask demo app (serves static/ + cached results)
 │   └── (transcribe/report/train_tone/predict/...)
 ├── eval/
