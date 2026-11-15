@@ -1,0 +1,47 @@
+1
+00:00:00,000 --> 00:00:03,750
+Meat penguin law.
+
+2
+00:00:03,750 --> 00:00:07,500
+Console that reads speech the way a human would.
+
+3
+00:00:07,500 --> 00:00:11,250
+Each tracked by emotion.
+
+4
+00:00:11,250 --> 00:00:15,000
+Here's Paul's press conference; every 3 seconds of speech gets 1 emotion label, so you can see exactly where the tone turns at that point.
+
+5
+00:00:15,000 --> 00:00:18,750
+And the analyst names the mood hesitant, hesitant, and so on.
+
+6
+00:00:18,750 --> 00:00:22,500
+70% certain 80% pressure, and every observation traces back to a time, a line, and the voice.
+
+7
+00:00:22,500 --> 00:00:26,250
+Under the hood, the voice is measured, not guessed.
+
+8
+00:00:26,250 --> 00:00:30,000
+Which variation and?.
+
+9
+00:00:30,000 --> 00:00:32,025
+Activity and speech rate.
+
+10
+00:00:32,025 --> 00:00:34,050
+All pulled straight from the audio.
+
+11
+00:00:34,050 --> 00:00:36,075
+Voice and wording fuse into one label.
+
+12
+00:00:36,075 --> 00:00:38,099
+Wording can boost a confident read; never mask a weak one.

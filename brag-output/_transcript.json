@@ -1,0 +1,17 @@
+{
+  "audio": "generated-audio.wav",
+  "duration_sec": 38.099433106575965,
+  "chunks": [
+    [
+      0.0,
+      30.0,
+      "Meat penguin law. Console that reads speech the way a human would. Each tracked by emotion. Here's Paul's press conference; every 3 seconds of speech gets 1 emotion label, so you can see exactly where the tone turns at that point. And the analyst names the mood hesitant, hesitant, and so on. 70% certain 80% pressure, and every observation traces back to a time, a line, and the voice. Under the hood, the voice is measured, not guessed. Which variation and?"
+    ],
+    [
+      30.0,
+      38.099433106575965,
+      "Activity and speech rate. All pulled straight from the audio. Voice and wording fuse into one label. Wording can boost a confident read; never mask a weak one."
+    ]
+  ],
+  "transcript": "Meat penguin law. Console that reads speech the way a human would. Each tracked by emotion. Here's Paul's press conference; every 3 seconds of speech gets 1 emotion label, so you can see exactly where the tone turns at that point. And the analyst names the mood hesitant, hesitant, and so on. 70% certain 80% pressure, and every observation traces back to a time, a line, and the voice. Under the hood, the voice is measured, not guessed. Which variation and? Activity and speech rate. All pulled straight from the audio. Voice and wording fuse into one label. Wording can boost a confident read; never mask a weak one."
+}
