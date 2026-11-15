@@ -2,6 +2,8 @@
 
 **Built for the Gnani Great Indian AI Internship Challenge (submission: Nov 10, 2026).**
 
+**🖥️ Live demo:** https://penguinlaw.onrender.com/
+
 Penguins follow each other — but *who gives the order?* PenguinLaw tackles
 that question for financial commentary. Instead of just tracking the herd
 (followers), our pipeline detects **who/what originates a market-mood wave**
